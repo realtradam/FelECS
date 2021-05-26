@@ -1,3 +1,5 @@
+FelFlame::Components.new('Renderable', z: 0)
+=begin
 class Components
   # If an entity can be rendered on screen
   class Renderable < Helper::BaseComponent
@@ -14,3 +16,4 @@ class Components
     end
   end
 end
+=end

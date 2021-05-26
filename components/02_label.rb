@@ -1,3 +1,7 @@
+
+FelFlame::Components.new :Label, :x, :y, :text, :size_enum, :alignment_enum,
+      :a, :r, :g, :b, :font, :vertical_alignment_enum, primative_marker: :label
+=begin
 class Components
   # A dragonruby label wrapper
   class Label < Helper::BaseComponent
@@ -24,4 +28,5 @@ class Components
       :label
     end
   end
+end
 end

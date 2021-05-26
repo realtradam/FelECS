@@ -45,8 +45,9 @@ FF::Cmp::Name.new(param1: value1)
 FF::Cmp::Name.get_by_entity(entity_id) # gets array of components
 @component.set(param2: 'not default')
 @component.param2 = 'different not default'
-FF::Cmp::Name.delete(component_id)
-FF::Cmp::Name.delete_by_entity(entity_id) # deletes all related components attached to entity
+FF::Cmp::Name.detach(entity_id: ent_id, component_id: cmp_id)
+FF::Cmp::Name.remove_entity(entity_id) # Removes entity from any components
+FF::Cmp::Name.delete_component(component_id) # deletes component and removes from all relevant entities
 @component.dump # returns hash of all variables!(and the id)
 FF::Cmp::Name.load @component_dump
 

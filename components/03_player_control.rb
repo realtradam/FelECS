@@ -1,3 +1,7 @@
+
+FelFlame::Components.new :PlayerControl, north: 'up', south: 'down', east: 'right',
+               west: 'left', interact: 'space', menu: 'enter'
+=begin
 class Components
   # Gives control(keyboard or otherwise) over an object
   class PlayerControl < Helper::BaseComponent
@@ -19,3 +23,4 @@ class Components
     end
   end
 end
+=end
