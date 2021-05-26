@@ -1,0 +1,284 @@
+
+![FelFlame](https://filestorage.catgirls.rodeo/images/felflame-logo-full.png)
+
+# What is this?
+
+This is a Ruby ECS Framework for developing games. It is still a work in progress in the early stages, is not fit for use, and does not work.
+It is originally designed with DragonRuby in mind but should work with anything that runs on Ruby.  
+
+I wanted a reusable framework so I could quickly and effectively develop games. I also want it to be more complete, as opposed to barebones or boilerplate.
+I plan to eventually add functionality outside of just ECS such as loading tilesets, a camera system, etc. that are built into the framework to work seamlessly.
+
+Below are the specifications I have imagined for this framework and have been written out. They are subject to change as FelFlame is developed and used.
+
+# Specification
+
+## Aliases:
+```ruby
+FF = FelFlame
+FF::Ent = FelFlame::Entities
+FF::Cmp = FelFlame::Components
+FF::Sys = FelFlame::Systems
+FF::Sce = FelFlame::Scenes
+FF::Stg = FelFlame::Stage
+```
+## Classes:
+
+### FF::Entities
+```ruby
+FF::Ent.new(@component1, @component2)
+@entity = FF::Ent.get(entity_id)
+FF::Ent.delete(entity_id)
+@entity.id # => unique entity id
+
+@entity.add @component
+@entity.remove @component
+@entity.dump # => [:id, :scenes, :components]
+FF::Ent.load @entity_dump
+```
+
+### FF::Components
+```ruby
+FF::Cmp.new('Name', 'param1', param2: 'default')
+FF::Cmp::Name.new(param1: value1)
+@component = FF::Cmp::Name.get(component_id)
+FF::Cmp::Name.get_by_entity(entity_id) # gets array of components
+@component.set(param2: 'not default')
+@component.param2 = 'different not default'
+FF::Cmp::Name.delete(component_id)
+FF::Cmp::Name.delete_by_entity(entity_id) # deletes all related components attached to entity
+@component.dump # returns hash of all variables!(and the id)
+FF::Cmp::Name.load @component_dump
+
+FF::Cmp::Health.added # => returns values for sys to setup
+FF::Cmp::Health.removed # => returns values for sys to setup
+FF::Cmp::Health.is_set('var') # => returns values for sys to setup
+```
+
+### FF::Systems
+```ruby
+FF::Sys.new(name: 'Render', position: 5, frame: 1) do
+	@component.each do
+		# functionality
+	end
+end
+FF::Sys::Render.trigger_when FF::Cmp::Health.added
+FF::Sys::Render.trigger_when FF::Cmp::Health.removed
+FF::Sys::Render.trigger_when FF::Cmp::Health.is_set('var')
+```
+
+### FF::Scenes
+```ruby
+FF::Scn.new(name: 'Scene1', position: 1)
+FF::Scn::Scene1.add @entity
+FF::Scn::Scene1.add FF::Sys::Render
+FF::Scn::Scene1.entities # => [id_1, id_7, etc]
+FF::Scn::Scene1.systems # => [:Render, :Damage, etc]
+FF::Scn::Scene1.dump # => [:name, :entities, :systems]
+FF::Scn::Scene1.load @scene_dump
+```
+
+### FF::Stage
+```ruby
+FF::Stg.add FF::Scn::Scene1
+FF::Stg.remove FF::Scn::Scene1
+FF::Stg.scene # => [:Scene1, :Scene2, etc]
+FF::Stg.dump # => [:Scene1, :Scene2, etc]
+FF::Stg.load @stage_dump
+FF::Stg.clear
+```
+
+### FelFlame
+```ruby
+FF.dump # => all data
+FF.load @felflame_dump
+```
+---
+![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
+![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
+![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
+---
+# Ramblings:
+Was my originally written up specs. Rewrote it as what is written above to be more clear.
+The below are more verbose but not as helpful for me for implementation. Once the framework is
+complete I will use a more verbose explanation as below to help users of the framework.
+
+---
+
+Creating Entities:
+
+```ruby
+# Plain:
+@my_entity = FF:Ent.new
+
+# With components:
+FF::Ent.new(FF::Cmp::Position.new(var1: 'val', var3: 'change_default'),
+	    FF::Cmp::Health.new(hp: 20),
+	    FF::Cmp::Poison.new(dps: 3),
+	    FF::Cmp::Poison.new(dps: 2), # This entity has 2 of the same component in it!
+	    FF::Cmp::Selection.get(component_id)) # Components can belong to multiple entities, this component already existed elsewhere!
+```
+
+Adding and Removing Components from Entities:
+```ruby
+@my_entity = FF::Ent.get(entity_id)
+
+@my_entity.remove(component_id)
+# Remove the specific component with that id
+
+@my_entity.remove(FF::Cmp::Poison)
+# Removes all components of that type
+
+@my_entity.add(FF::Cmp::Selection.new)
+# Adds a new Component
+```
+
+Creating Component Class:
+
+```ruby
+# Creating a component 'factory':
+FF::Cmp.new('Name', 'var1', 'var2',  var3: 'default') # Name, *no_default, **with_default
+```
+
+And then using those components:
+```ruby
+@new_cmp = FF::Cmp::Name.new(var1: 'oke') # var3 will be 'default', var2 will be nil
+@new_cmp.var2 = 3 # now var2 is set
+@new_cmp.set(var1: 'nope', var3: 'different') # var1 and var3 are now changed!
+@new_cmp.to_hash # returns the hash of all variables!
+```
+
+Referencing Components:
+```ruby
+FF::Cmp::Name.get(component_id) # gets component by their unique id
+FF::Cmp::Name.get_by_entity(entity_id) # gets component that is attached to the entitry
+# will return array of components if there is multiple of same component
+# if it returns array, see the `dump` section. Need to add custom method to the array
+```
+
+Creating Systems:
+```ruby
+FF::Sys.new(name: 'Render', position: 5, frame: 1) do 
+# position is the order in which systems get executed, can be overlapping but then order is unexpected between same positions
+# frame is on which frame the system will be called. 0 is never, 1 is on each frame, 2 is every other frame, etc
+	FF::Cmp::Position.each do
+		#render your sprite
+	end
+end
+```
+
+Enabling Systems:
+```ruby
+# By default systems are not enabled. You need to add them to a scene
+FF::Scn::Scene1.add FF::Sys::Render
+
+# They can also be disabled by removing them
+FF::Scn::Scene1.remove FF::Sys::Render
+```
+
+Custom Hooks:
+```ruby
+# Systems can be configured to be called whenever a certain component is added, removed or set
+FF::Sys::Damage.trigger_when FF::Cmp::Health.added
+FF::Sys::Revive.trigger_when FF::Cmp::Health.removed
+FF::Sys::Healup.trigger_when FF::Cmp::Health.is_set
+		
+# Systems can also be manually called so you can code custom hooks!
+FF::Sys::Restore.run
+```
+
+Scenes contain Entities and Systems
+```ruby
+FF::Scn.new(name: 'Scene1', position: 1)
+# Multiple scenes could be ran at once, if they do then they will run according
+# to their positions as explained above
+
+FF::Scn::Scene1.add FF::Entity.get(entity_id)
+# You can also just pass the id on its own => FF::Scn::Scene1.add entity_id
+FF::Scn::Scene1.add FF::Entity.new
+
+FF::Scn::Scene1.add FF::Sys::Render
+```
+
+To List Systems and Enties
+```ruby
+FF::Scn::Scene1.get_entities # => [id_1, id_7, etc]
+FF::Scn::Scene1.get_systems  # => [:Render, :Damage, etc]
+```
+
+To run a Scene it must be added to the Stage
+```ruby
+FF::Stg.add FF::Scn::Scene1
+```
+
+Or remove it:
+```ruby
+FF::Stg.remove FF::Scn::Scene1
+```
+
+Show all Scenes on the Stage:
+```ruby
+FF::Stg.scenes # => [:Scene1, :Scene2, etc]
+```
+
+Remove all Scenes from the Stage:
+```ruby
+FF::Stg.clear
+```
+
+You can save the current game state:
+```ruby
+@json_save_data = FF.dump
+```
+
+You can also specifically choose what you want to save:
+```ruby
+@hash_entity = FF::Ent.get(entity_id).dump
+# to save all components related to a player
+
+@hash_component_single = FF::Cmp::Health.get(component_id).dump
+# save all data in the single component(needs to handle arrays of components)
+
+@hash_component = FF::Cmp::Health.dump
+# save all components of a certain component type
+
+@hash_components_all = FF::Cmp.dump
+# save all components
+
+@hash_scene = FF::Scn::Scene1.dump
+# save all entities, components, and activated systems in a given scene
+```
+
+And then they can be loaded back in:
+```ruby
+FF::Ent.load(@hash_entity)
+FF::Cmp::Health.load(@hash_component)
+FF::Cmp.load(@hash_component)
+FF::Cmp.load(@hash_components_all)
+FF::Scn.load(@Hash_scene)
+```
+
+### To Do List(old)
+
+---
+
+* [ ] Some level of hierarchical support?
+* [ ] One Component to many entities.
+* [ ] Multiple of same component to one entity
+* [ ] State Machine?
+* [ ] Systems execute code on an event
+	* [ ] Adding/removing/setting component is event
+	* [ ] Frame is an event
+* [ ] System Execution Order
+* [ ] Save Dump/Load
+
+
+
+
+
+
+
+
+
+
+
