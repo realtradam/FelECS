@@ -5,15 +5,6 @@ require_relative './scene_manager.rb'
 require_relative './stage_manager.rb'
 
 class FelFlame
-  module FindFF
-    def const_missing name
-      if name.to_s == 'FF'
-        FelFlame
-      else
-        super
-      end
-    end
-  end
   class <<self
     def dump
     end
@@ -56,7 +47,5 @@ class FelFlame
   end
 end
 
-
-
-FF = FelFlame
+FF = FelFlame # TODO Maybe find better solution?
 
