@@ -4,7 +4,7 @@
 # What is this?
 
 This is a Ruby ECS Framework for developing games. It is still a work in progress in the early stages, is not fit for use, and does not work.
-It is originally designed with DragonRuby in mind but should work with anything that runs on Ruby.  
+It is designed to be platform agnosting, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.  
 
 I wanted a reusable framework so I could quickly and effectively develop games. I also want it to be more complete, as opposed to barebones or boilerplate.
 I plan to eventually add functionality outside of just ECS such as loading tilesets, a camera system, etc. that are built into the framework to work seamlessly.
