@@ -1,7 +1,9 @@
 require 'simplecov'
-require 'simplecov_small_badge'
+require 'simplecov_json_formatter'
+#require 'simplecov_small_badge'
 
 # SimpleCovSmallBadge fix
+=begin
 SimpleCovSmallBadge::Formatter.class_eval do
   private
   def state(covered_percent)
@@ -16,12 +18,14 @@ SimpleCovSmallBadge::Formatter.class_eval do
     end
   end
 end
+=end
 
 SimpleCov.start do
   SimpleCov.add_filter 'tests'
   SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
-    SimpleCovSmallBadge::Formatter
+    SimpleCov::Formatter::JSONFormatter
+    #SimpleCovSmallBadge::Formatter
   ])
 end
 
