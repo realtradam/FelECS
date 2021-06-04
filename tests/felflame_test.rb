@@ -7,6 +7,18 @@ describe 'Entities' do
   before do
   end
 
+  it 'cant find constant' do
+    assert_raises(NameError, 'uninitialized constant DoesntExist') {
+      FelFlame::DoesntExist
+    }
+  end
+
+  it 'can\'t find method' do
+    assert_raises(NoMethodError) {
+      FelFlame.wrong
+    }
+  end
+
   it 'FelFlame aliased to FF' do
     _(FF).must_equal FelFlame
   end
