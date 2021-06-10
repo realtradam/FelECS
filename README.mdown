@@ -3,18 +3,29 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
+[![Documentation Coverage](https://img.shields.io/badge/Documentation-100%25-br)](https://felflame.tradam.fyi)
 
 # What is this?
 
 This is a Ruby ECS Framework for developing games. It is still a work in progress in the early stages, is not fit for use, and does not work.
-It is designed to be platform agnosting, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.  
+It is designed to be platform agnostic, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.  
 
 I wanted a reusable framework so I could quickly and effectively develop games. I also want it to be more complete, as opposed to barebones or boilerplate.
 I plan to eventually add functionality outside of just ECS such as loading tilesets, a camera system, etc. that are built into the framework to work seamlessly.
 
-Below are the specifications I have imagined for this framework and have been written out. They are subject to change as FelFlame is developed and used.
+
+# What is currently implemented?
+
+Entities and Components are mostly implemented, with only a few non-critical functions missing.
+
+Systems, Scenes, and the Stage still needs to be implemented
+
+You can view the [Documentation here](https://felflame.tradam.fyi)
+
 
 # Specification
+
+Below are the specifications I have imagined for this framework and have been written out. They are subject to change as FelFlame is developed and used.
 
 ## Aliases:
 ```ruby
