@@ -1,0 +1,1 @@
+ENV['CC_TEST_REPORTER_ID'] = ''

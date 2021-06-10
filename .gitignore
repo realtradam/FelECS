@@ -1,2 +1,11 @@
+# Ignore generated coverage
 coverage/*
 coverage
+
+# Ignore yard metadata
+.yardoc/*
+.yardoc
+
+# Ignore codeclimate executable and env vars
+codeclimate/env.rb
+codeclimate/test-reporter-latest-linux-amd64
