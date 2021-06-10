@@ -1,64 +1,108 @@
 class FelFlame
   class Entities
+    # Holds the unique ID of this entity
+    # @return [Integer]
     attr_accessor :id
 
-    def initialize(*signature)
-      final_signature = 0
-      signature.each do |sig|
-        final_signature += sig
+    # Creating a new component
+    # @param components [Component] Can be any number of components, identical duplicated will be automatically purged however different components from the same component manager are allowed.
+    def initialize(*components)
+      # Assign new unique ID
+      new_id = self.class.data.find_index { |i| i.nil? }
+      new_id = self.class.data.size if new_id.nil?
+      self.id = new_id
+
+      # Add each component
+      components.uniq.each do |component|
+        add component
       end
-      @id = Entities.generate_new_id
-      self.class.all.push self
-      self.class.signatures.push final_signature
-      Components.entity_created(@id)
+      self.class.data[id] = self
+    end
+
+    # A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the IDs of components attached to this entity.
+    # @return [Hash]
+    def components
+      @components ||= {}
+    end
+
+    # An alias for the {#id ID reader}
+    # @return [Integer]
+    def to_i
+      id
+    end
+
+    # Removes this Entity from the list and purges all references to this Entity from other Components, as well as its {id ID} and data.
+    # @return [Boolean] true.
+    def delete
+      components.each do |component_manager, component_array|
+        component_array.each do |component_id|
+          FelFlame.const_get(
+            component_manager.to_s.delete_prefix('FelFlame::')
+          )[component_id].linked_entities.delete(id)
+        end
+      end
+      FelFlame::Entities.data[id] = nil
+      @id = nil
+      @components = nil
+      true
+    end
+
+    # Returns true when added, or false if it already belongs to the Entity
+    # Add a component to the Entity
+    # @param component [Component] A component created from any component manager
+    # @return [Boolean] true if component is added, false if it already is attached
+    def add component
+      if components[component.class.to_s.to_sym].nil?
+        components[component.class.to_s.to_sym] = [component.id]
+        component.linked_entities.push id
+        true
+      elsif !components[component.class.to_s.to_sym].include? component.id
+        components[component.class.to_s.to_sym].push component.id
+        component.linked_entities.push id
+        true
+      else
+        false
+      end
+    end
+
+    # Remove a component from the Entity
+    # @param component [Component] A component created from any component manager
+    # @return [Boolean] true if component is removed, false if it wasnt attached to component
+    def remove component
+      components[component.class.to_s.to_sym].delete component.id
+      if component.linked_entities.delete id
+        true
+      else
+        false
+      end
+    end
+
+    # Export all data into a JSON String which can then be saved into a file
+    # TODO: This function is not yet complete
+    # @return [String] A JSON formatted String
+    def to_json
     end
 
     class <<self
-      # All entities that exist
-      def all
-        @all ||= []
+      include Enumerable
+      # @return [Array] Array of all Entities that exist
+      # @!visibility private
+      def data
+        @data ||= []
       end
 
-      def id_queue
-        @id_queue ||= []
+      # Gets an Entity from the given unique ID. Usage is simular to how an Array lookup works
+      # @param entity_id [Integer]
+      # @return [Entity] returns the Entity that uses the given unique ID, nil if there is no Entity associated with the given ID
+      def [](entity_id)
+        data[entity_id]
       end
 
-      def generate_new_id
-        if id_queue.empty?
-          all.size
-        else
-          id_queue.shift
-        end
-      end
-
-      # What components a given entity uses
-      def signatures
-        @signatures ||= []
-      end
-
-      def destroy_entity(entity_id)
-        if all[entity_id].nil?
-          puts 'Entity can not be destroyed, id out of bounds'
-        elsif entity_id < all.size - 1
-          Components.constants.each do |constant|
-            unless (signatures[entity_id] & Components::const_get(constant).id).zero?
-              Components::const_get(constant).delete(entity_id)
-            end
-          end
-          all[entity_id] = nil
-          signatures[entity_id] = nil
-          id_queue.push entity_id
-        elsif entity_id == all.size - 1
-          Components.constants.each do |constant|
-            unless (signatures[entity_id] & Components::const_get(constant).id).zero?
-              Components::const_get(constant).delete(entity_id)
-            end
-          end
-          all.pop
-          signatures.pop
-        else
-          puts 'Unknown error with destroy_entity, entity not destroyed'
-        end
+      # Iterates over all entities. In general when using ECS the use of this method should never be neccassary unless you are doing something very wrong, however I will not stop you.
+      # You also call other enumerable methods instead of each, such as `each_with_index` or `select`
+      # @return [Enumerator]
+      def each(&block)
+        data.each(&block)
       end
     end
   end
