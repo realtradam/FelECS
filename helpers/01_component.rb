@@ -3,20 +3,38 @@ class FelFlame
     class BaseComponent
       class <<self
         def signature
-          @signature ||= FelFlame::Signature.create_new_signature FelFlame::Helper::ComponentHelper.underscore(ancestors[0].name.split('::').last)
+          @signature ||= FelFlame::Signature.create_new_signature\
+            FelFlame::Helper::ComponentHelper.underscore(ancestors[0].name.split('::').last)
         end
 
         def data
-          @data ||= {}
+          @data ||= []
         end
 
-        def add(entity_id)
-          data[entity_id] = new
+        def new(**opts)
+          new_component = super
+
+          # Generate ID
+          new_id = self.data.find_index { |i| i.nil? }
+          new_id = self.data.size if new_id.nil?
+          new_component.id = new_id
+
+          # Fill params
+          opts.each do |key, value|
+            new_component.send "#{key}=", value
+          end
+
+          # Save Component
+          data[new_id] = new_component
         end
 
-        def delete(entity_id)
-          data.delete entity_id
-        end
+        #def add(entity_id)
+        #  data[entity_id] = new
+        #end
+
+        #def delete(entity_id)
+        #  data.delete entity_id
+        #end
       end
 
       def set(**opts)
@@ -26,16 +44,16 @@ class FelFlame
       end
 
       #def create_data(name, default = nil)
-      #  #TODO fill this out
+      #  #TODO: fill this out
       #end
 
-      def get #TODO maybe optimize removeing the @ symbol
+      def get #TODO: maybe optimize removing the @ symbol
         instance_variables.each_with_object({}) do |key, final|
           final[key.to_s.delete_prefix('@').to_sym] = instance_variable_get(key)
         end
       end
 
-      def dump #TODO Needs to get id and stuff?
+      def dump #TODO: Needs to get id and stuff?
         # should return a json or hash of all data in this component
       end
     end
@@ -62,6 +80,15 @@ class FelFlame
       def [](val)
         unless val.nil?
           return self[val] = [] if super.nil?
+        end
+        super
+      end
+    end
+
+    class ArrayOfHashes < Array
+      def [](val)
+        unless val.nil?
+          return self[val] = {} if super.nil?
         end
         super
       end
