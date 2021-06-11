@@ -17,7 +17,7 @@ end
 
 YARD::Rake::YardocTask.new do |t|
   t.files = ['component_manager.rb', 'entity_manager.rb', 'felflame.rb']
-  t.options = ['--output-dir', './docs']
+  t.options = ['--output-dir', './docs', 'yardoc --markup=markdown|textile|rdoc(default)']
   t.stats_options = ['--list-undoc']
 end
 

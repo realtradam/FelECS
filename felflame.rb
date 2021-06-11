@@ -11,20 +11,19 @@ class FelFlame
   # Creates and manages Entities. Allows accessing Entities using their {FelFlame::Entities#id ID}
   #
   # TODO: Improve Entity overview
-  class Entities
-  end
+  class Entities; end
+
   # Creates component managers and allows accessing them them under the {FelFlame::Components} namespace as Constants
   #
   # To see how component managers are used please look at the {FelFlame::Helper::ComponentManagerTemplate} documentation.
   #
   # TODO: Improve Component overview
-  class Components
-  end
+  class Components; end
+
   # Creates an manages Systems.
   #
   # TODO: Improve System overview
-  class Systems
-  end
+  class Systems; end
 end
 
 # An alias for {FelFlame}

@@ -184,7 +184,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Gets an Entity from the given unique ID.</p>
+<p>Gets an Entity from the given <span class='object_link'><a href="#id-instance_method" title="FelFlame::Entities#id (method)">unique ID</a></span>.</p>
 </div></span>
   
 </li>
@@ -209,6 +209,30 @@
   
     <span class="summary_desc"><div class='inline'>
 <p>Iterates over all entities.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#from_json-class_method" title="from_json (class method)">.<strong>from_json</strong>(json_string, **opts)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a new entity using the data from a JSON string TODO: This function is not yet complete.</p>
 </div></span>
   
 </li>
@@ -265,7 +289,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the IDs of components attached to this entity.</p>
+<p>A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the <span class='object_link'><a href="Helper/ComponentManager.html#id-instance_method" title="FelFlame::Helper::ComponentManager#id (method)">IDs</a></span> of the components attached to this entity.</p>
 </div></span>
   
 </li>
@@ -298,7 +322,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(*components)  &#x21d2; Entities </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(*components)  &#x21d2; Entity </a>
     
 
     
@@ -315,7 +339,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creating a new component.</p>
+<p>Creating a new Entity.</p>
 </div></span>
   
 </li>
@@ -403,7 +427,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(*components)  &#x21d2; <tt><span class='object_link'><a href="" title="FelFlame::Entities (class)">Entities</a></span></tt> 
+    #<strong>initialize</strong>(*components)  &#x21d2; <tt>Entity</tt> 
   
 
   
@@ -412,7 +436,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creating a new component</p>
+<p>Creating a new Entity</p>
 
 
   </div>
@@ -426,13 +450,13 @@
         <span class='name'>components</span>
       
       
-        <span class='type'>(<tt>Component</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Components.html" title="FelFlame::Components (class)">Components</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Can be any number of components, identical duplicated will be automatically purged however different components from the same component manager are allowed.</p>
+<p>Can be any number of components, identical duplicates will be automatically purged however different components from the same component manager are allowed.</p>
 </div>
       
     </li>
@@ -446,7 +470,6 @@
       <pre class="lines">
 
 
-9
 10
 11
 12
@@ -457,10 +480,11 @@
 17
 18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_components'>components</span><span class='rparen'>)</span>
   <span class='comment'># Assign new unique ID
@@ -559,13 +583,22 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Gets an Entity from the given unique ID. Usage is simular to how an Array lookup works</p>
+<p>Gets an Entity from the given <span class='object_link'><a href="#id-instance_method" title="FelFlame::Entities#id (method)">unique ID</a></span>. Usage is simular to how an Array lookup works</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='comment'># This gets the Entity with ID 7
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Entities (class)">Entities</a></span></span><span class='lbracket'>[</span><span class='int'>7</span><span class='rbracket'>]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -606,12 +639,12 @@
       <pre class="lines">
 
 
-97
-98
-99</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rbracket'>]</span>
@@ -633,7 +666,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Iterates over all entities. In general when using ECS the use of this method should never be neccassary unless you are doing something very wrong, however I will not stop you. You also call other enumerable methods instead of each, such as `each_with_index` or `select`</p>
+<p>Iterates over all entities. In general when using ECS the use of this method should never be neccassary unless you are doing something very wrong, however I will not stop you. You also call other enumerable methods instead of each, such as <code>each_with_index</code> or <code>select</code></p>
 
 
   </div>
@@ -660,16 +693,89 @@
       <pre class="lines">
 
 
-104
-105
-106</pre>
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="from_json-class_method">
+  
+    .<strong>from_json</strong>(json_string, **opts)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates a new entity using the data from a JSON string TODO: This function is not yet complete</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>json_string</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A string that was exported originally using the <span class='object_link'><a href="#to_json-instance_method" title="FelFlame::Entities#to_json (method)">to_json</a></span> function</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>opts</span>
+      
+      
+        <span class='type'>(<tt>Keywords</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>What values(its <span class='object_link'><a href="#id-instance_method" title="FelFlame::Entities#id (method)">ID</a></span> or the <span class='object_link'><a href="Helper/ComponentManager.html#id-instance_method" title="FelFlame::Helper::ComponentManager#id (method)">component IDs</a></span>) should be overwritten TODO: this might change</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+118</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 118</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_json_string'>json_string</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -745,9 +851,6 @@
       <pre class="lines">
 
 
-54
-55
-56
 57
 58
 59
@@ -757,19 +860,22 @@
 63
 64
 65
-66</pre>
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 57</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_component'>component</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
     <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_linked_entities'>linked_entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
     <span class='kw'>true</span>
   <span class='kw'>elsif</span> <span class='op'>!</span><span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
     <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-    <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_linked_entities'>linked_entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
     <span class='kw'>true</span>
   <span class='kw'>else</span>
     <span class='kw'>false</span>
@@ -792,7 +898,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the IDs of components attached to this entity.</p>
+<p>A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the <span class='object_link'><a href="Helper/ComponentManager.html#id-instance_method" title="FelFlame::Helper::ComponentManager#id (method)">IDs</a></span> of the components attached to this entity.</p>
 
 
   </div>
@@ -819,12 +925,12 @@
       <pre class="lines">
 
 
-24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_components'>components</span>
   <span class='ivar'>@components</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -878,7 +984,6 @@
       <pre class="lines">
 
 
-36
 37
 38
 39
@@ -890,18 +995,23 @@
 45
 46
 47
-48</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
   <span class='id identifier rubyid_components'>components</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component_manager'>component_manager</span><span class='comma'>,</span> <span class='id identifier rubyid_component_array'>component_array</span><span class='op'>|</span>
     <span class='id identifier rubyid_component_array'>component_array</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component_id'>component_id</span><span class='op'>|</span>
       <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span>
         <span class='id identifier rubyid_component_manager'>component_manager</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_delete_prefix'>delete_prefix</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>FelFlame::</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-      <span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_linked_entities'>linked_entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
+      <span class='rparen'>)</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+      <span class='comment'># The following is neater, but doesnt work for some reason :/
+</span>      <span class='comment'>#Object.const_get(component_manager)[component_id].entities.delete(id)
+</span>    <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Entities (class)">Entities</a></span></span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@id</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -977,21 +1087,21 @@
       <pre class="lines">
 
 
-71
-72
-73
 74
 75
 76
 77
-78</pre>
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 74</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span> <span class='id identifier rubyid_component'>component</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_linked_entities'>linked_entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_id'>id</span>
     <span class='kw'>true</span>
   <span class='kw'>else</span>
     <span class='kw'>false</span>
@@ -1041,12 +1151,12 @@
       <pre class="lines">
 
 
-30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_i'>to_i</span>
   <span class='id identifier rubyid_id'>id</span>
@@ -1100,14 +1210,12 @@
       <pre class="lines">
 
 
-83
-84</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 86</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_to_json'>to_json</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_json'>to_json</span><span class='lparen'>(</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1118,9 +1226,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Jun 10 12:12:44 2021 by
+  Generated on Fri Jun 11 01:49:32 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>

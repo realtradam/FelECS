@@ -7,13 +7,21 @@ class FelFlame
     @component_map = []
     class <<self
       include Enumerable
-      # Creates a new component manager.
+      # Creates a new {FelFlame::Helper::ComponentManager component manager}.
+      #
+      # @example
+      #   # Here color is set to default to red
+      #   # while max and current are nil until set.
+      #   # When you make a new component using this component manager
+      #   # these are the values and accessors it will have.
+      #   FelFlame::Component.new('Health', :max, :current, color: 'red')
       #
       # @param component_name [String] Name of your new component manager. Must be stylized in the format of constants in Ruby
       # @param attrs [:Symbols] New components made with this manager will include these symbols as accessors, the values of these accessors will default to nil
-      # @param attrs_with_defaults [Keywords] New components made with this manager will include these keywords as accessors, their defaults set to the values given to the keywords
+      # @param attrs_with_defaults [Keyword: DefaultValue] New components made with this manager will include these keywords as accessors, their defaults set to the values given to the keywords
+      # @return [ComponentManager]
       def new(component_name, *attrs, **attrs_with_defaults)
-        const_set(component_name, Class.new(FelFlame::Helper::ComponentManagerTemplate) {})
+        const_set(component_name, Class.new(FelFlame::Helper::ComponentManager) {})
         attrs.each do |attr|
           FelFlame::Components.const_get(component_name).attr_accessor attr
         end
@@ -25,21 +33,23 @@ class FelFlame
             instance_variable_set("@#{attr}", default)
           end
         end
+        FelFlame::Components.const_get(component_name)
       end
 
-      # Iterate over all existing component managers. You also call other enumerable methods instead of each, such as `each_with_index` or `select`
+      # Iterate over all existing component managers. You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
       # @return [Enumerator]
       def each(&block)
         constants.each(&block)
       end
     end
   end
-  # Namespace for helper functions and inheritance classes
+  # Namespace for helper functions and template classes
   class Helper
     # Component Managers are what is used to create individual components which can be attached to entities.
-    # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g `@component.var = 5`), or by using the {#attrs} and {#update_attrs} methods instead.
-    class ComponentManagerTemplate
+    # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g +@component.var = 5+), or by using the {#attrs} and {#update_attrs} methods instead.
+    class ComponentManager
       # Holds the {id unique ID} of a component. The {id ID} is only unique within the scope of the component manager it was created from.
+      # @return [Integer]
       attr_accessor :id
 
       class <<self
@@ -50,6 +60,10 @@ class FelFlame
         end
 
         # Gets a Component from the given {id unique ID}. Usage is simular to how an Array lookup works.
+        #
+        # @example
+        #   # this gets the 'Health' Component with ID 7
+        #   FelFlame::Components::Health[7]
         # @param component_id [Integer]
         # @return [Component] Returns the Component that uses the given unique {id ID}, nil if there is no Component associated with the given {id ID}
         def [](component_id)
@@ -57,6 +71,8 @@ class FelFlame
         end
 
         # Creates a new component and sets the values of the attributes given to it. If an attritbute is not passed then it will remain as the default.
+        # @param attrs [Keyword: Value]
+        # @return [Component]
         def new(**attrs)
           new_component = super
 
@@ -83,7 +99,7 @@ class FelFlame
         end
       end
 
-      # An alias for the ID reader
+      # An alias for the {id ID Reader}
       # @return [Integer]
       def to_i
         id
@@ -91,8 +107,8 @@ class FelFlame
 
       # A list of components that are linked to the component
       # @return [Array]
-      def linked_entities
-        @linked_entities ||= []
+      def entities
+        @entities ||= []
       end
 
       # Update attribute values using a hash or keywords.
@@ -106,18 +122,18 @@ class FelFlame
       # Removes this component from the list and purges all references to this Component from other Entities, as well as its {id ID} and data.
       # @return [Boolean] true.
       def delete
-        linked_entities.each do |entity_id|
+        entities.each do |entity_id|
           FelFlame::Entities[entity_id].remove self
         end
         self.class.data[id] = nil
-        @linked_entities = nil
+        @entities = nil
         instance_variables.each do |var|
           instance_variable_set(var, nil)
         end
         true
       end
 
-      # @return [Hash] Returns a hash, where all the keys are attributes linked to their respective values.
+      # @return [Hash] A hash, where all the keys are attributes linked to their respective values.
       def attrs
         instance_variables.each_with_object({}) do |key, final|
           final[key.to_s.delete_prefix('@').to_sym] = instance_variable_get(key)

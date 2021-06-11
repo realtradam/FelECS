@@ -57,17 +57,16 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<p><img src="https://filestorage.catgirls.rodeo/images/felflame-logo-full.png" alt="FelFlame" /></p>
+      <div id="content"><div id='filecontents'><p><img src="https://filestorage.catgirls.rodeo/images/felflame-logo-full.png" alt="FelFlame"></p>
 
-<p><a href="https://codeclimate.com/github/realtradam/FelFlame/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability" /></a>
-<a href="https://codeclimate.com/github/realtradam/FelFlame/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage" /></a>
-<a href=""><img src="https://img.shields.io/badge/Documentation-100%25-br" alt="Documentation Coverage" /></a></p>
+<p><a href="https://codeclimate.com/github/realtradam/FelFlame/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability"></a>
+<a href="https://codeclimate.com/github/realtradam/FelFlame/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage"></a>
+<a href="https://felflame.tradam.fyi"><img src="https://img.shields.io/badge/Documentation-100%25-br" alt="Documentation Coverage"></a></p>
 
 <h1 id="what-is-this">What is this?</h1>
 
 <p>This is a Ruby ECS Framework for developing games. It is still a work in progress in the early stages, is not fit for use, and does not work.
-It is designed to be platform agnostic, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.</p>
+It is designed to be platform agnostic, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.  </p>
 
 <p>I wanted a reusable framework so I could quickly and effectively develop games. I also want it to be more complete, as opposed to barebones or boilerplate.
 I plan to eventually add functionality outside of just ECS such as loading tilesets, a camera system, etc. that are built into the framework to work seamlessly.</p>
@@ -78,280 +77,285 @@ I plan to eventually add functionality outside of just ECS such as loading tiles
 
 <p>Systems, Scenes, and the Stage still needs to be implemented</p>
 
+<p>You can view the <a href="https://felflame.tradam.fyi">Documentation here</a></p>
+
 <h1 id="specification">Specification</h1>
 
 <p>Below are the specifications I have imagined for this framework and have been written out. They are subject to change as FelFlame is developed and used.</p>
 
 <h2 id="aliases">Aliases:</h2>
-<p><code>ruby
-FF = FelFlame
-FF::Ent = FelFlame::Entities
-FF::Cmp = FelFlame::Components
-FF::Sys = FelFlame::Systems
-FF::Sce = FelFlame::Scenes
-FF::Stg = FelFlame::Stage
-</code>
-## Classes:</p>
 
-<h3 id="ffentities">FF::Entities</h3>
-<p>```ruby
-FF::Ent.new(@component1, @component2)
-@entity = FF::Ent.get(entity_id)
-FF::Ent.delete(entity_id)
-@entity.id # =&gt; unique entity id</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Entities.html" title="FelFlame::Entities (class)">Entities</a></span></span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Components.html" title="FelFlame::Components (class)">Components</a></span></span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Systems.html" title="FelFlame::Systems (class)">Systems</a></span></span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sce</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Scenes</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Stage</span>
+</code></pre>
 
-<p>@entity.add @component
-@entity.remove @component
-@entity.dump # =&gt; [:id, :scenes, :components]
-FF::Ent.load @entity_dump
-```</p>
+<h2 id="classes">Classes:</h2>
 
-<h3 id="ffcomponents">FF::Components</h3>
-<p>```ruby
-FF::Cmp.new(‘Name’, ‘param1’, param2: ‘default’)
-FF::Cmp::Name.new(param1: value1)
-@component = FF::Cmp::Name.get(component_id)
-FF::Cmp::Name.get_by_entity(entity_id) # gets array of components
-@component.set(param2: ‘not default’)
-@component.param2 = ‘different not default’
-FF::Cmp::Name.detach(entity_id: ent_id, component_id: cmp_id)
-FF::Cmp::Name.remove_entity(entity_id) # Removes entity from any components
-FF::Cmp::Name.delete_component(component_id) # deletes component and removes from all relevant entities
-@component.dump # returns hash of all variables!(and the id)
-FF::Cmp::Name.load @component_dump</p>
+<h3 id="ff-entities">FF::Entities</h3>
 
-<p>FF::Cmp::Health.added # =&gt; returns values for sys to setup
-FF::Cmp::Health.removed # =&gt; returns values for sys to setup
-FF::Cmp::Health.is_set(‘var’) # =&gt; returns values for sys to setup
-```</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@component1</span><span class='comma'>,</span> <span class='ivar'>@component2</span><span class='rparen'>)</span>
+<span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
+<span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='comment'># =&gt; unique entity id
+</span>
+<span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='ivar'>@component</span>
+<span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='ivar'>@component</span>
+<span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span> <span class='comment'># =&gt; [:id, :scenes, :components]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span> <span class='ivar'>@entity_dump</span>
+</code></pre>
 
-<h3 id="ffsystems">FF::Systems</h3>
-<p><code>ruby
-FF::Sys.new(name: 'Render', position: 5, frame: 1) do
-	@component.each do
-		# functionality
-	end
-end
-FF::Sys::Render.trigger_when FF::Cmp::Health.added
-FF::Sys::Render.trigger_when FF::Cmp::Health.removed
-FF::Sys::Render.trigger_when FF::Cmp::Health.is_set('var')
-</code></p>
+<h3 id="ff-components">FF::Components</h3>
 
-<h3 id="ffscenes">FF::Scenes</h3>
-<p><code>ruby
-FF::Scn.new(name: 'Scene1', position: 1)
-FF::Scn::Scene1.add @entity
-FF::Scn::Scene1.add FF::Sys::Render
-FF::Scn::Scene1.entities # =&gt; [id_1, id_7, etc]
-FF::Scn::Scene1.systems # =&gt; [:Render, :Damage, etc]
-FF::Scn::Scene1.dump # =&gt; [:name, :entities, :systems]
-FF::Scn::Scene1.load @scene_dump
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>param2:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>param1:</span> <span class='id identifier rubyid_value1'>value1</span><span class='rparen'>)</span>
+<span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_get_by_entity'>get_by_entity</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span> <span class='comment'># gets array of components
+</span><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='label'>param2:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>not default</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_param2'>param2</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>different not default</span><span class='tstring_end'>&#39;</span></span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_detach'>detach</span><span class='lparen'>(</span><span class='label'>entity_id:</span> <span class='id identifier rubyid_ent_id'>ent_id</span><span class='comma'>,</span> <span class='label'>component_id:</span> <span class='id identifier rubyid_cmp_id'>cmp_id</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_remove_entity'>remove_entity</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span> <span class='comment'># Removes entity from any components
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_delete_component'>delete_component</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span> <span class='comment'># deletes component and removes from all relevant entities
+</span><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span> <span class='comment'># returns hash of all variables!(and the id)
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span> <span class='ivar'>@component_dump</span>
 
-<h3 id="ffstage">FF::Stage</h3>
-<p><code>ruby
-FF::Stg.add FF::Scn::Scene1
-FF::Stg.remove FF::Scn::Scene1
-FF::Stg.scene # =&gt; [:Scene1, :Scene2, etc]
-FF::Stg.dump # =&gt; [:Scene1, :Scene2, etc]
-FF::Stg.load @stage_dump
-FF::Stg.clear
-</code></p>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_added'>added</span> <span class='comment'># =&gt; returns values for sys to setup
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_removed'>removed</span> <span class='comment'># =&gt; returns values for sys to setup
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_is_set'>is_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>var</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='comment'># =&gt; returns values for sys to setup
+</span></code></pre>
+
+<h3 id="ff-systems">FF::Systems</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>frame:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span>
+        <span class='comment'># functionality
+</span>    <span class='kw'>end</span>
+<span class='kw'>end</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_added'>added</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_removed'>removed</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_is_set'>is_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>var</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="ff-scenes">FF::Scenes</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Scene1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='ivar'>@entity</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span> <span class='comment'># =&gt; [id_1, id_7, etc]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='comment'># =&gt; [:Render, :Damage, etc]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span> <span class='comment'># =&gt; [:name, :entities, :systems]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span> <span class='ivar'>@scene_dump</span>
+</code></pre>
+
+<h3 id="ff-stage">FF::Stage</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_scene'>scene</span> <span class='comment'># =&gt; [:Scene1, :Scene2, etc]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span> <span class='comment'># =&gt; [:Scene1, :Scene2, etc]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span> <span class='ivar'>@stage_dump</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+</code></pre>
 
 <h3 id="felflame">FelFlame</h3>
-<p><code>ruby
-FF.dump # =&gt; all data
-FF.load @felflame_dump
-</code>
-—
-<img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank" /><br />
-<img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank" /><br />
-<img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank" /><br />
-—
-# Ramblings:
-Was my originally written up specs. Rewrote it as what is written above to be more clear.
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span> <span class='comment'># =&gt; all data
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span> <span class='ivar'>@felflame_dump</span>
+</code></pre>
+
+<hr>
+
+<p><img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank"><br>
+<img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank">  </p>
+
+<h2 id="part-617b2bfdd646b891"><img src="https://filestorage.catgirls.rodeo/images/whitespace.png" alt="blank">  </h2>
+
+<h1 id="ramblings">Ramblings:</h1>
+
+<p>Was my originally written up specs. Rewrote it as what is written above to be more clear.
 The below are more verbose but not as helpful for me for implementation. Once the framework is
 complete I will use a more verbose explanation as below to help users of the framework.</p>
 
-<hr />
+<hr>
 
 <p>Creating Entities:</p>
 
-<p>```ruby
-# Plain:
-@my_entity = FF:Ent.new</p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># Plain:
+</span><span class='ivar'>@my_entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='symbol'>:Ent</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 
-<h1 id="with-components">With components:</h1>
-<p>FF::Ent.new(FF::Cmp::Position.new(var1: ‘val’, var3: ‘change_default’),
-	    FF::Cmp::Health.new(hp: 20),
-	    FF::Cmp::Poison.new(dps: 3),
-	    FF::Cmp::Poison.new(dps: 2), # This entity has 2 of the same component in it!
-	    FF::Cmp::Selection.get(component_id)) # Components can belong to multiple entities, this component already existed elsewhere!
-```</p>
+<span class='comment'># With components:
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Position</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>var1:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>val</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>var3:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>change_default</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>hp:</span> <span class='int'>20</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Poison</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>dps:</span> <span class='int'>3</span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Poison</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>dps:</span> <span class='int'>2</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='comment'># This entity has 2 of the same component in it!
+</span>        <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Selection</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='comment'># Components can belong to multiple entities, this component already existed elsewhere!
+</span></code></pre>
 
-<p>Adding and Removing Components from Entities:
-```ruby
-@my_entity = FF::Ent.get(entity_id)</p>
+<p>Adding and Removing Components from Entities:</p>
 
-<p>@my_entity.remove(component_id)
-# Remove the specific component with that id</p>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@my_entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
 
-<p>@my_entity.remove(FF::Cmp::Poison)
-# Removes all components of that type</p>
-
-<p>@my_entity.add(FF::Cmp::Selection.new)
-# Adds a new Component
-```</p>
+<span class='ivar'>@my_entity</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span>
+<span class='comment'># Remove the specific component with that id
+</span>
+<span class='ivar'>@my_entity</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Poison</span><span class='rparen'>)</span>
+<span class='comment'># Removes all components of that type
+</span>
+<span class='ivar'>@my_entity</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Selection</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
+<span class='comment'># Adds a new Component
+</span></code></pre>
 
 <p>Creating Component Class:</p>
 
-<p><code>ruby
-# Creating a component 'factory':
-FF::Cmp.new('Name', 'var1', 'var2',  var3: 'default') # Name, *no_default, **with_default
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># Creating a component &#39;factory&#39;:
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>var1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>var2</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>  <span class='label'>var3:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='comment'># Name, *no_default, **with_default
+</span></code></pre>
 
-<p>And then using those components:
-<code>ruby
-@new_cmp = FF::Cmp::Name.new(var1: 'oke') # var3 will be 'default', var2 will be nil
-@new_cmp.var2 = 3 # now var2 is set
-@new_cmp.set(var1: 'nope', var3: 'different') # var1 and var3 are now changed!
-@new_cmp.to_hash # returns the hash of all variables!
-</code></p>
+<p>And then using those components:</p>
 
-<p>Referencing Components:
-<code>ruby
-FF::Cmp::Name.get(component_id) # gets component by their unique id
-FF::Cmp::Name.get_by_entity(entity_id) # gets component that is attached to the entitry
-# will return array of components if there is multiple of same component
-# if it returns array, see the `dump` section. Need to add custom method to the array
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@new_cmp</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>var1:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>oke</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='comment'># var3 will be &#39;default&#39;, var2 will be nil
+</span><span class='ivar'>@new_cmp</span><span class='period'>.</span><span class='id identifier rubyid_var2'>var2</span> <span class='op'>=</span> <span class='int'>3</span> <span class='comment'># now var2 is set
+</span><span class='ivar'>@new_cmp</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lparen'>(</span><span class='label'>var1:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>nope</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>var3:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>different</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='comment'># var1 and var3 are now changed!
+</span><span class='ivar'>@new_cmp</span><span class='period'>.</span><span class='id identifier rubyid_to_hash'>to_hash</span> <span class='comment'># returns the hash of all variables!
+</span></code></pre>
 
-<p>Creating Systems:
-<code>ruby
-FF::Sys.new(name: 'Render', position: 5, frame: 1) do 
-# position is the order in which systems get executed, can be overlapping but then order is unexpected between same positions
-# frame is on which frame the system will be called. 0 is never, 1 is on each frame, 2 is every other frame, etc
-	FF::Cmp::Position.each do
-		#render your sprite
-	end
-end
-</code></p>
+<p>Referencing Components:</p>
 
-<p>Enabling Systems:
-```ruby
-# By default systems are not enabled. You need to add them to a scene
-FF::Scn::Scene1.add FF::Sys::Render</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span> <span class='comment'># gets component by their unique id
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_get_by_entity'>get_by_entity</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span> <span class='comment'># gets component that is attached to the entitry
+</span><span class='comment'># will return array of components if there is multiple of same component
+</span><span class='comment'># if it returns array, see the `dump` section. Need to add custom method to the array
+</span></code></pre>
 
-<h1 id="they-can-also-be-disabled-by-removing-them">They can also be disabled by removing them</h1>
-<p>FF::Scn::Scene1.remove FF::Sys::Render
-```</p>
+<p>Creating Systems:</p>
 
-<p>Custom Hooks:
-```ruby
-# Systems can be configured to be called whenever a certain component is added, removed or set
-FF::Sys::Damage.trigger_when FF::Cmp::Health.added
-FF::Sys::Revive.trigger_when FF::Cmp::Health.removed
-FF::Sys::Healup.trigger_when FF::Cmp::Health.is_set</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>frame:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> 
+<span class='comment'># position is the order in which systems get executed, can be overlapping but then order is unexpected between same positions
+</span><span class='comment'># frame is on which frame the system will be called. 0 is never, 1 is on each frame, 2 is every other frame, etc
+</span>    <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Position</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span>
+        <span class='comment'>#render your sprite
+</span>    <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
 
-<h1 id="systems-can-also-be-manually-called-so-you-can-code-custom-hooks">Systems can also be manually called so you can code custom hooks!</h1>
-<p>FF::Sys::Restore.run
-```</p>
+<p>Enabling Systems:</p>
 
-<p>Scenes contain Entities and Systems
-```ruby
-FF::Scn.new(name: ‘Scene1’, position: 1)
-# Multiple scenes could be ran at once, if they do then they will run according
-# to their positions as explained above</p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># By default systems are not enabled. You need to add them to a scene
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span>
 
-<p>FF::Scn::Scene1.add FF::Entity.get(entity_id)
-# You can also just pass the id on its own =&gt; FF::Scn::Scene1.add entity_id
-FF::Scn::Scene1.add FF::Entity.new</p>
+<span class='comment'># They can also be disabled by removing them
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span>
+</code></pre>
 
-<p>FF::Scn::Scene1.add FF::Sys::Render
-```</p>
+<p>Custom Hooks:</p>
 
-<p>To List Systems and Enties
-<code>ruby
-FF::Scn::Scene1.get_entities # =&gt; [id_1, id_7, etc]
-FF::Scn::Scene1.get_systems  # =&gt; [:Render, :Damage, etc]
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># Systems can be configured to be called whenever a certain component is added, removed or set
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Damage</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_added'>added</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Revive</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_removed'>removed</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Healup</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_is_set'>is_set</span>
 
-<p>To run a Scene it must be added to the Stage
-<code>ruby
-FF::Stg.add FF::Scn::Scene1
-</code></p>
+<span class='comment'># Systems can also be manually called so you can code custom hooks!
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Restore</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
+</code></pre>
 
-<p>Or remove it:
-<code>ruby
-FF::Stg.remove FF::Scn::Scene1
-</code></p>
+<p>Scenes contain Entities and Systems</p>
 
-<p>Show all Scenes on the Stage:
-<code>ruby
-FF::Stg.scenes # =&gt; [:Scene1, :Scene2, etc]
-</code></p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Scene1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>1</span><span class='rparen'>)</span>
+<span class='comment'># Multiple scenes could be ran at once, if they do then they will run according
+</span><span class='comment'># to their positions as explained above
+</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Entity</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
+<span class='comment'># You can also just pass the id on its own =&gt; FF::Scn::Scene1.add entity_id
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Entity</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 
-<p>Remove all Scenes from the Stage:
-<code>ruby
-FF::Stg.clear
-</code></p>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span>
+</code></pre>
 
-<p>You can save the current game state:
-<code>ruby
-@json_save_data = FF.dump
-</code></p>
+<p>To List Systems and Enties</p>
 
-<p>You can also specifically choose what you want to save:
-```ruby
-@hash_entity = FF::Ent.get(entity_id).dump
-# to save all components related to a player</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_get_entities'>get_entities</span> <span class='comment'># =&gt; [id_1, id_7, etc]
+</span><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_get_systems'>get_systems</span>  <span class='comment'># =&gt; [:Render, :Damage, etc]
+</span></code></pre>
 
-<p>@hash_component_single = FF::Cmp::Health.get(component_id).dump
-# save all data in the single component(needs to handle arrays of components)</p>
+<p>To run a Scene it must be added to the Stage</p>
 
-<p>@hash_component = FF::Cmp::Health.dump
-# save all components of a certain component type</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span>
+</code></pre>
 
-<p>@hash_components_all = FF::Cmp.dump
-# save all components</p>
+<p>Or remove it:</p>
 
-<p>@hash_scene = FF::Scn::Scene1.dump
-# save all entities, components, and activated systems in a given scene
-```</p>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span>
+</code></pre>
 
-<p>And then they can be loaded back in:
-<code>ruby
-FF::Ent.load(@hash_entity)
-FF::Cmp::Health.load(@hash_component)
-FF::Cmp.load(@hash_component)
-FF::Cmp.load(@hash_components_all)
-FF::Scn.load(@Hash_scene)
-</code></p>
+<p>Show all Scenes on the Stage:</p>
 
-<h3 id="to-do-listold">To Do List(old)</h3>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='comment'># =&gt; [:Scene1, :Scene2, etc]
+</span></code></pre>
 
-<hr />
+<p>Remove all Scenes from the Stage:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Stg</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+</code></pre>
+
+<p>You can save the current game state:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@json_save_data</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+</code></pre>
+
+<p>You can also specifically choose what you want to save:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@hash_entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+<span class='comment'># to save all components related to a player
+</span>
+<span class='ivar'>@hash_component_single</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+<span class='comment'># save all data in the single component(needs to handle arrays of components)
+</span>
+<span class='ivar'>@hash_component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+<span class='comment'># save all components of a certain component type
+</span>
+<span class='ivar'>@hash_components_all</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+<span class='comment'># save all components
+</span>
+<span class='ivar'>@hash_scene</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='op'>::</span><span class='const'>Scene1</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span>
+<span class='comment'># save all entities, components, and activated systems in a given scene
+</span></code></pre>
+
+<p>And then they can be loaded back in:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='ivar'>@hash_entity</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='ivar'>@hash_component</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='ivar'>@hash_component</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='ivar'>@hash_components_all</span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Scn</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='ivar'>@Hash_scene</span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="to-do-list-old">To Do List(old)</h3>
+
+<hr>
 
 <ul>
-  <li>[ ] Some level of hierarchical support?</li>
-  <li>[ ] One Component to many entities.</li>
-  <li>[ ] Multiple of same component to one entity</li>
-  <li>[ ] State Machine?</li>
-  <li>[ ] Systems execute code on an event
-    <ul>
-      <li>[ ] Adding/removing/setting component is event</li>
-      <li>[ ] Frame is an event</li>
-    </ul>
-  </li>
-  <li>[ ] System Execution Order</li>
-  <li>[ ] Save Dump/Load</li>
+<li>[ ] Some level of hierarchical support?</li>
+<li>[ ] One Component to many entities.</li>
+<li>[ ] Multiple of same component to one entity</li>
+<li>[ ] State Machine?</li>
+<li>[ ] Systems execute code on an event
+
+<ul>
+<li>[ ] Adding/removing/setting component is event</li>
+<li>[ ] Frame is an event</li>
+</ul></li>
+<li>[ ] System Execution Order</li>
+<li>[ ] Save Dump/Load</li>
 </ul>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Jun 10 12:12:44 2021 by
+  Generated on Fri Jun 11 01:49:32 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>

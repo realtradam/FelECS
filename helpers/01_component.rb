@@ -1,7 +1,7 @@
 class FelFlame
   class Helper
 
-    class Level < FelFlame::Helper::ComponentManagerTemplate
+    class Level < FelFlame::Helper::ComponentManager
       class <<self
         def data
           @data ||= { add: [], remove: [], grid: FelFlame::Helper::Array2D.new }
