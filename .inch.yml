@@ -1,0 +1,8 @@
+files:
+  # define files included in the analysis (defaults to ["{app,lib}/**/*.rb"])
+  included:
+    - felflame.rb
+    - component_manager.rb
+    - entity_manager.rb
+  # define files excluded from the analysis (defaults to [])
+  excluded:
