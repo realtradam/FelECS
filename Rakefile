@@ -1,5 +1,6 @@
 
-require 'rake/testtask'
+#require 'rake/testtask'
+require 'rspec/core/rake_task'
 require 'yard'
 require_relative './codeclimate/export-coverage'
 
@@ -21,6 +22,8 @@ YARD::Rake::YardocTask.new do |t|
   t.stats_options = ['--list-undoc']
 end
 
-Rake::TestTask.new do |t|
-  t.pattern = "tests/**/*_test.rb"
-end
+#Rake::TestTask.new do |t|
+#  t.pattern = "tests/**/*_test.rb"
+#end
+
+RSpec::Core::RakeTask.new :spec

@@ -21,6 +21,10 @@ class FelFlame
       # @param attrs_with_defaults [Keyword: DefaultValue] New components made with this manager will include these keywords as accessors, their defaults set to the values given to the keywords
       # @return [ComponentManager]
       def new(component_name, *attrs, **attrs_with_defaults)
+        if FelFlame::Components.const_defined?(component_name)
+          raise(NameError.new, "Component Manager '#{component_name}' is already defined")
+        end
+
         const_set(component_name, Class.new(FelFlame::Helper::ComponentManager) {})
         attrs.each do |attr|
           FelFlame::Components.const_get(component_name).attr_accessor attr
@@ -28,7 +32,7 @@ class FelFlame
         attrs_with_defaults.each do |attr, _default|
           FelFlame::Components.const_get(component_name).attr_accessor attr
         end
-        FelFlame::Components.const_get(component_name).define_method(:initialize) do
+        FelFlame::Components.const_get(component_name).define_method(:set_defaults) do
           attrs_with_defaults.each do |attr, default|
             instance_variable_set("@#{attr}", default)
           end
@@ -52,8 +56,31 @@ class FelFlame
       # @return [Integer]
       attr_accessor :id
 
+      # Creates a new component and sets the values of the attributes given to it. If an attritbute is not passed then it will remain as the default.
+      # @param attrs [Keyword: Value] You can pass any number of Keyword-Value pairs
+      # @return [Component]
+      def initialize(**attrs)
+        # Prepare the object
+        # (this is a function created with metaprogramming
+        # in FelFlame::Components
+        set_defaults
+
+        # Generate ID
+        new_id = self.class.data.find_index { |i| i.nil? }
+        new_id = self.class.data.size if new_id.nil?
+        @id = new_id
+
+        # Fill params
+        attrs.each do |key, value|
+          send "#{key}=", value
+        end
+
+        # Save Component
+        self.class.data[new_id] = self
+      end
+
       class <<self
-        # @return [Array] Array of all Components that belong to a given component manager
+        # @return [Array<Component>] Array of all Components that belong to a given component manager
         # @!visibility private
         def data
           @data ||= []
@@ -70,32 +97,11 @@ class FelFlame
           data[component_id]
         end
 
-        # Creates a new component and sets the values of the attributes given to it. If an attritbute is not passed then it will remain as the default.
-        # @param attrs [Keyword: Value]
-        # @return [Component]
-        def new(**attrs)
-          new_component = super
-
-          # Generate ID
-          new_id = self.data.find_index { |i| i.nil? }
-          new_id = self.data.size if new_id.nil?
-          new_component.id = new_id
-
-          # Fill params
-          attrs.each do |key, value|
-            new_component.send "#{key}=", value
-          end
-
-          # Save Component
-          data[new_id] = new_component
-        end
-
-        # Iterates over all components within the component manager
+        # Iterates over all components within the component manager.
+        # Special Enumerable methods like +map+ or +each_with_index+ are not implemented
         # @return [Enumerator]
-        def each
-          data.each do |component|
-            yield component
-          end
+        def each(&block)
+          data.compact.each(&block)
         end
       end
 
@@ -105,8 +111,8 @@ class FelFlame
         id
       end
 
-      # A list of components that are linked to the component
-      # @return [Array]
+      # A list of entity ids that are linked to the component
+      # @return [Array<Integer>]
       def entities
         @entities ||= []
       end

@@ -9,14 +9,16 @@ class FelFlame
     # @return [Entity]
     def initialize(*components)
       # Assign new unique ID
-      new_id = self.class.data.find_index { |i| i.nil? }
+      new_id = self.class.data.find_index(&:nil?)
       new_id = self.class.data.size if new_id.nil?
       self.id = new_id
 
       # Add each component
-      components.uniq.each do |component|
-        add component
-      end
+      #components.uniq.each do |component|
+      #  add component
+      #end
+      add(*components)
+
       self.class.data[id] = self
     end
 
@@ -37,11 +39,7 @@ class FelFlame
     def delete
       components.each do |component_manager, component_array|
         component_array.each do |component_id|
-          FelFlame.const_get(
-            component_manager.to_s.delete_prefix('FelFlame::')
-          )[component_id].entities.delete(id)
-          # The following is neater, but doesnt work for some reason :/
-          #Object.const_get(component_manager)[component_id].entities.delete(id)
+          component_manager[component_id].entities.delete(id)
         end
       end
       FelFlame::Entities.data[id] = nil
@@ -50,34 +48,37 @@ class FelFlame
       true
     end
 
-    # Returns true when added, or false if it already belongs to the Entity
-    # Add a component to the Entity
-    # @param component [Component] A component created from any component manager
-    # @return [Boolean] true if component is added, false if it already is attached
-    def add(component)
-      if components[component.class.to_s.to_sym].nil?
-        components[component.class.to_s.to_sym] = [component.id]
-        component.entities.push id
-        true
-      elsif !components[component.class.to_s.to_sym].include? component.id
-        components[component.class.to_s.to_sym].push component.id
-        component.entities.push id
-        true
-      else
-        false
+    # Add any number components to the Entity.
+    # @param component [Component] Any number of components created from any component manager
+    # @return [Boolean] true if component is added, false if it already is attached or no components given
+    def add(*components_to_add)
+      added = false
+      components_to_add.each do |component|
+        if components[component.class].nil?
+          components[component.class] = [component.id]
+          component.entities.push id
+          added =true
+        elsif !components[component.class].include? component.id
+          components[component.class].push component.id
+          component.entities.push id
+          added = true
+        end
       end
+      added
     end
 
     # Remove a component from the Entity
-    # @param component [Component] A component created from any component manager
-    # @return [Boolean] true if component is removed, false if it wasnt attached to component
-    def remove(component)
-      components[component.class.to_s.to_sym].delete component.id
-      if component.entities.delete id
-        true
-      else
-        false
+    # @param component_to_remove [Component] A component created from any component manager
+    # @return [Boolean] true if at least one component is removed, false if none of them were attached to the component
+    def remove(*components_to_remove)
+      removed = false
+      components_to_remove.each do |component|
+        components[component.class].delete component.id
+        if component.entities.delete id
+          removed = true
+        end
       end
+      removed
     end
 
     # Export all data into a JSON String which can then be saved into a file
@@ -87,7 +88,7 @@ class FelFlame
 
     class <<self
       include Enumerable
-      # @return [Array] Array of all Entities that exist
+      # @return [Array<Entity>] Array of all Entities that exist
       # @!visibility private
       def data
         @data ||= []

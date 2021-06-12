@@ -1,6 +1,8 @@
 class FelFlame
   class Helper
 
+=begin
+ # Unused:
     class Level < FelFlame::Helper::ComponentManager
       class <<self
         def data
@@ -18,7 +20,8 @@ class FelFlame
         end
       end
     end
-
+=end
+=begin
     class Array2D < Array
       def [](val)
         unless val.nil?
@@ -27,7 +30,8 @@ class FelFlame
         super
       end
     end
-
+=end
+=begin
     class ArrayOfHashes < Array
       def [](val)
         unless val.nil?
@@ -36,7 +40,9 @@ class FelFlame
         super
       end
     end
+=end
 
+=begin
     module ComponentHelper
       class <<self
         def up? char
@@ -63,5 +69,6 @@ class FelFlame
         end
       end
     end
+=end
   end
 end

@@ -1,3 +1,9 @@
+# Coverage Ignored because the functionality of this
+# code will not be used for the core of FelFlame.
+# It will most likely be released as a seperate package
+# The code will most likely be kept here until it
+# eventually will be migrated to a new git repo
+# :nocov:
 class Helper
   # Returns a loaded map and its dependecies(images,json)
   # If any are missing then it will load them from files
@@ -47,3 +53,4 @@ class Helper
     end
   end
 end
+# :nocov:
