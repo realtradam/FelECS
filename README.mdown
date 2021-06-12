@@ -41,6 +41,7 @@ FF::Stg = FelFlame::Stage
 ## Classes:
 
 ### FF::Entities
+`WARNING: POTENTIALLY OUT OF DATE`
 ```ruby
 FF::Ent.new(@component1, @component2)
 @entity = FF::Ent.get(entity_id)
@@ -54,6 +55,7 @@ FF::Ent.load @entity_dump
 ```
 
 ### FF::Components
+`WARNING: POTENTIALLY OUT OF DATE`
 ```ruby
 FF::Cmp.new('Name', 'param1', param2: 'default')
 FF::Cmp::Name.new(param1: value1)
@@ -75,13 +77,28 @@ FF::Cmp::Health.is_set('var') # => returns values for sys to setup
 ### FF::Systems
 ```ruby
 FF::Sys.new(name: 'Render', position: 5, frame: 1) do
-	@component.each do
-		# functionality
-	end
+  @component.each do
+    # functionality
+  end
 end
-FF::Sys::Render.trigger_when FF::Cmp::Health.added
-FF::Sys::Render.trigger_when FF::Cmp::Health.removed
-FF::Sys::Render.trigger_when FF::Cmp::Health.is_set('var')
+
+# for all components belonging to a certain component manager
+FF::Sys::Render.trigger_when_added FF::Cmp::Health
+FF::Sys::Render.trigger_when_removed FF::Cmp::Health
+FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health, 'var')
+FF::Sys::Render.clear_triggers FF::Cmp::Health # clears all triggers
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :added)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :removed)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :is_set, 'var')
+
+# for specific components
+FF::Sys::Render.trigger_when_added FF::Cmp::Health[3]
+FF::Sys::Render.trigger_when_removed FF::Cmp::Health[3]
+FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health[3], 'var')
+FF::Sys::Render.clear_triggers FF::Cmp::Health[3] # clears all triggers
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :added)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :removed)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :is_set, 'var')
 ```
 
 ### FF::Scenes
