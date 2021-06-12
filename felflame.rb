@@ -4,9 +4,6 @@ require_relative './system_manager.rb'
 require_relative './scene_manager.rb'
 require_relative './stage_manager.rb'
 
-require_relative './helpers/00_tileset.rb'
-require_relative './helpers/01_component.rb'
-
 class FelFlame
   # Creates and manages Entities. Allows accessing Entities using their {FelFlame::Entities#id ID}
   #
@@ -28,13 +25,18 @@ end
 
 # An alias for {FelFlame}
 FF = FelFlame
+
 # An alias for {FelFlame::Entities}
 FF::Ent = FelFlame::Entities
+
 # An alias for {FelFlame::Components}
 FF::Cmp = FelFlame::Components
+
 # An alias for {FelFlame::Systems}
 FF::Sys = FelFlame::Systems
+
 # An alias for {FelFlame::Scenes}
 #FF::Sce = FelFlame::Scenes
+#
 # An alias for {FelFlame::Stage}
 #FF::Stg = FelFlame::Stage
