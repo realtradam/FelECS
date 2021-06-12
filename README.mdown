@@ -37,6 +37,7 @@ FF::Sys = FelFlame::Systems
 FF::Sce = FelFlame::Scenes
 FF::Stg = FelFlame::Stage
 ```
+
 ## Classes:
 
 ### FF::Entities
