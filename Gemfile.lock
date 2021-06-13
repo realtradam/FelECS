@@ -11,6 +11,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    rake (13.0.3)
     redcarpet (3.5.1)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -46,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   minitest-reporters (~> 1.4, >= 1.4.3)
+  rake (~> 13.0)
   redcarpet (~> 3.5, >= 3.5.1)
   rspec (~> 3.10)
   simplecov (~> 0.21.2)

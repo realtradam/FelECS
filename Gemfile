@@ -14,3 +14,5 @@ group :docs do
   gem 'redcarpet', '~> 3.5', '>= 3.5.1', require: false
   gem 'yard', '~> 0.9.26', require: false
 end
+
+gem "rake", "~> 13.0"
