@@ -13,7 +13,7 @@ task :default => [:spec, :yard, 'coverage:format']
 Gem::Specification.find_all.each do |a_gem|
   next unless a_gem.name.include? 'felpack-'
 
-  Dir.glob("#{a_gem.gem_dir}/lib/#{a_gem.name}/tasks/*.rake").each { |r| load r }
+  Dir.glob("#{a_gem.gem_dir}/lib/#{a_gem.name.gsub('-', '/')}/tasks/*.rake").each { |r| load r }
 end
 
 namespace :coverage do
