@@ -643,12 +643,12 @@
       <pre class="lines">
 
 
-104
-105
-106</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rbracket'>]</span>
@@ -670,7 +670,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Iterates over all entities. In general when using ECS the use of this method should never be neccassary unless you are doing something very wrong, however I will not stop you. You also call other enumerable methods instead of each, such as <code>each_with_index</code> or <code>select</code></p>
+<p>Iterates over all entities. The data is compacted so that means index does not correlate to ID. You also call other enumerable methods instead of each, such as <code>each_with_index</code> or <code>select</code></p>
 
 
   </div>
@@ -697,15 +697,15 @@
       <pre class="lines">
 
 
-111
-112
-113</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -774,10 +774,10 @@
       <pre class="lines">
 
 
-119</pre>
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_json_string'>json_string</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -814,7 +814,7 @@
   
     <li>
       
-        <span class='name'>component</span>
+        <span class='name'>components_to_add</span>
       
       
         <span class='type'>(<tt>Component</tt>)</span>
@@ -855,7 +855,6 @@
       <pre class="lines">
 
 
-54
 55
 56
 57
@@ -868,26 +867,23 @@
 64
 65
 66
-67
-68</pre>
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_components_to_add'>components_to_add</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_added'>added</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='id identifier rubyid_components_to_add'>components_to_add</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
       <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span>
       <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
-      <span class='id identifier rubyid_added'>added</span> <span class='op'>=</span><span class='kw'>true</span>
+      <span class='id identifier rubyid_check_systems'>check_systems</span> <span class='id identifier rubyid_component'>component</span><span class='comma'>,</span> <span class='symbol'>:addition_triggers</span>
     <span class='kw'>elsif</span> <span class='op'>!</span><span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
       <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
       <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_id'>id</span>
-      <span class='id identifier rubyid_added'>added</span> <span class='op'>=</span> <span class='kw'>true</span>
+      <span class='id identifier rubyid_check_systems'>check_systems</span> <span class='id identifier rubyid_component'>component</span><span class='comma'>,</span> <span class='symbol'>:addition_triggers</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_added'>added</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1002,7 +998,8 @@
 46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'entity_manager.rb', line 39</span>
@@ -1011,11 +1008,12 @@
   <span class='id identifier rubyid_components'>components</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component_manager'>component_manager</span><span class='comma'>,</span> <span class='id identifier rubyid_component_array'>component_array</span><span class='op'>|</span>
     <span class='id identifier rubyid_component_array'>component_array</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component_id'>component_id</span><span class='op'>|</span>
       <span class='id identifier rubyid_component_manager'>component_manager</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
+      <span class='comment'>#self.remove FelFlame::Components.const_get(component_manager.name)[component_id]
+</span>    <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Entities (class)">Entities</a></span></span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@components</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@id</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='ivar'>@components</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1046,7 +1044,7 @@
   
     <li>
       
-        <span class='name'>component_to_remove</span>
+        <span class='name'>components_to_remove</span>
       
       
         <span class='type'>(<tt>Component</tt>)</span>
@@ -1087,29 +1085,25 @@
       <pre class="lines">
 
 
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82</pre>
+84
+85
+86
+87
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_components_to_remove'>components_to_remove</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_removed'>removed</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='id identifier rubyid_components_to_remove'>components_to_remove</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
+    <span class='id identifier rubyid_check_systems'>check_systems</span> <span class='id identifier rubyid_component'>component</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span> <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_id'>id</span>
     <span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_id'>id</span>
-      <span class='id identifier rubyid_removed'>removed</span> <span class='op'>=</span> <span class='kw'>true</span>
-    <span class='kw'>end</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_removed'>removed</span>
+  <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1214,10 +1208,10 @@
       <pre class="lines">
 
 
-87</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'entity_manager.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_json'>to_json</span><span class='lparen'>(</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -1230,7 +1224,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jun 12 03:12:49 2021 by
+  Generated on Wed Jun 16 07:08:52 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

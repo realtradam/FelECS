@@ -4,6 +4,8 @@ require_relative 'env'
 class ReportCoverage
   class <<self
     def format
+      puts
+      puts 'Formatting Coverage...'
       puts `./codeclimate/test-reporter-latest-linux-amd64 format-coverage -t simplecov`
     end
 

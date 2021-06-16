@@ -40,45 +40,54 @@ class FelFlame
       components.each do |component_manager, component_array|
         component_array.each do |component_id|
           component_manager[component_id].entities.delete(id)
+          #self.remove FelFlame::Components.const_get(component_manager.name)[component_id]
         end
       end
       FelFlame::Entities.data[id] = nil
+      @components = {}
       @id = nil
-      @components = nil
       true
     end
 
     # Add any number components to the Entity.
-    # @param component [Component] Any number of components created from any component manager
+    # @param components_to_add [Component] Any number of components created from any component manager
     # @return [Boolean] true if component is added, false if it already is attached or no components given
     def add(*components_to_add)
-      added = false
       components_to_add.each do |component|
         if components[component.class].nil?
           components[component.class] = [component.id]
           component.entities.push id
-          added =true
+          check_systems component, :addition_triggers
         elsif !components[component.class].include? component.id
           components[component.class].push component.id
           component.entities.push id
-          added = true
+          check_systems component, :addition_triggers
         end
       end
-      added
+    end
+
+    # triggers every system associated with this component's trigger
+    # @return [Boolean] true
+    # @!visibility private
+    def check_systems(component, trigger_type)
+      component_calls = component.class.send(trigger_type)
+      component.send(trigger_type).each do |system|
+        component_calls |= [system]
+      end
+      component_calls.sort_by(&:priority).reverse.each(&:call)
+      true
     end
 
     # Remove a component from the Entity
-    # @param component_to_remove [Component] A component created from any component manager
+    # @param components_to_remove [Component] A component created from any component manager
     # @return [Boolean] true if at least one component is removed, false if none of them were attached to the component
     def remove(*components_to_remove)
-      removed = false
       components_to_remove.each do |component|
+        check_systems component, :removal_triggers if component.entities.include? id
+        component.entities.delete id
         components[component.class].delete component.id
-        if component.entities.delete id
-          removed = true
-        end
       end
-      removed
+      true
     end
 
     # Export all data into a JSON String which can then be saved into a file
@@ -105,11 +114,11 @@ class FelFlame
         data[entity_id]
       end
 
-      # Iterates over all entities. In general when using ECS the use of this method should never be neccassary unless you are doing something very wrong, however I will not stop you.
+      # Iterates over all entities. The data is compacted so that means index does not correlate to ID.
       # You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
       # @return [Enumerator]
       def each(&block)
-        data.each(&block)
+        data.compact.each(&block)
       end
 
       # Creates a new entity using the data from a JSON string

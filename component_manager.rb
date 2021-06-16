@@ -56,6 +56,18 @@ class FelFlame
       # @return [Integer]
       attr_accessor :id
 
+      attr_writer :addition_triggers
+
+      def addition_triggers
+        @addition_triggers ||= []
+      end
+
+      attr_writer :removal_triggers
+
+      def removal_triggers
+        @removal_triggers ||= []
+      end
+
       # Creates a new component and sets the values of the attributes given to it. If an attritbute is not passed then it will remain as the default.
       # @param attrs [Keyword: Value] You can pass any number of Keyword-Value pairs
       # @return [Component]
@@ -80,6 +92,18 @@ class FelFlame
       end
 
       class <<self
+        attr_writer :addition_triggers
+
+        def addition_triggers
+          @addition_triggers ||= []
+        end
+
+        attr_writer :removal_triggers
+
+        def removal_triggers
+          @removal_triggers ||= []
+        end
+
         # @return [Array<Component>] Array of all Components that belong to a given component manager
         # @!visibility private
         def data
@@ -128,11 +152,17 @@ class FelFlame
       # Removes this component from the list and purges all references to this Component from other Entities, as well as its {id ID} and data.
       # @return [Boolean] true.
       def delete
-        entities.each do |entity_id|
-          FelFlame::Entities[entity_id].remove self
+        addition_triggers.each do |system|
+          system.clear_triggers component_or_manager: self
+        end
+        # This needs to be cloned because indices get deleted as
+        # the remove command is called, breaking the loop if it
+        # wasn't referencing a clone(will get Nil errors)
+        iter = entities.map(&:clone)
+        iter.each do |entity_id|
+          FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
         end
         self.class.data[id] = nil
-        @entities = nil
         instance_variables.each do |var|
           instance_variable_set(var, nil)
         end

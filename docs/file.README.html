@@ -98,6 +98,8 @@ I plan to eventually add functionality outside of just ECS such as loading tiles
 
 <h3 id="ff-entities">FF::Entities</h3>
 
+<p><code>WARNING: POTENTIALLY OUT OF DATE</code></p>
+
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@component1</span><span class='comma'>,</span> <span class='ivar'>@component2</span><span class='rparen'>)</span>
 <span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
 <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Ent</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rparen'>)</span>
@@ -110,6 +112,8 @@ I plan to eventually add functionality outside of just ECS such as loading tiles
 </code></pre>
 
 <h3 id="ff-components">FF::Components</h3>
+
+<p><code>WARNING: POTENTIALLY OUT OF DATE</code></p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>param1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>param2:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>default</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Name</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>param1:</span> <span class='id identifier rubyid_value1'>value1</span><span class='rparen'>)</span>
@@ -130,14 +134,29 @@ I plan to eventually add functionality outside of just ECS such as loading tiles
 
 <h3 id="ff-systems">FF::Systems</h3>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>position:</span> <span class='int'>5</span><span class='comma'>,</span> <span class='label'>frame:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span>
-        <span class='comment'># functionality
-</span>    <span class='kw'>end</span>
-<span class='kw'>end</span>
-<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_added'>added</span>
-<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_removed'>removed</span>
-<span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Sys</span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when'>trigger_when</span> <span class='const'><span class='object_link'><a href="top-level-namespace.html#FF-constant" title="FF (constant)">FF</a></span></span><span class='op'>::</span><span class='const'>Cmp</span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_is_set'>is_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>var</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby">FF::Sys.new(name: &#39;Render&#39;, position: 5, frame: 1) do
+  @component.each do
+    # functionality
+  end
+end
+
+# for all components belonging to a certain component manager
+FF::Sys::Render.trigger_when_added FF::Cmp::Health
+FF::Sys::Render.trigger_when_removed FF::Cmp::Health
+FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health, &#39;var&#39;)
+FF::Sys::Render.clear_triggers FF::Cmp::Health # clears all triggers
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :added)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :removed)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health, :is_set, &#39;var&#39;)
+
+# for specific components
+FF::Sys::Render.trigger_when_added FF::Cmp::Health[3]
+FF::Sys::Render.trigger_when_removed FF::Cmp::Health[3]
+FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health[3], &#39;var&#39;)
+FF::Sys::Render.clear_triggers FF::Cmp::Health[3] # clears all triggers
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :added)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :removed)
+FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :is_set, &#39;var&#39;)
 </code></pre>
 
 <h3 id="ff-scenes">FF::Scenes</h3>
@@ -354,7 +373,7 @@ complete I will use a more verbose explanation as below to help users of the fra
 </div></div>
 
       <div id="footer">
-  Generated on Sat Jun 12 03:12:49 2021 by
+  Generated on Wed Jun 16 07:08:51 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
