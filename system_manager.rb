@@ -21,6 +21,12 @@ class FelFlame
       @removal_triggers ||= []
     end
 
+    attr_writer :attr_triggers
+
+    def attr_triggers
+      @attr_triggers ||= {}
+    end
+
     class <<self
       include Enumerable
 
@@ -35,7 +41,7 @@ class FelFlame
     # The name given is what constant the system is assigned to
     #
     # @example
-    #   FelFlame::Systems.new('PassiveHeal', priority: -2, frame: 2) do
+    #   FelFlame::Systems.new('PassiveHeal', priority: -2) do
     #     FelFlame::Components::Health.each do |component|
     #       component.hp += 5
     #     end
@@ -71,23 +77,97 @@ class FelFlame
       @block = block
     end
 
-    # Removes triggers from this system
+    # Removes triggers from this system. This function is fairly flexible so it can accept a few different inputs
+    # For addition and removal triggers, you can optionally pass in a component, or a manager to clear specifically
+    # the relevant triggers for that one component or manager. If you do not pass a component or manager then it will
+    # clear triggers for all components and managers.
+    # For attr_triggers
+    # @example
+    #   # To clear all triggers that execute this system when a component is added:
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers
+    #   # Same as above but for when a component is removed instead
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :removal_triggers
+    #   # Same as above but for when a component has a certain attribute changed
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :attr_triggers
+    #
+    #   # Clear a trigger from a specific component
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers, FelFlame::Component::ExampleComponent[0]
+    #   # Clear a trigger from a specific component manager
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers, FelFlame::Component::ExampleComponent
+    #
+    #   # Clear the trigger that executes a system when the ':example_attr' is changes
+    #   FelFlame::Systems::ExampleSystem.clear_triggers :attr_triggers, :example_attr
+    # @param trigger_types [:Symbols] One or more of  the following trigger types: +:addition_triggers+, +:removal_triggers+, or +:attr_triggers+. If attr_triggers is used then you may pass attributes you wish to be cleared as symbols in this parameter as well
     # @param component_or_manager [Component or ComponentManager] The object to clear triggers from. Use Nil to clear triggers from all components associated with this system.
     # @return [Boolean] true
     def clear_triggers(*trigger_types, component_or_manager: nil)
-      trigger_types = [:addition_triggers, :removal_triggers] if trigger_types.empty?
-      trigger_types.each do |trigger_type|
+      trigger_types = [:addition_triggers, :removal_triggers, :attr_triggers] if trigger_types.empty?
+
+      if trigger_types.include? :attr_triggers
+        if (trigger_types - [:addition_triggers,
+            :removal_triggers,
+            :attr_triggers]).empty?
+
+          if component_or_manager.nil?
+            #remove all attrs
+            self.attr_triggers.each do |cmp_or_mgr, attrs|
+              attrs.each do |attr|
+                next if cmp_or_mgr.attr_triggers[attr].nil?
+
+                cmp_or_mgr.attr_triggers[attr].delete self
+              end
+              self.attr_triggers = {}
+            end
+          else
+            #remove attrs relevant to comp_or_man
+            unless self.attr_triggers[component_or_manager].nil?
+              self.attr_triggers[component_or_manager].each do |attr|
+                component_or_manager.attr_triggers[attr].delete self
+              end
+              self.attr_triggers[component_or_manager] = []
+            end
+          end
+
+        else
+
+          if component_or_manager.nil?
+            (trigger_types - [:addition_triggers, :removal_triggers, :attr_triggers]).each do |attr|
+              #remove attr
+              self.attr_triggers.each do |cmp_or_mgr, attrs|
+                cmp_or_mgr.attr_triggers[attr].delete self
+              end
+            end
+            self.attr_triggers.delete (trigger_types - [:addition_triggers,
+                                                        :removal_triggers,
+                                                        :attr_triggers])
+          else
+            #remove attr from component_or_manager
+            (trigger_types - [:addition_triggers, :removal_triggers, :attr_triggers]).each do |attr|
+              next if component_or_manager.attr_triggers[attr].nil?
+              component_or_manager.attr_triggers[attr].delete self
+              #self.attr_triggers[component_or_manager].each do |attr|
+              #  component_or_manager.attr_triggers[attr].delete self
+              #end
+            end
+            self.attr_triggers[component_or_manager] -= trigger_types unless self.attr_triggers[component_or_manager].nil?
+          end
+
+        end
+      end
+
+      (trigger_types & [:removal_triggers, :addition_triggers] - [:attr_triggers]).each do |trigger_type|
         if component_or_manager.nil?
-          send(trigger_type).each do |trigger|
+          #remove all removal triggers
+          self.send(trigger_type).each do |trigger|
             trigger.send(trigger_type).delete self
           end
-          self.addition_triggers = []
+          self.send("#{trigger_type.to_s}=", [])
         else
-          send(trigger_type).delete component_or_manager
+          #remove removal trigger relevant to comp/man
+          self.send(trigger_type).delete component_or_manager
           component_or_manager.send(trigger_type).delete self
         end
       end
-      true
     end
 
     # Add a component or component manager so that it triggers this system when the component or a component from the component manager is added to an entity
@@ -106,6 +186,20 @@ class FelFlame
       self.removal_triggers |= [component_or_manager]
       component_or_manager.removal_triggers |= [self]
       true
+    end
+
+    # Add a component or component manager so that it triggers this system when a component's attribute is changed.
+    def trigger_when_is_changed(component_or_manager, attr)
+      if component_or_manager.attr_triggers[attr].nil?
+        component_or_manager.attr_triggers[attr] = [self]
+      else
+        component_or_manager.attr_triggers[attr] |= [self]
+      end
+      if self.attr_triggers[component_or_manager].nil?
+        self.attr_triggers[component_or_manager] = [attr]
+      else
+        self.attr_triggers[component_or_manager] |= [attr]
+      end
     end
   end
 end

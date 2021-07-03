@@ -30,7 +30,12 @@ class FelFlame
           FelFlame::Components.const_get(component_name).attr_accessor attr
         end
         attrs_with_defaults.each do |attr, _default|
-          FelFlame::Components.const_get(component_name).attr_accessor attr
+          #FelFlame::Components.const_get(component_name).attr_accessor attr
+          FelFlame::Components.const_get(component_name).attr_reader attr
+          FelFlame::Components.const_get(component_name).define_method("#{attr}=") do |value|
+            attr_changed_trigger_systems(attr) unless value.equal? send(attr)
+            instance_variable_set("@#{attr}", value)
+          end
         end
         FelFlame::Components.const_get(component_name).define_method(:set_defaults) do
           attrs_with_defaults.each do |attr, default|
@@ -56,16 +61,18 @@ class FelFlame
       # @return [Integer]
       attr_accessor :id
 
-      attr_writer :addition_triggers
+      attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
       def addition_triggers
         @addition_triggers ||= []
       end
 
-      attr_writer :removal_triggers
-
       def removal_triggers
         @removal_triggers ||= []
+      end
+
+      def attr_triggers
+        @attr_triggers ||= {}
       end
 
       # Creates a new component and sets the values of the attributes given to it. If an attritbute is not passed then it will remain as the default.
@@ -92,16 +99,18 @@ class FelFlame
       end
 
       class <<self
-        attr_writer :addition_triggers
+        attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
         def addition_triggers
           @addition_triggers ||= []
         end
 
-        attr_writer :removal_triggers
-
         def removal_triggers
           @removal_triggers ||= []
+        end
+
+        def attr_triggers
+          @attr_triggers ||= {}
         end
 
         # @return [Array<Component>] Array of all Components that belong to a given component manager
@@ -149,6 +158,19 @@ class FelFlame
         end
       end
 
+      # Execute systems that have been added to execute on variable change
+      def attr_changed_trigger_systems(attr)
+        systems_to_execute = self.class.attr_triggers[attr]
+        systems_to_execute = [] if systems_to_execute.nil?
+
+        systems_to_execute |= attr_triggers[attr] unless attr_triggers[attr].nil?
+
+        systems_to_execute.sort_by(&:priority).reverse.each(&:call)
+        #self.attr_triggers.each do |system|
+        #  systems_to_execute |= [system]
+        #end
+      end
+
       # Removes this component from the list and purges all references to this Component from other Entities, as well as its {id ID} and data.
       # @return [Boolean] true.
       def delete
@@ -171,9 +193,11 @@ class FelFlame
 
       # @return [Hash] A hash, where all the keys are attributes linked to their respective values.
       def attrs
-        instance_variables.each_with_object({}) do |key, final|
+        return_hash = instance_variables.each_with_object({}) do |key, final|
           final[key.to_s.delete_prefix('@').to_sym] = instance_variable_get(key)
         end
+        return_hash.delete(:attr_triggers)
+        return_hash
       end
 
       # Export all data into a JSON String, which could then later be loaded or saved to a file

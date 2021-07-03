@@ -154,6 +154,31 @@
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#attr_triggers-instance_method" title="#attr_triggers (instance method)">#<strong>attr_triggers</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#const_name-instance_method" title="#const_name (instance method)">#<strong>const_name</strong>  &#x21d2; Object </a>
     
 
@@ -452,6 +477,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#trigger_when_is_changed-instance_method" title="#trigger_when_is_changed (instance method)">#<strong>trigger_when_is_changed</strong>(component_or_manager, attr)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Add a component or component manager so that it triggers this system when a component&#39;s attribute is changed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#trigger_when_removed-instance_method" title="#trigger_when_removed (instance method)">#<strong>trigger_when_removed</strong>(component_or_manager)  &#x21d2; Boolean </a>
     
 
@@ -503,7 +552,7 @@
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PassiveHeal</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='op'>-</span><span class='int'>2</span><span class='comma'>,</span> <span class='label'>frame:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PassiveHeal</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Components.html" title="FelFlame::Components (class)">Components</a></span></span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
     <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_hp'>hp</span> <span class='op'>+=</span> <span class='int'>5</span>
   <span class='kw'>end</span>
@@ -575,15 +624,15 @@
       <pre class="lines">
 
 
-50
-51
-52
-53
-54
-55</pre>
+56
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
@@ -627,6 +676,38 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="attr_triggers=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="attr_triggers-instance_method">
+  
+    #<strong>attr_triggers</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
+  <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -840,12 +921,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sym'>sym</span><span class='op'>|</span> <span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -887,12 +968,12 @@
       <pre class="lines">
 
 
-58
-59
-60</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='ivar'>@block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
@@ -914,14 +995,51 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Removes triggers from this system</p>
+<p>Removes triggers from this system. This function is fairly flexible so it can accept a few different inputs For addition and removal triggers, you can optionally pass in a component, or a manager to clear specifically the relevant triggers for that one component or manager. If you do not pass a component or manager then it will clear triggers for all components and managers. For attr_triggers</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='comment'># To clear all triggers that execute this system when a component is added:
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span>
+<span class='comment'># Same as above but for when a component is removed instead
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:removal_triggers</span>
+<span class='comment'># Same as above but for when a component has a certain attribute changed
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span>
+
+<span class='comment'># Clear a trigger from a specific component
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='comment'># Clear a trigger from a specific component manager
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span>
+
+<span class='comment'># Clear the trigger that executes a system when the &#39;:example_attr&#39; is changes
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span><span class='comma'>,</span> <span class='symbol'>:example_attr</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
+  
+    <li>
+      
+        <span class='name'>trigger_types</span>
+      
+      
+        <span class='type'>(<tt>:Symbols</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>One or more of  the following trigger types: <code>:addition_triggers</code>, <code>:removal_triggers</code>, or <code>:attr_triggers</code>. If attr_triggers is used then you may pass attributes you wish to be cleared as symbols in this parameter as well</p>
+</div>
+      
+    </li>
   
     <li>
       
@@ -968,39 +1086,147 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91</pre>
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='comma'>,</span> <span class='label'>component_or_manager:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-  <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='op'>|</span>
+  <span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='symbol'>:attr_triggers</span>
+    <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span>
+        <span class='symbol'>:removal_triggers</span><span class='comma'>,</span>
+        <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='comment'>#remove all attrs
+</span>        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cmp_or_mgr'>cmp_or_mgr</span><span class='comma'>,</span> <span class='id identifier rubyid_attrs'>attrs</span><span class='op'>|</span>
+          <span class='id identifier rubyid_attrs'>attrs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span>
+            <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_cmp_or_mgr'>cmp_or_mgr</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+            <span class='id identifier rubyid_cmp_or_mgr'>cmp_or_mgr</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
+          <span class='kw'>end</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+        <span class='kw'>end</span>
+      <span class='kw'>else</span>
+        <span class='comment'>#remove attrs relevant to comp_or_man
+</span>        <span class='kw'>unless</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span>
+            <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
+          <span class='kw'>end</span>
+          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+
+    <span class='kw'>else</span>
+
+      <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='lparen'>(</span><span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span>
+          <span class='comment'>#remove attr
+</span>          <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cmp_or_mgr'>cmp_or_mgr</span><span class='comma'>,</span> <span class='id identifier rubyid_attrs'>attrs</span><span class='op'>|</span>
+            <span class='id identifier rubyid_cmp_or_mgr'>cmp_or_mgr</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
+          <span class='kw'>end</span>
+        <span class='kw'>end</span>
+        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='lparen'>(</span><span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span>
+                                                    <span class='symbol'>:removal_triggers</span><span class='comma'>,</span>
+                                                    <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='comment'>#remove attr from component_or_manager
+</span>        <span class='lparen'>(</span><span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span>
+          <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+          <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
+          <span class='comment'>#self.attr_triggers[component_or_manager].each do |attr|
+</span>          <span class='comment'>#  component_or_manager.attr_triggers[attr].delete self
+</span>          <span class='comment'>#end
+</span>        <span class='kw'>end</span>
+        <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span> <span class='op'>-=</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='kw'>unless</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='kw'>end</span>
+
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='lparen'>(</span><span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>&amp;</span> <span class='lbracket'>[</span><span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:addition_triggers</span><span class='rbracket'>]</span> <span class='op'>-</span> <span class='lbracket'>[</span><span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='op'>|</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-      <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_trigger'>trigger</span><span class='op'>|</span>
+      <span class='comment'>#remove all removal triggers
+</span>      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_trigger'>trigger</span><span class='op'>|</span>
         <span class='id identifier rubyid_trigger'>trigger</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
       <span class='kw'>end</span>
-      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_addition_triggers'>addition_triggers</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
     <span class='kw'>else</span>
-      <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span>
+      <span class='comment'>#remove removal trigger relevant to comp/man
+</span>      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span>
       <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_trigger_type'>trigger_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
-  <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1053,12 +1279,12 @@
       <pre class="lines">
 
 
-70
-71
-72</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_redefine'>redefine</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
@@ -1112,10 +1338,10 @@
       <pre class="lines">
 
 
-66</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_step'>step</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -1187,19 +1413,78 @@
       <pre class="lines">
 
 
-96
-97
-98
-99
-100</pre>
+176
+177
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_added'>trigger_when_added</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_addition_triggers'>addition_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_addition_triggers'>addition_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
   <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trigger_when_is_changed-instance_method">
+  
+    #<strong>trigger_when_is_changed</strong>(component_or_manager, attr)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Add a component or component manager so that it triggers this system when a component&#39;s attribute is changed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 192</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_is_changed'>trigger_when_is_changed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='comma'>,</span> <span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1270,14 +1555,14 @@
       <pre class="lines">
 
 
-105
-106
-107
-108
-109</pre>
+185
+186
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'system_manager.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_removed'>trigger_when_removed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_removal_triggers'>removal_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
@@ -1294,7 +1579,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 16 07:08:52 2021 by
+  Generated on Sat Jul  3 00:34:25 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
