@@ -6,23 +6,35 @@ class FelFlame
     # The Constant name assigned to this System
     attr_accessor :const_name
 
-    # How many frames need to pass before this System is executed when controlled by {FelFlame::Stage}
-    attr_accessor :frame
+    # Allows overwriting the storage of triggers, such as for clearing.
+    # This method should generally only need to be used internally and
+    # not by a game developer.
+    # @!visibility private
+    attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
-    attr_writer :addition_triggers
-
+    # Stores references to components or their managers that trigger
+    # this component when a component or component from that manager
+    # is added to an entity.
+    # Do not edit this hash as it is managed by FelFlame automatically.
+    # @return [Array<Component>]
     def addition_triggers
       @addition_triggers ||= []
     end
 
-    attr_writer :removal_triggers
-
+    # Stores references to components or their managers that trigger
+    # this component when a component or component from that manager
+    # is removed from an entity.
+    # Do not edit this hash as it is managed by FelFlame automatically.
+    # @return [Array<Component>]
     def removal_triggers
       @removal_triggers ||= []
     end
 
-    attr_writer :attr_triggers
 
+    # Stores references to systems that should be triggered when an
+    # attribute from this manager is changed
+    # Do not edit this hash as it is managed by FelFlame automatically.
+    # @return [Hash<Symbol, Array<Symbol>>]
     def attr_triggers
       @attr_triggers ||= {}
     end
@@ -46,7 +58,6 @@ class FelFlame
     #       component.hp += 5
     #     end
     #   end
-    #   # Only heal all characters with health every other frame.
     #   # Give it a low priority so other systems such as a
     #   #   Poison system would kill the player first
     #
@@ -64,13 +75,6 @@ class FelFlame
     def call
       @block.call
     end
-
-    # Attempt to execute the system following the frame parameter set on this system.
-    # @return [Boolean] +true+ if the frame of the {FelFlame::Stage} is a multiple of this System's frame setting and this system has executed, +false+ otherwise where the system has not executed.
-    # For example if a System has its frame set to 3, it will only execute once every third frame that is called in FelFlame::Stage
-    #
-    def step; end
-
     # Redefine what code is executed by this System when it is called upon.
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def redefine(&block)

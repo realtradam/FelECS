@@ -2,7 +2,13 @@ class FelFlame
   class Entities
     # Holds the unique ID of this entity
     # @return [Integer]
-    attr_accessor :id
+    attr_reader :id
+
+    # A seperate attr_writer was made for documentation readability reasons.
+    # Yard will list attr_reader is readonly which is my intention.
+    # This value needs to be changable as it is set by other functions.
+    # @!visibility private
+    attr_writer :id
 
     # Creating a new Entity
     # @param components [Components] Can be any number of components, identical duplicates will be automatically purged however different components from the same component manager are allowed.

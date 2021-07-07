@@ -57,20 +57,43 @@ class FelFlame
     # Component Managers are what is used to create individual components which can be attached to entities.
     # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g +@component.var = 5+), or by using the {#attrs} and {#update_attrs} methods instead.
     class ComponentManager
+
       # Holds the {id unique ID} of a component. The {id ID} is only unique within the scope of the component manager it was created from.
       # @return [Integer]
-      attr_accessor :id
+      attr_reader :id
 
+      # A seperate attr_writer was made for documentation readability reasons.
+      # Yard will list attr_reader is readonly which is my intention.
+      # This value needs to be changable as it is set by other functions.
+      # @!visibility private
+      attr_writer :id
+
+      # Allows overwriting the storage of triggers, such as for clearing.
+      # This method should generally only need to be used internally and
+      # not by a game developer.
+      # @!visibility private
       attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
+      # Stores references to systems that should be triggered when a
+      # component from this manager is added.
+      # Do not edit this array as it is managed by FelFlame automatically.
+      # @return [Array<System>]
       def addition_triggers
         @addition_triggers ||= []
       end
 
+      # Stores references to systems that should be triggered when a
+      # component from this manager is removed.
+      # Do not edit this array as it is managed by FelFlame automatically.
+      # @return [Array<System>]
       def removal_triggers
         @removal_triggers ||= []
       end
 
+      # Stores references to systems that should be triggered when an
+      # attribute from this manager is changed.
+      # Do not edit this hash as it is managed by FelFlame automatically.
+      # @return [Hash<Symbol, Array<System>>]
       def attr_triggers
         @attr_triggers ||= {}
       end
@@ -99,16 +122,33 @@ class FelFlame
       end
 
       class <<self
+
+        # Allows overwriting the storage of triggers, such as for clearing.
+        # This method should generally only need to be used internally and
+        # not by a game developer.
+        # @!visibility private
         attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
+        # Stores references to systems that should be triggered when this
+        # component is added to an enitity.
+        # Do not edit this array as it is managed by FelFlame automatically.
+        # @return [Array<System>]
         def addition_triggers
           @addition_triggers ||= []
         end
 
+        # Stores references to systems that should be triggered when this
+        # component is removed from an enitity.
+        # Do not edit this array as it is managed by FelFlame automatically.
+        # @return [Array<System>]
         def removal_triggers
           @removal_triggers ||= []
         end
 
+        # Stores references to systems that should be triggered when an
+        # attribute from this component changed.
+        # Do not edit this hash as it is managed by FelFlame automatically.
+        # @return [Hash<Symbol, System>]
         def attr_triggers
           @attr_triggers ||= {}
         end

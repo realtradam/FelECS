@@ -120,7 +120,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#addition_triggers-class_method" title="addition_triggers (class method)">.<strong>addition_triggers</strong>  &#x21d2; Object </a>
+      <a href="#addition_triggers-class_method" title="addition_triggers (class method)">.<strong>addition_triggers</strong>  &#x21d2; Array&lt;System&gt; </a>
     
 
     
@@ -129,6 +129,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -137,7 +139,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when this component is added to an enitity.</p>
+</div></span>
   
 </li>
 
@@ -145,7 +149,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#attr_triggers-class_method" title="attr_triggers (class method)">.<strong>attr_triggers</strong>  &#x21d2; Object </a>
+      <a href="#attr_triggers-class_method" title="attr_triggers (class method)">.<strong>attr_triggers</strong>  &#x21d2; Hash&lt;Symbol, System&gt; </a>
     
 
     
@@ -154,6 +158,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -162,7 +168,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when an attribute from this component changed.</p>
+</div></span>
   
 </li>
 
@@ -170,7 +178,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#removal_triggers-class_method" title="removal_triggers (class method)">.<strong>removal_triggers</strong>  &#x21d2; Object </a>
+      <a href="#removal_triggers-class_method" title="removal_triggers (class method)">.<strong>removal_triggers</strong>  &#x21d2; Array&lt;System&gt; </a>
     
 
     
@@ -179,6 +187,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -187,7 +197,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when this component is removed from an enitity.</p>
+</div></span>
   
 </li>
 
@@ -200,7 +212,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#addition_triggers-instance_method" title="#addition_triggers (instance method)">#<strong>addition_triggers</strong>  &#x21d2; Object </a>
+      <a href="#addition_triggers-instance_method" title="#addition_triggers (instance method)">#<strong>addition_triggers</strong>  &#x21d2; Array&lt;System&gt; </a>
     
 
     
@@ -209,6 +221,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -217,7 +231,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when a component from this manager is added.</p>
+</div></span>
   
 </li>
 
@@ -225,7 +241,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#attr_triggers-instance_method" title="#attr_triggers (instance method)">#<strong>attr_triggers</strong>  &#x21d2; Object </a>
+      <a href="#attr_triggers-instance_method" title="#attr_triggers (instance method)">#<strong>attr_triggers</strong>  &#x21d2; Hash&lt;Symbol, Array&lt;System&gt;&gt; </a>
     
 
     
@@ -234,6 +250,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -242,7 +260,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when an attribute from this manager is changed.</p>
+</div></span>
   
 </li>
 
@@ -258,6 +278,8 @@
   
   
   
+    
+      <span class="note title readonly">readonly</span>
     
     
   
@@ -277,7 +299,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#removal_triggers-instance_method" title="#removal_triggers (instance method)">#<strong>removal_triggers</strong>  &#x21d2; Object </a>
+      <a href="#removal_triggers-instance_method" title="#removal_triggers (instance method)">#<strong>removal_triggers</strong>  &#x21d2; Array&lt;System&gt; </a>
     
 
     
@@ -286,6 +308,8 @@
   
   
     
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -294,7 +318,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Stores references to systems that should be triggered when a component from this manager is removed.</p>
+</div></span>
   
 </li>
 
@@ -615,28 +641,28 @@
       <pre class="lines">
 
 
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99</pre>
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_attrs'>attrs</span><span class='rparen'>)</span>
   <span class='comment'># Prepare the object
@@ -672,24 +698,48 @@
       <div class="method_details first">
   <h3 class="signature first" id="addition_triggers-class_method">
   
-    .<strong>addition_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>addition_triggers</strong>  &#x21d2; <tt>Array&lt;System&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when this component is added to an enitity. Do not edit this array as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;System&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-104
-105
-106</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -704,24 +754,48 @@
       <div class="method_details ">
   <h3 class="signature " id="attr_triggers-class_method">
   
-    .<strong>attr_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>attr_triggers</strong>  &#x21d2; <tt>Hash&lt;Symbol, System&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when an attribute from this component changed. Do not edit this hash as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, System&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-112
-113
-114</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -736,24 +810,48 @@
       <div class="method_details ">
   <h3 class="signature " id="removal_triggers-class_method">
   
-    .<strong>removal_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    .<strong>removal_triggers</strong>  &#x21d2; <tt>Array&lt;System&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when this component is removed from an enitity. Do not edit this array as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;System&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-108
-109
-110</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -773,24 +871,48 @@
       <div class="method_details first">
   <h3 class="signature first" id="addition_triggers-instance_method">
   
-    #<strong>addition_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>addition_triggers</strong>  &#x21d2; <tt>Array&lt;System&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when a component from this manager is added. Do not edit this array as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;System&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -805,24 +927,48 @@
       <div class="method_details ">
   <h3 class="signature " id="attr_triggers-instance_method">
   
-    #<strong>attr_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>attr_triggers</strong>  &#x21d2; <tt>Hash&lt;Symbol, Array&lt;System&gt;&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when an attribute from this manager is changed. Do not edit this hash as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol, Array&lt;System&gt;&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-74
-75
-76</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -873,12 +1019,12 @@
       <pre class="lines">
 
 
-62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
   <span class='ivar'>@id</span>
@@ -893,24 +1039,48 @@
       <div class="method_details ">
   <h3 class="signature " id="removal_triggers-instance_method">
   
-    #<strong>removal_triggers</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>removal_triggers</strong>  &#x21d2; <tt>Array&lt;System&gt;</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Stores references to systems that should be triggered when a component from this manager is removed. Do not edit this array as it is managed by FelFlame automatically.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;System&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-70
-71
-72</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -995,12 +1165,12 @@
       <pre class="lines">
 
 
-129
-130
-131</pre>
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rbracket'>]</span>
@@ -1049,12 +1219,12 @@
       <pre class="lines">
 
 
-136
-137
-138</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1096,20 +1266,20 @@
       <pre class="lines">
 
 
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172</pre>
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_changed_trigger_systems'>attr_changed_trigger_systems</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_systems_to_execute'>systems_to_execute</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span>
@@ -1171,16 +1341,16 @@
       <pre class="lines">
 
 
-195
-196
-197
-198
-199
-200
-201</pre>
+235
+236
+237
+238
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attrs'>attrs</span>
   <span class='id identifier rubyid_return_hash'>return_hash</span> <span class='op'>=</span> <span class='id identifier rubyid_instance_variables'>instance_variables</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_final'>final</span><span class='op'>|</span>
@@ -1238,26 +1408,26 @@
       <pre class="lines">
 
 
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192</pre>
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 216</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
   <span class='id identifier rubyid_addition_triggers'>addition_triggers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_system'>system</span><span class='op'>|</span>
@@ -1320,12 +1490,12 @@
       <pre class="lines">
 
 
-149
-150
-151</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_entities'>entities</span>
   <span class='ivar'>@entities</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1374,12 +1544,12 @@
       <pre class="lines">
 
 
-143
-144
-145</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_i'>to_i</span>
   <span class='id identifier rubyid_id'>id</span>
@@ -1433,12 +1603,12 @@
       <pre class="lines">
 
 
-206
-207
-208</pre>
+246
+247
+248</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 246</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_json'>to_json</span>
   <span class='comment'># should return a json or hash of all data in this component
@@ -1492,14 +1662,14 @@
       <pre class="lines">
 
 
-155
-156
-157
-158
-159</pre>
+195
+196
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_attrs'>update_attrs</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1516,7 +1686,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul  3 00:34:25 2021 by
+  Generated on Wed Jul  7 01:04:28 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
