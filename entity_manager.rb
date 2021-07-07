@@ -20,16 +20,13 @@ class FelFlame
       self.id = new_id
 
       # Add each component
-      #components.uniq.each do |component|
-      #  add component
-      #end
       add(*components)
 
       self.class.data[id] = self
     end
 
-    # A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the {FelFlame::Helper::ComponentManager#id IDs} of the components attached to this entity.
-    # @return [Hash]
+    # A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the {FelFlame::ComponentManager#id IDs} of the components attached to this entity.
+    # @return [Hash<Component_Manager, Array<Integer>>]
     def components
       @components ||= {}
     end
@@ -41,7 +38,7 @@ class FelFlame
     end
 
     # Removes this Entity from the list and purges all references to this Entity from other Components, as well as its {id ID} and data.
-    # @return [Boolean] true.
+    # @return [Boolean] +true+
     def delete
       components.each do |component_manager, component_array|
         component_array.each do |component_id|
@@ -57,7 +54,7 @@ class FelFlame
 
     # Add any number components to the Entity.
     # @param components_to_add [Component] Any number of components created from any component manager
-    # @return [Boolean] true if component is added, false if it already is attached or no components given
+    # @return [Boolean] +true+
     def add(*components_to_add)
       components_to_add.each do |component|
         if components[component.class].nil?
@@ -70,10 +67,11 @@ class FelFlame
           check_systems component, :addition_triggers
         end
       end
+      true
     end
 
     # triggers every system associated with this component's trigger
-    # @return [Boolean] true
+    # @return [Boolean] +true+
     # @!visibility private
     def check_systems(component, trigger_type)
       component_calls = component.class.send(trigger_type)
@@ -86,7 +84,7 @@ class FelFlame
 
     # Remove a component from the Entity
     # @param components_to_remove [Component] A component created from any component manager
-    # @return [Boolean] true if at least one component is removed, false if none of them were attached to the component
+    # @return [Boolean] +true+
     def remove(*components_to_remove)
       components_to_remove.each do |component|
         check_systems component, :removal_triggers if component.entities.include? id
@@ -99,7 +97,7 @@ class FelFlame
     # Export all data into a JSON String which can then be saved into a file
     # TODO: This function is not yet complete
     # @return [String] A JSON formatted String
-    def to_json() end
+    #def to_json() end
 
     class <<self
       include Enumerable
@@ -130,8 +128,8 @@ class FelFlame
       # Creates a new entity using the data from a JSON string
       # TODO: This function is not yet complete
       # @param json_string [String] A string that was exported originally using the {FelFlame::Entities#to_json to_json} function
-      # @param opts [Keywords] What values(its {FelFlame::Entities#id ID} or the {FelFlame::Helper::ComponentManager#id component IDs}) should be overwritten TODO: this might change
-      def from_json(json_string, **opts) end
+      # @param opts [Keywords] What values(its {FelFlame::Entities#id ID} or the {FelFlame::ComponentManager#id component IDs}) should be overwritten TODO: this might change
+      #def from_json(json_string, **opts) end
     end
   end
 end

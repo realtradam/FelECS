@@ -111,9 +111,7 @@
     
 <p>Creates component managers and allows accessing them them under the <span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span> namespace as Constants</p>
 
-<p>To see how component managers are used please look at the Helper::ComponentManagerTemplate documentation.</p>
-
-<p>TODO: Improve Component overview</p>
+<p>To see how component managers are used please look at the <span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">ComponentManager</a></span> documentation.</p>
 
 
   </div>
@@ -178,7 +176,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates a new <span class='object_link'><a href="Helper/ComponentManager.html" title="FelFlame::Helper::ComponentManager (class)">component manager</a></span>.</p>
+<p>Creates a new <span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">component manager</a></span>.</p>
 </div></span>
   
 </li>
@@ -233,12 +231,12 @@
       <pre class="lines">
 
 
-50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'component_manager.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -251,7 +249,7 @@
       <div class="method_details ">
   <h3 class="signature " id="new-class_method">
   
-    .<strong>new</strong>(component_name, *attrs, **attrs_with_defaults)  &#x21d2; <tt>ComponentManager</tt> 
+    .<strong>new</strong>(component_name, *attrs, **attrs_with_defaults)  &#x21d2; <tt><span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">ComponentManager</a></span></tt> 
   
 
   
@@ -260,7 +258,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates a new <span class='object_link'><a href="Helper/ComponentManager.html" title="FelFlame::Helper::ComponentManager (class)">component manager</a></span>.</p>
+<p>Creates a new <span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">component manager</a></span>.</p>
 
 
   </div>
@@ -337,7 +335,7 @@
     <li>
       
       
-        <span class='type'>(<tt>ComponentManager</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">ComponentManager</a></span></tt>)</span>
       
       
       
@@ -374,7 +372,8 @@
 43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'component_manager.rb', line 23</span>
@@ -384,13 +383,14 @@
     <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>NameError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Component Manager &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_component_name'>component_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; is already defined</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='comma'>,</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Helper.html" title="FelFlame::Helper (class)">Helper</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Helper/ComponentManager.html" title="FelFlame::Helper::ComponentManager (class)">ComponentManager</a></span></span><span class='rparen'>)</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='comma'>,</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ComponentManager.html" title="FelFlame::ComponentManager (class)">ComponentManager</a></span></span><span class='rparen'>)</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_attrs'>attrs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='op'>|</span>
     <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_attr_accessor'>attr_accessor</span> <span class='id identifier rubyid_attr'>attr</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_attrs_with_defaults'>attrs_with_defaults</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='comma'>,</span> <span class='id identifier rubyid__default'>_default</span><span class='op'>|</span>
-    <span class='comment'>#FelFlame::Components.const_get(component_name).attr_accessor attr
-</span>    <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='id identifier rubyid_attr'>attr</span>
+    <span class='id identifier rubyid_attrs_with_defaults'>attrs_with_defaults</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid__default'>_default</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
+    <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='id identifier rubyid_attr'>attr</span>
     <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_define_method'>define_method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attr'>attr</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
       <span class='id identifier rubyid_attr_changed_trigger_systems'>attr_changed_trigger_systems</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_equal?'>equal?</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attr'>attr</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -398,7 +398,7 @@
   <span class='kw'>end</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_define_method'>define_method</span><span class='lparen'>(</span><span class='symbol'>:set_defaults</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_attrs_with_defaults'>attrs_with_defaults</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='op'>|</span>
-      <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attr'>attr</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attr'>attr</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Components (class)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_component_name'>component_name</span><span class='rparen'>)</span>
@@ -413,7 +413,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jul  7 01:04:28 2021 by
+  Generated on Wed Jul  7 17:45:24 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
