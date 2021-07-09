@@ -23,7 +23,11 @@ class FelFlame
 
 
         const_set(component_name, Class.new(FelFlame::ComponentManager) {})
+
         attrs.each do |attr|
+          if FelFlame::Components.const_get(component_name).method_defined?("#{attr}") || FelFlame::Components.const_get(component_name).method_defined?("#{attr}=")
+            raise NameError.new "The attribute name \"#{attr}\" is already a method"
+          end
           FelFlame::Components.const_get(component_name).attr_accessor attr
         end
         attrs_with_defaults.each do |attr, _default|

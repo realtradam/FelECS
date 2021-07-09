@@ -84,6 +84,15 @@ describe 'Components' do
   end
 
   it 'cant overwrite exiting component managers' do
-    expect { FelFlame::Components.new('TestComponents') }.to raise_error(NameError)
+    FelFlame::Components.new('TestComponent1')
+    expect { FelFlame::Components.new('TestComponent1') }.to raise_error(NameError)
+  end
+
+  it 'can\'t create an attribute when its name is an existing method' do
+    expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
+    expect { FelFlame::Components.new('TestComponent2', :addition_triggers) }.to raise_error(NameError)
+    expect { FelFlame::Components.new('TestComponent2', :removal_triggers) }.to raise_error(NameError)
+    expect { FelFlame::Components.new('TestComponent2', :attr_triggers) }.to raise_error(NameError)
+    expect { FelFlame::Components.new('TestComponent3', :same, :same) }.to raise_error(NameError)
   end
 end
