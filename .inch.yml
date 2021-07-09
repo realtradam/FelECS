@@ -4,5 +4,8 @@ files:
     - felflame.rb
     - component_manager.rb
     - entity_manager.rb
+    - system_manager.rb
+    - scene_manager.rb
+    - stage_manager.rb
   # define files excluded from the analysis (defaults to [])
   excluded:
