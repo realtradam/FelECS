@@ -11,7 +11,7 @@
 ## [1.0.2](https://github.com/realtradam/FelFlame/releases/tag/1.0.2) - 2021-07-09
 ![Fixed](https://img.shields.io/badge/-Fixed-blue)
 - Stripped superflous files shrinking gem size significantly
-- 
+
 ## [1.0.1](https://github.com/realtradam/FelFlame/releases/tag/1.0.1) - 2021-07-09
 ![Fixed](https://img.shields.io/badge/-Fixed-blue)
 - Defining attributes in components are no longer allowed to overwrite methods
