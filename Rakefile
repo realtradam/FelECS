@@ -1,20 +1,17 @@
-
-#require 'rake/testtask'
+# frozen_string_literal: true
+#
 require 'rubygems'
 require 'bundler/setup'
 require 'rspec/core/rake_task'
 require 'yard'
 require_relative './codeclimate/export-coverage'
-
+require "bundler/gem_tasks"
+require "rubocop/rake_task"
 
 task :default => [:spec, :yard, 'coverage:format']
+#task default: :rubocop
 
-# For installing FelPacks
-Gem::Specification.find_all.each do |a_gem|
-  next unless a_gem.name.include? 'felpack-'
-
-  Dir.glob("#{a_gem.gem_dir}/lib/#{a_gem.name.gsub('-', '/')}/tasks/*.rake").each { |r| load r }
-end
+RuboCop::RakeTask.new
 
 namespace :coverage do
   desc 'format coverage so it can be exported to codeclimate'
@@ -39,3 +36,10 @@ end
 #end
 
 RSpec::Core::RakeTask.new :spec
+
+# For installing FelPacks
+#Gem::Specification.find_all.each do |a_gem|
+#  next unless a_gem.name.include? 'felpack-'
+#
+#  Dir.glob("#{a_gem.gem_dir}/lib/#{a_gem.name.gsub('-', '/')}/tasks/*.rake").each { |r| load r }
+#end

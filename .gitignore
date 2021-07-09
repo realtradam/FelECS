@@ -1,3 +1,8 @@
+/.bundle/
+/pkg/
+/spec/reports/
+/tmp/
+
 # Ignore generated coverage
 coverage/*
 coverage
@@ -5,6 +10,7 @@ coverage
 # Ignore yard metadata
 .yardoc/*
 .yardoc
+/_yardoc/
 
 # Ignore codeclimate executable and env vars
 codeclimate/env.rb
