@@ -7,6 +7,9 @@
 [![MIT License](https://img.shields.io/github/license/realtradam/FelFlame?label=license&style=flat)](https://github.com/realtradam/FelFlame/blob/master/LICENSE)
 [![Ko-Fi](https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20)](https://ko-fi.com/tradam)
 
+**[Check out the comprehensive documentation here!](https://felflame.tradam.fyi/)**
+
+---
 
 <!-- vim-markdown-toc GFM -->
 
@@ -395,7 +398,7 @@ FelFlame::Stage.call
 
 ## Closing Notes
 
-There are some methods I haven't gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://rubydoc.info/github/realtradam/FelFlame/master/frames)!
+There are some methods I haven't gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://felflame.tradam.fyi)!
 
 # Contribution
 Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  
