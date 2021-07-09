@@ -112,9 +112,11 @@ Entities are essentially "objects" in the game world. To create a new Entity we 
 or if we want to add (any number of)components to it:
 
 ```ruby
-@entity = FelFlame::Entites.new(FelFlame::Components::Health.new,
-                     @component,
-		     FelFlame::Components::Armour[7])
+@entity = FelFlame::Entites.new(
+  FelFlame::Components::Health.new,
+  @component,
+  FelFlame::Components::Armour[7]
+)
 ```
 
 ### Accessing
