@@ -99,6 +99,8 @@ If all of this sounds very confusing, don't worry. A video tutorial series is in
 
 # Usage
 
+To use FelFlame simply install the gem using `gem install felflame` or using bundler `bundle add felflame` and then require it in your project like so: `require 'felflame'`. Working outside of the gem for rendering engines that do not support the usage of gems is planned a planned feature in the works.
+
 ## Entities
 
 ### Creation
