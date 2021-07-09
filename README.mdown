@@ -4,315 +4,402 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
 [![Inline docs](http://inch-ci.org/github/realtradam/FelFlame.svg?branch=master)](http://inch-ci.org/github/realtradam/FelFlame)
-[![Documentation Coverage](https://img.shields.io/badge/Documentation-Click%20Here-blue)](https://felflame.tradam.fyi)
-
-# What is this?
-
-This is a Ruby ECS Framework for developing games. It is still a work in progress in the early stages, is not fit for use, and does not work.
-It is designed to be platform agnostic, this means it should be able to work by plugging it into any ruby game engine/library/toolkit with minimal modifications.  
-
-I wanted a reusable framework so I could quickly and effectively develop games. I also want it to be more complete, as opposed to barebones or boilerplate.
-I plan to eventually add functionality outside of just ECS such as loading tilesets, a camera system, etc. that are built into the framework to work seamlessly.
+[![MIT License](https://img.shields.io/github/license/realtradam/FelFlame?label=license&style=flat)](https://github.com/realtradam/FelFlame/blob/master/LICENSE)
+[![Ko-Fi](https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20)](https://ko-fi.com/tradam)
 
 
-# What is currently implemented?
+<!-- vim-markdown-toc GFM -->
 
-Entities and Components are mostly implemented, with only a few non-critical functions missing.
++ [What is FelFlame?](#what-is-felflame)
++ [What is ECS?](#what-is-ecs)
+		- [Components](#components)
+		- [Entities](#entities)
+		- [Systems](#systems)
+		- [Scenes](#scenes)
+		- [Stage](#stage)
++ [Usage](#usage)
+	* [Entities](#entities-1)
+		- [Creation](#creation)
+		- [Accessing](#accessing)
+		- [Get ID](#get-id)
+		- [Adding and Removing Components](#adding-and-removing-components)
+		- [Deletion](#deletion)
+	* [Components](#components-1)
+		- [Creating a Component Manager](#creating-a-component-manager)
+		- [Creating a Component from a Component Manager](#creating-a-component-from-a-component-manager)
+		- [Accessing and Getting ID](#accessing-and-getting-id)
+		- [Accessing Attributes and Changing Them](#accessing-attributes-and-changing-them)
+		- [Deleting Components](#deleting-components)
+		- [Iterating over Components](#iterating-over-components)
+	* [Systems](#systems-1)
+		- [Creation](#creation-1)
+		- [Execution](#execution)
+		- [Alternative Execution](#alternative-execution)
+		- [Clearing Alternative Executions](#clearing-alternative-executions)
+		- [Redefinition](#redefinition)
+	* [Scenes](#scenes-1)
+		- [Creation](#creation-2)
+		- [Accessing](#accessing-1)
+		- [Adding Systems](#adding-systems)
+		- [Removing Systems](#removing-systems)
+		- [Clearing](#clearing)
+		- [Execution](#execution-1)
+	* [Stage](#stage-1)
+		- [Adding Scenes](#adding-scenes)
+		- [Removing Scenes](#removing-scenes)
+		- [Executing](#executing)
+	* [Closing Notes](#closing-notes)
++ [Contribution](#contribution)
 
-Systems, Scenes, and the Stage still needs to be implemented
+<!-- vim-markdown-toc -->
 
-You can view the [Documentation here](https://felflame.tradam.fyi)
+# What is FelFlame?
 
+FelFlame is an ECS framework for developing games in the Ruby language. FelFlame has been designed from the ground up with these three ideas in mind:
 
-# Specification
+1. **Engine Agnostic:** FelFlame has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as [Ruby2D](http://www.ruby2d.com) or [DRGTK](https://dragonruby.org/toolkit/game) with little modifications.
+2. **Easily Extensible:** FelFlame has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.
+3. **Priciple of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
 
-Below are the specifications I have imagined for this framework and have been written out. They are subject to change as FelFlame is developed and used.
+# What is ECS?
+ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.  
+ECS stands for Entity, Component, and System.
 
-## Aliases:
+---
+
+### Components
+This is where the data or information of a given "object" is stored. There is no logic or code here. 
+
+### Entities
+Entities will contain one or more Components, but contains no logic or data otherwise
+
+### Systems
+Systems are where all the logic or code is kept. There is no data stored in here.
+
+---
+
+By using this pattern it allows programmers to easily control what an "object" or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  
+
+**"But your framework also has `Scenes` and a `Stage`, what is that about?"**  
+
+---
+
+### Scenes
+Scenes are simply a collection or subset of Systems. This allows for an easy way to activate and deactivate Systems.
+
+### Stage
+The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.
+
+---
+
+If all of this sounds very confusing, don't worry. A video tutorial series is in the works where I will build a game using this framework and explain every step of the way. You can also read some examples and explanations below.
+
+# Usage
+
+## Entities
+
+### Creation
+Entities are essentially "objects" in the game world. To create a new Entity we do the following:
+
 ```ruby
-FF = FelFlame
-FF::Ent = FelFlame::Entities
-FF::Cmp = FelFlame::Components
-FF::Sys = FelFlame::Systems
-FF::Sce = FelFlame::Scenes
-FF::Stg = FelFlame::Stage
+@entity = FelFlame::Entities.new
+```
+or if we want to add (any number of)components to it:
+
+```ruby
+@entity = FelFlame::Entites.new(FelFlame::Components::Health.new,
+                     @component,
+		     FelFlame::Components::Armour[7])
 ```
 
-## Classes:
+### Accessing
+Once components are created we can access them using their ID like so:
 
-### FF::Entities
-`WARNING: POTENTIALLY OUT OF DATE`
 ```ruby
-FF::Ent.new(@component1, @component2)
-@entity = FF::Ent.get(entity_id)
-FF::Ent.delete(entity_id)
-@entity.id # => unique entity id
+@entity = FelFlame::Entities[2]
+```
 
+### Get ID
+Entity ID's are generated starting from 0 and ascending, unless if there is a missing ID because of a deleted
+entity where a new entity will claim that ID. To get the ID of an Entity:
+
+```ruby
+@entity.id
+```
+
+### Adding and Removing Components
+We can still add or remove Components from an Entity after it has been created. Here is how:
+
+```ruby
 @entity.add @component
 @entity.remove @component
-@entity.dump # => [:id, :scenes, :components]
-FF::Ent.load @entity_dump
 ```
 
-### FF::Components
-`WARNING: POTENTIALLY OUT OF DATE`
-```ruby
-FF::Cmp.new('Name', 'param1', param2: 'default')
-FF::Cmp::Name.new(param1: value1)
-@component = FF::Cmp::Name.get(component_id)
-FF::Cmp::Name.get_by_entity(entity_id) # gets array of components
-@component.set(param2: 'not default')
-@component.param2 = 'different not default'
-FF::Cmp::Name.detach(entity_id: ent_id, component_id: cmp_id)
-FF::Cmp::Name.remove_entity(entity_id) # Removes entity from any components
-FF::Cmp::Name.delete_component(component_id) # deletes component and removes from all relevant entities
-@component.dump # returns hash of all variables!(and the id)
-FF::Cmp::Name.load @component_dump
+### Deletion
+To have all Components from an Entity removed and the Entity deleted we do the following:
 
-FF::Cmp::Health.added # => returns values for sys to setup
-FF::Cmp::Health.removed # => returns values for sys to setup
-FF::Cmp::Health.is_set('var') # => returns values for sys to setup
+```ruby
+@entity.delete
 ```
 
-### FF::Systems
+## Components
+
+### Creating a Component Manager
+Components are where all the data is stored. The data is stored in variables or accessors in each component.
+These accessors and their defaults are configured when a component manager is created, like so:
+
 ```ruby
-FF::Sys.new(name: 'Render', position: 5, frame: 1) do
-  @component.each do
-    # functionality
+@component_manager = FelFlame::Components.new('Stats', :armour, hp: 100)
+```
+
+In this example we created a component manager called "Stats".
+The name given to component managers must follow the same rules for naming constants in ruby for a reason you will shortly see.
+The parameters following are all creating the attributes we can set.
+We can set any number of parameters we wish, in this example we define two.
+The `:armour` parameter is being created without a default, it will equal to `nil` when a new component is created, while `hp` will be equal to 100 when a component is created.
+When defining attributes symbols should be used.
+
+### Creating a Component from a Component Manager
+Now that we have a component manager we can make components from it like so:
+
+```ruby
+@component = FelFlame::Components::Stats.new
+```
+
+Or we can even change the defaults:
+
+```ruby
+@component = FelFlame::Components::Stats.new(armour: 'steel')
+```
+
+### Accessing and Getting ID
+Just like Entities, Components have IDs.
+These IDs are only unique within the scope of their respective Component Managers.
+Here is how we can get the ID, as well as how to access a Component from its Component Manager.
+
+```ruby
+@component = FelFlame::Components::Stats[2]
+@component.id # => 2
+```
+
+### Accessing Attributes and Changing Them
+There are a few different ways we can read or change the attributes of a component depending on what our needs are.
+Here are the ways to edit attrubutes, followed by the ways to read them.
+```ruby
+@component.armour = 'Mythril'
+@component.update_attrs(armour: 'Leather', hp: 95)
+```
+```ruby
+@component.hp # => 95
+@component.attrs # => {armour: 'Leather', hp: 95}
+```
+
+### Deleting Components
+Deleting a Component is the same format as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
+
+```ruby
+@component.delete
+```
+
+### Iterating over Components
+When you make Systems you will want to be able to iterate over all Components of the same Component Manager(for example iterating over all sprites to render them). Here is how we do that:
+```ruby
+FelFlame::Components::Sprites.each do |component|
+  #do something with components
+end
+```
+
+## Systems
+
+### Creation
+We can create Systems like so:
+
+```ruby
+FelFlame::Systems.new(name: 'Render', priority: 2) do
+  # Code and Logic
+end
+```
+
+The name we assign is how we can access the System, like so:
+
+```ruby
+FelFlame::Systems::Render
+```
+Priority determines the order Systems should be executed, this is used for `Scenes` and the `Stage`.
+The lower the number, the earlier a given System will be executed.
+E.g priority 1 will go first, priority 2 will go second, etcetera.  
+
+Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
+
+```ruby
+FelFlame::Systems.new(name: 'Render', priority: 2) do
+  FelFlame::Components::Sprites.each do |component|
+    # do something with these components
   end
 end
-
-# for all components belonging to a certain component manager
-FF::Sys::Render.trigger_when_added FF::Cmp::Health
-FF::Sys::Render.trigger_when_removed FF::Cmp::Health
-FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health, 'var')
-FF::Sys::Render.clear_triggers FF::Cmp::Health # clears all triggers
-FF::Sys::Render.clear_triggers (FF::Cmp::Health, :added)
-FF::Sys::Render.clear_triggers (FF::Cmp::Health, :removed)
-FF::Sys::Render.clear_triggers (FF::Cmp::Health, :is_set, 'var')
-
-# for specific components
-FF::Sys::Render.trigger_when_added FF::Cmp::Health[3]
-FF::Sys::Render.trigger_when_removed FF::Cmp::Health[3]
-FF::Sys::Render.trigger_when_is_set(FF::Cmp::Health[3], 'var')
-FF::Sys::Render.clear_triggers FF::Cmp::Health[3] # clears all triggers
-FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :added)
-FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :removed)
-FF::Sys::Render.clear_triggers (FF::Cmp::Health[3], :is_set, 'var')
 ```
 
-### FF::Scenes
+### Execution
+After we create a System, it won't do anything on its own until we tell it to. Here is how:
+
 ```ruby
-FF::Scn.new(name: 'Scene1', position: 1)
-FF::Scn::Scene1.add @entity
-FF::Scn::Scene1.add FF::Sys::Render
-FF::Scn::Scene1.entities # => [id_1, id_7, etc]
-FF::Scn::Scene1.systems # => [:Render, :Damage, etc]
-FF::Scn::Scene1.dump # => [:name, :entities, :systems]
-FF::Scn::Scene1.load @scene_dump
+FelFlame::Systems::Render.call
 ```
 
-### FF::Stage
+Sometimes you might want to manually activate a System, but the more common way to have Systems be triggered is to use Scenes and the Stage or the alternative ways of execution.
+
+### Alternative Execution
+Sometimes you want a System to automatically trigger when a special even happens. FelFlame can keep track of when a Component is added, removed, or when an attribute is changed and then execute Systems linked to these events. Here is how to create these links:
+
 ```ruby
-FF::Stg.add FF::Scn::Scene1
-FF::Stg.remove FF::Scn::Scene1
-FF::Stg.scene # => [:Scene1, :Scene2, etc]
-FF::Stg.dump # => [:Scene1, :Scene2, etc]
-FF::Stg.load @stage_dump
-FF::Stg.clear
+# When this Component is added to an Entity, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_added(@component)
+
+# When this Component is removed from an Entity, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_removed(@component)
+
+# When this Component's health attribute is changed, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_is_set(@component, :health)
 ```
 
-### FelFlame
-```ruby
-FF.dump # => all data
-FF.load @felflame_dump
-```
----
-![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
-![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
-![blank](https://filestorage.catgirls.rodeo/images/whitespace.png)  
----
-# Ramblings:
-Was my originally written up specs. Rewrote it as what is written above to be more clear.
-The below are more verbose but not as helpful for me for implementation. Once the framework is
-complete I will use a more verbose explanation as below to help users of the framework.
-
----
-
-Creating Entities:
+If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:
 
 ```ruby
-# Plain:
-@my_entity = FF:Ent.new
+# When a Component from this Component Manager is added to an Entity, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_added(@component_manager)
 
-# With components:
-FF::Ent.new(FF::Cmp::Position.new(var1: 'val', var3: 'change_default'),
-	    FF::Cmp::Health.new(hp: 20),
-	    FF::Cmp::Poison.new(dps: 3),
-	    FF::Cmp::Poison.new(dps: 2), # This entity has 2 of the same component in it!
-	    FF::Cmp::Selection.get(component_id)) # Components can belong to multiple entities, this component already existed elsewhere!
+# When a Component from this Component Manager is removed from an Entity, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_removed(@component_manager)
+
+# When this Component's health attribute from this Component Manager is changed, this System will be called
+FelFlame::Systems::PassiveRegen.trigger_when_is_set(@component_manager, :health)
 ```
 
-Adding and Removing Components from Entities:
+We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers
+
+### Clearing Alternative Executions
+
+If we wish to remove these links that we created, we can do that using the follwing function in any of the following ways:
+
 ```ruby
-@my_entity = FF::Ent.get(entity_id)
+# clears ALL triggers with this system
+FelFlame::Systems::PassiveRegen.clear_triggers
 
-@my_entity.remove(component_id)
-# Remove the specific component with that id
+# clears ALL triggers with this Component Manager
+FelFlame::Systems::PassiveRegen.clear_triggers(@component)
 
-@my_entity.remove(FF::Cmp::Poison)
-# Removes all components of that type
+# clear the 'trigger_when_added' for this Component
+FelFlame::Systems::PassiveRegen.clear_triggers(@component, :added)
 
-@my_entity.add(FF::Cmp::Selection.new)
-# Adds a new Component
+# clear the 'trigger_when_removed' for this Component
+FelFlame::Systems::PassiveRegen.clear_triggers(@component, :removed)
+
+# clear the 'trigger_when_is_set' for this Component specifically for the health attribute
+FelFlame::Systems::PassiveRegen.clear_triggers(@component, :is_set, :health)
 ```
 
-Creating Component Class:
+Likewise we can do the same with Component Managers:
 
 ```ruby
-# Creating a component 'factory':
-FF::Cmp.new('Name', 'var1', 'var2',  var3: 'default') # Name, *no_default, **with_default
+# clears ALL triggers with this Component
+FelFlame::Systems::PassiveRegen.clear_triggers(@component_manager) 
+
+# clear the 'trigger_when_added' for this Component Manager
+FelFlame::Systems::PassiveRegen.clear_triggers(@component_manager, :added) 
+
+# clear the 'trigger_when_removed' for this Component Manager
+FelFlame::Systems::PassiveRegen.clear_triggers(@component_manager, :removed) 
+
+# clear the 'trigger_when_is_set' for this Component Manager specifically for the health attribute
+FelFlame::Systems::PassiveRegen.clear_triggers(@component_manager, :is_set, :health) 
 ```
 
-And then using those components:
-```ruby
-@new_cmp = FF::Cmp::Name.new(var1: 'oke') # var3 will be 'default', var2 will be nil
-@new_cmp.var2 = 3 # now var2 is set
-@new_cmp.set(var1: 'nope', var3: 'different') # var1 and var3 are now changed!
-@new_cmp.to_hash # returns the hash of all variables!
-```
+### Redefinition
 
-Referencing Components:
-```ruby
-FF::Cmp::Name.get(component_id) # gets component by their unique id
-FF::Cmp::Name.get_by_entity(entity_id) # gets component that is attached to the entitry
-# will return array of components if there is multiple of same component
-# if it returns array, see the `dump` section. Need to add custom method to the array
-```
+If we wanted to change what code or logic a given System executes, we could do that with:
 
-Creating Systems:
 ```ruby
-FF::Sys.new(name: 'Render', position: 5, frame: 1) do 
-# position is the order in which systems get executed, can be overlapping but then order is unexpected between same positions
-# frame is on which frame the system will be called. 0 is never, 1 is on each frame, 2 is every other frame, etc
-	FF::Cmp::Position.each do
-		#render your sprite
-	end
+FelFlame::Systems::PassiveRegen.redefine do
+  # Some new logic or code
 end
 ```
 
-Enabling Systems:
-```ruby
-# By default systems are not enabled. You need to add them to a scene
-FF::Scn::Scene1.add FF::Sys::Render
+## Scenes
 
-# They can also be disabled by removing them
-FF::Scn::Scene1.remove FF::Sys::Render
+### Creation
+Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that [Alternative Executions](#alternative-execution) will occur even if they are not part of a Scene. Here is how we make a new Scene:
+
+```ruby
+@scene = FelFlame::Scenes.new('ExampleScene')
 ```
 
-Custom Hooks:
+### Accessing
+Just like other classes in FelFlame, the name we gave the Scene is how we access it:
+
 ```ruby
-# Systems can be configured to be called whenever a certain component is added, removed or set
-FF::Sys::Damage.trigger_when FF::Cmp::Health.added
-FF::Sys::Revive.trigger_when FF::Cmp::Health.removed
-FF::Sys::Healup.trigger_when FF::Cmp::Health.is_set
-		
-# Systems can also be manually called so you can code custom hooks!
-FF::Sys::Restore.run
+@scene = FelFlame::Scenes::ExampleScene
 ```
 
-Scenes contain Entities and Systems
+### Adding Systems
+Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:
+
 ```ruby
-FF::Scn.new(name: 'Scene1', position: 1)
-# Multiple scenes could be ran at once, if they do then they will run according
-# to their positions as explained above
-
-FF::Scn::Scene1.add FF::Entity.get(entity_id)
-# You can also just pass the id on its own => FF::Scn::Scene1.add entity_id
-FF::Scn::Scene1.add FF::Entity.new
-
-FF::Scn::Scene1.add FF::Sys::Render
+FelFlame::Scenes::ExampleScene.add(FelFlame::Systems::Render, @system2, @system3)
 ```
 
-To List Systems and Enties
+### Removing Systems
+Removing Systems works simularly:
+
 ```ruby
-FF::Scn::Scene1.get_entities # => [id_1, id_7, etc]
-FF::Scn::Scene1.get_systems  # => [:Render, :Damage, etc]
+FelFlame::Scenes::ExampleScene.remove(FelFlame::Systems::Render, @system2, @system3)
 ```
 
-To run a Scene it must be added to the Stage
+### Clearing
+If you want to remove all Systems from a Scene here is how we do it:
+
 ```ruby
-FF::Stg.add FF::Scn::Scene1
+@scene.clear
 ```
 
-Or remove it:
+### Execution
+To execute all Systems within a scene once we can just do:
+
 ```ruby
-FF::Stg.remove FF::Scn::Scene1
+@scene.call
 ```
 
-Show all Scenes on the Stage:
+The Scene will make sure that the systems are executed in the correct order based on their given priorities
+
+## Stage
+
+### Adding Scenes
+Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is active. To add a Scene we do the following:
+
 ```ruby
-FF::Stg.scenes # => [:Scene1, :Scene2, etc]
+FelFlame::Stage.add FelFlame::Scene::ExampleScene
 ```
 
-Remove all Scenes from the Stage:
+### Removing Scenes
+Likewise we can remove Scenes:
+
 ```ruby
-FF::Stg.clear
+FelFlame::Stage.remove FelFlame::Scene::ExampleScene
 ```
 
-You can save the current game state:
+### Executing
+On each frame of the game we want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will make sure for you that all the Systems from all Scenes added will be executed in the correct order according to their priority. Here is how we do it:
+
 ```ruby
-@json_save_data = FF.dump
+FelFlame::Stage.call
 ```
 
-You can also specifically choose what you want to save:
-```ruby
-@hash_entity = FF::Ent.get(entity_id).dump
-# to save all components related to a player
+## Closing Notes
 
-@hash_component_single = FF::Cmp::Health.get(component_id).dump
-# save all data in the single component(needs to handle arrays of components)
+There are some methods I haven't gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://rubydoc.info/github/realtradam/FelFlame/master/frames)!
 
-@hash_component = FF::Cmp::Health.dump
-# save all components of a certain component type
+# Contribution
+Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  
 
-@hash_components_all = FF::Cmp.dump
-# save all components
+If you need help writing documentation or tests feel free to ask!  
 
-@hash_scene = FF::Scn::Scene1.dump
-# save all entities, components, and activated systems in a given scene
-```
-
-And then they can be loaded back in:
-```ruby
-FF::Ent.load(@hash_entity)
-FF::Cmp::Health.load(@hash_component)
-FF::Cmp.load(@hash_component)
-FF::Cmp.load(@hash_components_all)
-FF::Scn.load(@Hash_scene)
-```
-
-### To Do List(old)
-
----
-
-* [ ] Some level of hierarchical support?
-* [ ] One Component to many entities.
-* [ ] Multiple of same component to one entity
-* [ ] State Machine?
-* [ ] Systems execute code on an event
-	* [ ] Adding/removing/setting component is event
-	* [ ] Frame is an event
-* [ ] System Execution Order
-* [ ] Save Dump/Load
-
-
-
-
-
-
-
-
-
-
-
+If you want to contribute to development with a thanks you can always [buy me a coffee ;^)](https://ko-fi.com/tradam)
