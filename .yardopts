@@ -1,0 +1,13 @@
+--readme README.mdown
+--markup=markdown|textile|rdoc(default)
+--protected
+--no-private
+
+LICENSE
+README.mdown
+system_manager.rb
+component_manager.rb
+entity_manager.rb
+scene_manager.rb
+stage_manager.rb
+felflame.rb
