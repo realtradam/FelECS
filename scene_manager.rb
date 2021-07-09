@@ -3,6 +3,10 @@ class FelFlame
     # The Constant name assigned to this Scene
     attr_reader :const_name
 
+    # Allows overwriting the storage of systems, such as for clearing.
+    # This method should generally only need to be used internally and
+    # not by a game developer/
+    # @!visibility private
     attr_writer :systems
 
     # Create a new Scene using the name given
