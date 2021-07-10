@@ -41,9 +41,8 @@ class FelFlame
     # @return [Boolean] +true+
     def delete
       components.each do |component_manager, component_array|
-        component_array.each do |component_id|
-          component_manager[component_id].entities.delete(id)
-          #self.remove FelFlame::Components.const_get(component_manager.name)[component_id]
+        component_array.each do |component|
+          component.entities.delete(self)
         end
       end
       FelFlame::Entities.data[id] = nil
@@ -58,12 +57,12 @@ class FelFlame
     def add(*components_to_add)
       components_to_add.each do |component|
         if components[component.class].nil?
-          components[component.class] = [component.id]
-          component.entities.push id
+          components[component.class] = [component]
+          component.entities.push self
           check_systems component, :addition_triggers
-        elsif !components[component.class].include? component.id
-          components[component.class].push component.id
-          component.entities.push id
+        elsif !components[component.class].include? component
+          components[component.class].push component
+          component.entities.push self
           check_systems component, :addition_triggers
         end
       end
@@ -87,9 +86,9 @@ class FelFlame
     # @return [Boolean] +true+
     def remove(*components_to_remove)
       components_to_remove.each do |component|
-        check_systems component, :removal_triggers if component.entities.include? id
-        component.entities.delete id
-        components[component.class].delete component.id
+        check_systems component, :removal_triggers if component.entities.include? self
+        component.entities.delete self
+        components[component.class].delete component
       end
       true
     end

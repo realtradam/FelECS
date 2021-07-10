@@ -8,6 +8,34 @@
 ![Deprecated](https://img.shields.io/badge/-Deprecated-orange)
 ![Removed](https://img.shields.io/badge/-Removed-red)
 
+## [2.0.0](https://github.com/realtradam/FelFlame/releases/tag/2.0.0) - 2021-07-10
+![Changed](https://img.shields.io/badge/-Changed-yellow)
+- Entities and Components now reference each other using the objects themselves rather then their id's
+```ruby
+# before:
+@entity.components[@component_manager].each do |component_id|
+  # iterate over id's, usually would need to do a lookup to get the component itself
+end
+
+# after:
+@entity.components[@component_manager].each do |component|
+  # iterate over the components themselves! No need for lookup anymore
+end
+```
+```ruby
+# same for components referencing entities
+# before:
+@component.entities.each do |entity_id|
+  #iterate over id's
+end
+
+# after:
+@component.entities.each do |entity|
+  # directly iterate over entities themselves!
+end
+```
+  
+
 ## [1.0.2](https://github.com/realtradam/FelFlame/releases/tag/1.0.2) - 2021-07-09
 ![Fixed](https://img.shields.io/badge/-Fixed-blue)
 - Stripped superflous files shrinking gem size significantly

@@ -46,12 +46,12 @@ describe 'Entities' do
 
   it 'can have components attached' do
     @ent0.add @cmp0
-    expect(@ent0.components[@component_manager][0]).to eq(@cmp0.id)
+    expect(@ent0.components[@component_manager][0]).to eq(@cmp0)
 
     @ent1.add @cmp1, @cmp2
     expect(@ent1.components[@component_manager].length).to eq(2)
-    expect(@ent1.components[@component_manager].include?(@cmp1.id)).to be true
-    expect(@ent1.components[@component_manager].include?(@cmp2.id)).to be true
+    expect(@ent1.components[@component_manager].include?(@cmp1)).to be true
+    expect(@ent1.components[@component_manager].include?(@cmp2)).to be true
   end
 
   it 'can get id from to_i' do
@@ -71,16 +71,16 @@ describe 'Entities' do
     @ent0.add @cmp0, @cmp1, @cmp2
     @ent1.add @cmp0, @cmp1
     @ent2.add @cmp1, @cmp2
-    expect(@ent0.components).to eq({@component_manager => [0,1,2]})
-    expect(@cmp0.entities).to eq([0,1])
-    expect(@cmp1.entities).to eq([0,1,2])
-    expect(@cmp2.entities).to eq([0,2])
+    expect(@ent0.components).to eq({@component_manager => [@cmp0,@cmp1,@cmp2]})
+    expect(@cmp0.entities).to eq([@ent0,@ent1])
+    expect(@cmp1.entities).to eq([@ent0,@ent1,@ent2])
+    expect(@cmp2.entities).to eq([@ent0,@ent2])
     @ent1.delete
-    expect(@cmp0.entities).to eq([0])
-    expect(@cmp1.entities).to eq([0,2])
-    expect(@cmp2.entities).to eq([0,2])
+    expect(@cmp0.entities).to eq([@ent0])
+    expect(@cmp1.entities).to eq([@ent0,@ent2])
+    expect(@cmp2.entities).to eq([@ent0,@ent2])
     @cmp1.delete
-    expect(@ent0.components).to eq({@component_manager => [0,2]})
+    expect(@ent0.components).to eq({@component_manager => [@cmp0,@cmp2]})
     @component_manager.each(&:delete)
     expect(@component_manager.each.to_a).to eq([])
     expect(@ent0.components).to eq({@component_manager => []})

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    felflame (1.0.2)
+    felflame (2.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -18,10 +18,10 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     parallel (1.20.1)
-    parser (3.0.1.1)
+    parser (3.0.2.0)
       ast (~> 2.4.1)
     rainbow (3.0.0)
-    rake (13.0.3)
+    rake (13.0.6)
     redcarpet (3.5.1)
     regexp_parser (2.1.1)
     rexml (3.2.5)
@@ -38,7 +38,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.17.0)
+    rubocop (1.18.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)

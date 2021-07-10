@@ -26,6 +26,7 @@
 		- [Accessing](#accessing)
 		- [Get ID](#get-id)
 		- [Adding and Removing Components](#adding-and-removing-components)
+		- [Accessing Entities' Attached Components](#accessing-entities-attached-components)
 		- [Deletion](#deletion)
 	* [Components](#components-1)
 		- [Creating a Component Manager](#creating-a-component-manager)
@@ -34,6 +35,7 @@
 		- [Accessing Attributes and Changing Them](#accessing-attributes-and-changing-them)
 		- [Deleting Components](#deleting-components)
 		- [Iterating over Components](#iterating-over-components)
+		- [Accessing Components' attached Entities](#accessing-components-attached-entities)
 	* [Systems](#systems-1)
 		- [Creation](#creation-1)
 		- [Execution](#execution)
@@ -142,6 +144,13 @@ We can still add or remove Components from an Entity after it has been created. 
 @entity.remove @component
 ```
 
+### Accessing Entities' Attached Components
+When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:
+
+```ruby
+@entity.components[@component_manager] # => [@component1, @component2, component3]
+```
+
 ### Deletion
 To have all Components from an Entity removed and the Entity deleted we do the following:
 
@@ -210,11 +219,20 @@ Deleting a Component is the same format as deleting an Entity. When a Component 
 
 ### Iterating over Components
 When you make Systems you will want to be able to iterate over all Components of the same Component Manager(for example iterating over all sprites to render them). Here is how we do that:
+
 ```ruby
 FelFlame::Components::Sprites.each do |component|
   #do something with components
 end
 ```
+
+### Accessing Components' attached Entities
+Components also keep track of what Entities are using it. To access this list we do the following:
+
+```ruby
+@component.entities # => [@entity1, @entity2, @entity3]
+```
+
 
 ## Systems
 

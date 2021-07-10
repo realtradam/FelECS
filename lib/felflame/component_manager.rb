@@ -220,8 +220,9 @@ class FelFlame
       # the remove command is called, breaking the loop if it
       # wasn't referencing a clone(will get Nil errors)
       iter = entities.map(&:clone)
-      iter.each do |entity_id|
-        FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
+      iter.each do |entity|
+        #FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
+        entity.remove self
       end
       self.class.data[id] = nil
       instance_variables.each do |var|
