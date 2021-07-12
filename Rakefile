@@ -26,7 +26,7 @@ namespace :coverage do
 end
 
 YARD::Rake::YardocTask.new do |t|
-  t.files = ['system_manager.rb', 'component_manager.rb', 'entity_manager.rb', 'scene_manager.rb', 'stage_manager.rb', 'felflame.rb']
+  t.files = ['lib/felflame.rb', 'lib/felflame/*'] # ['system_manager.rb', 'component_manager.rb', 'entity_manager.rb', 'scene_manager.rb', 'stage_manager.rb', 'felflame.rb']
   t.options = ['--output-dir', './docs', 'yardoc --markup=markdown|textile|rdoc(default)']
   t.stats_options = ['--list-undoc']
 end

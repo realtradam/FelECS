@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>component_manager.rb</dd>
+    <dd>lib/felflame/component_manager.rb</dd>
   </dl>
   
 </div>
@@ -617,10 +617,6 @@
       <pre class="lines">
 
 
-100
-101
-102
-103
 104
 105
 106
@@ -635,10 +631,14 @@
 115
 116
 117
-118</pre>
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_attrs'>attrs</span><span class='rparen'>)</span>
   <span class='comment'># Prepare the object
@@ -710,12 +710,12 @@
       <pre class="lines">
 
 
-132
-133
-134</pre>
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 136</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -766,12 +766,12 @@
       <pre class="lines">
 
 
-148
-149
-150</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -822,12 +822,12 @@
       <pre class="lines">
 
 
-140
-141
-142</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -883,12 +883,12 @@
       <pre class="lines">
 
 
-77
-78
-79</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -939,12 +939,12 @@
       <pre class="lines">
 
 
-93
-94
-95</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -995,12 +995,12 @@
       <pre class="lines">
 
 
-59
-60
-61</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span>
   <span class='ivar'>@id</span>
@@ -1051,12 +1051,12 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1141,12 +1141,12 @@
       <pre class="lines">
 
 
-165
-166
-167</pre>
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span><span class='lparen'>(</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_component_id'>component_id</span><span class='rbracket'>]</span>
@@ -1195,12 +1195,12 @@
       <pre class="lines">
 
 
-172
-173
-174</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -1260,18 +1260,18 @@
       <pre class="lines">
 
 
-199
-200
-201
-202
 203
 204
 205
 206
-207</pre>
+207
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_changed_trigger_systems'>attr_changed_trigger_systems</span><span class='lparen'>(</span><span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_systems_to_execute'>systems_to_execute</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span>
@@ -1331,16 +1331,16 @@
       <pre class="lines">
 
 
-230
-231
-232
-233
-234
 235
-236</pre>
+236
+237
+238
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 235</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attrs'>attrs</span>
   <span class='id identifier rubyid_return_hash'>return_hash</span> <span class='op'>=</span> <span class='id identifier rubyid_instance_variables'>instance_variables</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_final'>final</span><span class='op'>|</span>
@@ -1398,10 +1398,6 @@
       <pre class="lines">
 
 
-211
-212
-213
-214
 215
 216
 217
@@ -1414,10 +1410,15 @@
 224
 225
 226
-227</pre>
+227
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
   <span class='id identifier rubyid_addition_triggers'>addition_triggers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_system'>system</span><span class='op'>|</span>
@@ -1427,9 +1428,10 @@
 </span>  <span class='comment'># the remove command is called, breaking the loop if it
 </span>  <span class='comment'># wasn&#39;t referencing a clone(will get Nil errors)
 </span>  <span class='id identifier rubyid_iter'>iter</span> <span class='op'>=</span> <span class='id identifier rubyid_entities'>entities</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:clone</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_iter'>iter</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Entities.html" title="FelFlame::Entities (class)">Entities</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_entity_id'>entity_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='kw'>self</span> <span class='comment'>#unless FelFlame::Entities[entity_id].nil?
-</span>  <span class='kw'>end</span>
+  <span class='id identifier rubyid_iter'>iter</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_entity'>entity</span><span class='op'>|</span>
+    <span class='comment'>#FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
+</span>    <span class='id identifier rubyid_entity'>entity</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='kw'>self</span>
+  <span class='kw'>end</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_instance_variables'>instance_variables</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_var'>var</span><span class='op'>|</span>
     <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='id identifier rubyid_var'>var</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
@@ -1480,12 +1482,12 @@
       <pre class="lines">
 
 
-185
-186
-187</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_entities'>entities</span>
   <span class='ivar'>@entities</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1534,12 +1536,12 @@
       <pre class="lines">
 
 
-179
-180
-181</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_i'>to_i</span>
   <span class='id identifier rubyid_id'>id</span>
@@ -1593,14 +1595,14 @@
       <pre class="lines">
 
 
-191
-192
-193
-194
-195</pre>
+195
+196
+197
+198
+199</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'component_manager.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/component_manager.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_attrs'>update_attrs</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1617,7 +1619,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  9 01:56:54 2021 by
+  Generated on Mon Jul 12 04:07:52 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

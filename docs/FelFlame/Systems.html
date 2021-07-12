@@ -99,8 +99,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>felflame.rb<span class="defines">,<br />
-  system_manager.rb</span>
+    <dd>lib/felflame.rb<span class="defines">,<br />
+  lib/felflame/system_manager.rb</span>
 </dd>
   </dl>
   
@@ -594,7 +594,7 @@
 76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
@@ -658,7 +658,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -714,7 +714,7 @@
 44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -757,7 +757,7 @@
 9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_const_name'>const_name</span>
   <span class='ivar'>@const_name</span>
@@ -800,7 +800,7 @@
 6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_priority'>priority</span>
   <span class='ivar'>@priority</span>
@@ -856,7 +856,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -917,7 +917,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sym'>sym</span><span class='op'>|</span> <span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
@@ -964,7 +964,7 @@
 81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='ivar'>@block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
@@ -1146,7 +1146,7 @@
 177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='comma'>,</span> <span class='label'>component_or_manager:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1271,7 +1271,7 @@
 86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_redefine'>redefine</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
@@ -1352,7 +1352,7 @@
 186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_added'>trigger_when_added</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_addition_triggers'>addition_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
@@ -1423,7 +1423,7 @@
 211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_is_changed'>trigger_when_is_changed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='comma'>,</span> <span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1514,7 +1514,7 @@
 195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'system_manager.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_removed'>trigger_when_removed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_removal_triggers'>removal_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
@@ -1531,7 +1531,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  9 01:56:54 2021 by
+  Generated on Mon Jul 12 04:07:52 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

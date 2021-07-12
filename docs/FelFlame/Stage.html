@@ -94,8 +94,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>felflame.rb<span class="defines">,<br />
-  stage_manager.rb</span>
+    <dd>lib/felflame.rb<span class="defines">,<br />
+  lib/felflame/stage_manager.rb</span>
 </dd>
   </dl>
   
@@ -310,7 +310,7 @@
 60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'stage_manager.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scenes'>scenes</span>
   <span class='ivar'>@scenes</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -381,7 +381,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'stage_manager.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='op'>|=</span> <span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span>
@@ -446,7 +446,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'stage_manager.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:call</span><span class='rparen'>)</span>
@@ -508,7 +508,7 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'stage_manager.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
@@ -571,7 +571,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'stage_manager.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_scenes_to_remove'>scenes_to_remove</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='op'>-=</span> <span class='id identifier rubyid_scenes_to_remove'>scenes_to_remove</span>
@@ -588,7 +588,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  9 01:56:54 2021 by
+  Generated on Mon Jul 12 04:07:52 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
