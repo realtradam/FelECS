@@ -53,7 +53,7 @@ FF::Cmp = FelFlame::Components
 FF::Sys = FelFlame::Systems
 
 # An alias for {FelFlame::Scenes}
-FF::Sce = FelFlame::Scenes
+FF::Scn = FelFlame::Scenes
 
 # An alias for {FelFlame::Stage}
 FF::Stg = FelFlame::Stage

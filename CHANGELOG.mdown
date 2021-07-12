@@ -8,6 +8,10 @@
 ![Deprecated](https://img.shields.io/badge/-Deprecated-orange)
 ![Removed](https://img.shields.io/badge/-Removed-red)
 
+## [3.0.0](https://github.com/realtradam/FelFlame/releases/tag/3.0.0) - 2021-07-12
+![Changed](https://img.shields.io/badge/-Changed-yellow)
+- The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive.
+
 ## [2.0.0](https://github.com/realtradam/FelFlame/releases/tag/2.0.0) - 2021-07-10
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
 - Entities and Components now reference each other using the objects themselves rather then their id's
