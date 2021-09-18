@@ -1,5 +1,5 @@
-
-![FelFlame](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png)
+![FelFlame](https://raw.githubusercontent.com/realtradam/FelFlame/master/logos/felflame-logo-text.png)
+<!-- ![FelFlame](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
