@@ -64,7 +64,7 @@ FelFlame is an ECS framework for developing games in the Ruby language. FelFlame
 
 1. **Engine Agnostic:** FelFlame has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as [Ruby2D](http://www.ruby2d.com) or [DRGTK](https://dragonruby.org/toolkit/game) with little modifications.
 2. **Easily Extensible:** FelFlame has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.
-3. **Priciple of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
+3. **Principle of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
 
 # What is ECS?
 ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.  
@@ -240,7 +240,7 @@ Components also keep track of what Entities are using it. To access this list we
 We can create Systems like so:
 
 ```ruby
-FelFlame::Systems.new(name: 'Render', priority: 2) do
+FelFlame::Systems.new('Render', priority: 2) do
   # Code and Logic
 end
 ```
@@ -257,7 +257,7 @@ E.g priority 1 will go first, priority 2 will go second, etcetera.
 Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
 
 ```ruby
-FelFlame::Systems.new(name: 'Render', priority: 2) do
+FelFlame::Systems.new('Render', priority: 2) do
   FelFlame::Components::Sprites.each do |component|
     # do something with these components
   end
