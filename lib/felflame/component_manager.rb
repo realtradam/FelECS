@@ -60,13 +60,13 @@ class FelFlame
 
     # Holds the {id unique ID} of a component. The {id ID} is only unique within the scope of the component manager it was created from.
     # @return [Integer]
-    attr_reader :id
+    #attr_reader :id
 
     # A seperate attr_writer was made for documentation readability reasons.
     # Yard will list attr_reader is readonly which is my intention.
     # This value needs to be changable as it is set by other functions.
     # @!visibility private
-    attr_writer :id
+    #attr_writer :id
 
     # Allows overwriting the storage of triggers, such as for clearing.
     # This method should generally only need to be used internally and
@@ -108,9 +108,9 @@ class FelFlame
       set_defaults
 
       # Generate ID
-      new_id = self.class.data.find_index { |i| i.nil? }
-      new_id = self.class.data.size if new_id.nil?
-      @id = new_id
+      #new_id = self.class.data.find_index { |i| i.nil? }
+      #new_id = self.class.data.size if new_id.nil?
+      #@id = new_id
 
       # Fill params
       attrs.each do |key, value|
@@ -118,10 +118,22 @@ class FelFlame
       end
 
       # Save Component
-      self.class.data[new_id] = self
+      #self.class.data[new_id] = self
+      self.class.push self
     end
 
     class <<self
+
+      # Allows using the manager as an array of components. Forwards any
+      # method calls to the array stored in the component manager
+      def respond_to_missing?(method, *args, &block)
+        puts 'got here'
+        if self.data.respond_to? method
+          self.data.send(symbol, *args, &block)
+        else
+          super
+        end
+      end
 
       # Allows overwriting the storage of triggers, such as for clearing.
       # This method should generally only need to be used internally and
@@ -166,23 +178,23 @@ class FelFlame
       #   FelFlame::Components::Health[7]
       # @param component_id [Integer]
       # @return [Component] Returns the Component that uses the given unique {id ID}, nil if there is no Component associated with the given {id ID}
-      def [](component_id)
-        data[component_id]
-      end
+      #def [](component_id)
+      #  data[component_id]
+      #end
 
       # Iterates over all components within the component manager.
       # Special Enumerable methods like +map+ or +each_with_index+ are not implemented
       # @return [Enumerator]
-      def each(&block)
-        data.compact.each(&block)
-      end
+      #def each(&block)
+      #  data.compact.each(&block)
+      #end
     end
 
     # An alias for the {id ID Reader}
     # @return [Integer]
-    def to_i
-      id
-    end
+    #def to_i
+    #  id
+    #end
 
     # A list of entity ids that are linked to the component
     # @return [Array<Integer>]
@@ -224,7 +236,7 @@ class FelFlame
         #FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
         entity.remove self
       end
-      self.class.data[id] = nil
+      self.class.delete self
       instance_variables.each do |var|
         instance_variable_set(var, nil)
       end
