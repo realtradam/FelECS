@@ -14,7 +14,7 @@ class FelFlame
 
     def priority=(priority)
       @priority = priority
-      FelFlame::Stage.systems.sort_by!(&:priority)
+      FelFlame::Stage.systems = FelFlame::Stage.systems.sort_by(&:priority)
     end
     # Stores references to components or their managers that trigger
     # this component when a component or component from that manager

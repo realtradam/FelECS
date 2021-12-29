@@ -388,7 +388,7 @@
   <span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scene'>scene</span><span class='op'>|</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>|=</span> <span class='id identifier rubyid_scene'>scene</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_sort_by!'>sort_by!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>=</span> <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -588,7 +588,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 12 18:28:27 2021 by
+  Generated on Wed Dec 29 06:04:55 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

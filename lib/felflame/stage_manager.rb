@@ -13,7 +13,7 @@ class FelFlame
         scenes_to_add.each do |scene|
           self.systems |= scene.systems
         end
-        systems.sort_by!(&:priority)
+        self.systems = systems.sort_by(&:priority)
         true
       end
 
@@ -34,7 +34,7 @@ class FelFlame
         scenes.each do |scene|
           self.systems |= scene.systems
         end
-        systems.sort_by!(&:priority)
+        self.systems = systems.sort_by(&:priority)
         true
       end
 

@@ -57,7 +57,9 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><p><img src="https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png" alt="FelFlame"></p>
+      <div id="content"><div id='filecontents'><p><img src="https://raw.githubusercontent.com/realtradam/FelFlame/master/logos/felflame-logo-text.png" alt="FelFlame"></p>
+
+<!-- ![FelFlame](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
 
 <p><a href="https://codeclimate.com/github/realtradam/FelFlame/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability"></a>
 <a href="https://codeclimate.com/github/realtradam/FelFlame/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage"></a>
@@ -143,7 +145,7 @@
 <ol>
 <li><strong>Engine Agnostic:</strong> FelFlame has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as <a href="http://www.ruby2d.com">Ruby2D</a> or <a href="https://dragonruby.org/toolkit/game">DRGTK</a> with little modifications.</li>
 <li><strong>Easily Extensible:</strong> FelFlame has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.</li>
-<li><strong>Priciple of (My) Least Astonishment:</strong> I want to develop games using a language and framework I love and makes sense to me, inspired by the <a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy">Philosophy of the creator of Ruby</a>.</li>
+<li><strong>Principle of (My) Least Astonishment:</strong> I want to develop games using a language and framework I love and makes sense to me, inspired by the <a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy">Philosophy of the creator of Ruby</a>.</li>
 </ol>
 
 <h1 id="what-is-ecs">What is ECS?</h1>
@@ -325,7 +327,7 @@ Here are the ways to edit attrubutes, followed by the ways to read them.</p>
 
 <p>We can create Systems like so:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Systems.html" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelFlame/Systems.html#initialize-instance_method" title="FelFlame::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Systems.html" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelFlame/Systems.html#initialize-instance_method" title="FelFlame::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='comment'># Code and Logic
 </span><span class='kw'>end</span>
 </code></pre>
@@ -341,7 +343,7 @@ E.g priority 1 will go first, priority 2 will go second, etcetera.  </p>
 
 <p>Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Systems.html" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelFlame/Systems.html#initialize-instance_method" title="FelFlame::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Systems.html" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelFlame/Systems.html#initialize-instance_method" title="FelFlame::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Components.html" title="FelFlame::Components (class)">Components</a></span></span><span class='op'>::</span><span class='const'>Sprites</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
     <span class='comment'># do something with these components
 </span>  <span class='kw'>end</span>
@@ -512,7 +514,7 @@ E.g priority 1 will go first, priority 2 will go second, etcetera.  </p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul 12 18:28:27 2021 by
+  Generated on Wed Dec 29 06:04:54 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

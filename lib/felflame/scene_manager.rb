@@ -33,7 +33,7 @@ class FelFlame
     # @return [Boolean] +true+
     def add(*systems_to_add)
       self.systems |= systems_to_add
-      systems.sort_by!(&:priority)
+      self.systems = systems.sort_by(&:priority)
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
@@ -42,7 +42,7 @@ class FelFlame
     # @return [Boolean] +true+
     def remove(*systems_to_remove)
       self.systems -= systems_to_remove
-      systems.sort_by!(&:priority)
+      self.systems = systems.sort_by(&:priority)
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
