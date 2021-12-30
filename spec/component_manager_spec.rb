@@ -1,4 +1,4 @@
-require 'felflame'
+require_relative '../lib/felflame.rb'
 
 describe 'Components' do
 
@@ -20,8 +20,21 @@ describe 'Components' do
   end
 
   after :each do
-    FelFlame::Entities.each(&:delete)
-    @component_manager.each(&:delete)
+    FelFlame::Entities.reverse_each(&:delete)
+    @component_manager.reverse_each(&:delete)
+  end
+
+  it 'responds to array methods' do
+    expect(@component_manager.respond_to?(:[])).to be true
+    expect(@component_manager.respond_to?(:each)).to be true
+    expect(@component_manager.respond_to?(:filter)).to be true
+    expect(@component_manager.respond_to?(:first)).to be true
+    expect(@component_manager.respond_to?(:last)).to be true
+    expect(@component_manager.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'dont respond to missing methods' do
+    expect { @component_manager.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can delete a component' do
@@ -47,7 +60,7 @@ describe 'Components' do
 
   it 'can change params on initialization' do
     @cmp3 = @component_manager.new(param1: 'ok', param2: 10)
-    expect(@cmp3.attrs).to eq(param1: 'ok', param2: 10)
+    expect(@cmp3.to_h).to eq(param1: 'ok', param2: 10)
   end
 
 
@@ -60,16 +73,16 @@ describe 'Components' do
     expect(@cmp2.param2).to eq('def')
   end
 
-  it 'can read attrs' do
-    expect(@cmp0.attrs).to eq(param2: 'def')
-    expect(@cmp1.attrs).to eq(param2: 'def')
-    expect(@cmp2.attrs).to eq(param2: 'def')
+  it 'can read attributes' do
+    expect(@cmp0.to_h).to eq(param2: 'def')
+    expect(@cmp1.to_h).to eq(param2: 'def')
+    expect(@cmp2.to_h).to eq(param2: 'def')
   end
 
   it 'can set attrs' do
     expect(@cmp0.param1 = 4).to eq(4)
     expect(@cmp1.update_attrs(param1: 3, param2: 'new')).to eq(param1: 3, param2: 'new')
-    expect(@cmp1.attrs).to eq(param1: 3, param2: 'new')
+    expect(@cmp1.to_h).to eq(param1: 3, param2: 'new')
   end
 
   it 'can be used as a singleton' do

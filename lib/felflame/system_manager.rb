@@ -1,4 +1,4 @@
-class FelFlame
+module FelFlame
   class Systems
     # How early this System should be executed in a list of Systems
     attr_accessor :priority

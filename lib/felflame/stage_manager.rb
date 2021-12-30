@@ -1,5 +1,5 @@
-class FelFlame
-  class Stage
+module FelFlame
+  module Stage
     class <<self
       # Allows clearing of scenes and systems.
       # Used internally by FelFlame and shouldn't need to be ever used by developers

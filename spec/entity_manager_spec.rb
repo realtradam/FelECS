@@ -1,4 +1,4 @@
-require 'felflame'
+require_relative '../lib/felflame.rb'
 
 #class EntitiesTest < Minitest::Test
 
@@ -24,9 +24,23 @@ describe 'Entities' do
   end
 
   after :each do
-    FelFlame::Entities.each(&:delete)
-    @component_manager.each(&:delete)
+    FelFlame::Entities.reverse_each(&:delete)
+    @component_manager.reverse_each(&:delete)
   end
+
+  it 'responds to array methods' do
+    expect(FelFlame::Entities.respond_to?(:[])).to be true
+    expect(FelFlame::Entities.respond_to?(:each)).to be true
+    expect(FelFlame::Entities.respond_to?(:filter)).to be true
+    expect(FelFlame::Entities.respond_to?(:first)).to be true
+    expect(FelFlame::Entities.respond_to?(:last)).to be true
+    expect(FelFlame::Entities.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'dont respond to missing methods' do
+    expect { FelFlame::Entities.somethingwrong }.to raise_error(NoMethodError)
+  end
+
 
   it 'won\'t add duplicate entities' do
     @ent0.add @cmp0, @cmp0, @cmp1, @cmp1
@@ -55,11 +69,11 @@ describe 'Entities' do
     expect(@ent1.components[@component_manager].include?(@cmp2)).to be true
   end
 
-  it 'can get id from to_i' do
-    expect(@ent0.id).to eq(@ent0.to_i)
-    expect(@ent1.id).to eq(@ent1.to_i)
-    expect(@ent2.id).to eq(@ent2.to_i)
-  end
+  #it 'can get id from to_i' do
+  #  expect(@ent0.id).to eq(@ent0.to_i)
+  #  expect(@ent1.id).to eq(@ent1.to_i)
+  #  expect(@ent2.id).to eq(@ent2.to_i)
+  #end
 
   it 'can have components removed' do
     @ent0.add @cmp0
@@ -82,16 +96,12 @@ describe 'Entities' do
     expect(@cmp2.entities).to eq([@ent0,@ent2])
     @cmp1.delete
     expect(@ent0.components).to eq({@component_manager => [@cmp0,@cmp2]})
-    @component_manager.each(&:delete)
-    $stderr.puts ('HERE HERE ' * 5)
-    $stderr.puts @component_manager
-    @component_manager.each do |component|
-      $stderr.puts component
-    end
+    @component_manager.reverse_each(&:delete)
+    expect(@component_manager.length).to eq(0)
     expect(@component_manager.empty?).to be true
     expect(@ent0.components).to eq({@component_manager => []})
     expect(@ent2.components).to eq({@component_manager => []})
-    FelFlame::Entities.each(&:delete)
+    FelFlame::Entities.reverse_each(&:delete)
     expect(FelFlame::Entities.empty?).to be true
   end
 end

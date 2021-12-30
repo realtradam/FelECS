@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="../_index.html">Index (S)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span>
+    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span>
      &raquo; 
     <span class="title">Scenes</span>
   
@@ -104,7 +104,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Creates and manages Scenes. Scenes are collections of Systems, and execute all the Systems when called upon.</p>
+<p>Creates and manages Scenes. Scenes are collections of Systems, and execute all the Systems when called upon. Any scenes you create are accessable under the <span class='object_link'><a href="" title="FelFlame::Scenes (class)">Scenes</a></span> namespace as Constants.</p>
 
 <p>TODO: Improve Scenes overview</p>
 
@@ -308,7 +308,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Removes any number of SystemS from this Scene.</p>
+<p>Removes any number of Systems from this Scene.</p>
 </div></span>
   
 </li>
@@ -375,7 +375,7 @@
       <pre class="code"><span class="info file"># File 'lib/felflame/scene_manager.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Scenes (class)">Scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Scenes (class)">Scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
   <span class='ivar'>@const_name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -551,7 +551,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_systems_to_add'>systems_to_add</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>|=</span> <span class='id identifier rubyid_systems_to_add'>systems_to_add</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>=</span> <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -675,7 +675,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -695,7 +695,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Removes any number of SystemS from this Scene</p>
+<p>Removes any number of Systems from this Scene</p>
 
 
   </div>
@@ -740,7 +740,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_systems_to_remove'>systems_to_remove</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>-=</span> <span class='id identifier rubyid_systems_to_remove'>systems_to_remove</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>=</span> <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (class)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_systems_list'>update_systems_list</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_scenes'><span class='object_link'><a href="Stage.html#scenes-class_method" title="FelFlame::Stage.scenes (method)">scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='kw'>self</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -753,7 +753,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Dec 29 07:21:30 2021 by
+  Generated on Thu Dec 30 04:25:43 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

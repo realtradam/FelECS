@@ -1,53 +1,32 @@
-class FelFlame
+module FelFlame
   class Entities
-    # Holds the unique ID of this entity
-    # @return [Integer]
-    attr_reader :id
-
-    # A seperate attr_writer was made for documentation readability reasons.
-    # Yard will list attr_reader is readonly which is my intention.
-    # This value needs to be changable as it is set by other functions.
-    # @!visibility private
-    attr_writer :id
 
     # Creating a new Entity
     # @param components [Components] Can be any number of components, identical duplicates will be automatically purged however different components from the same component manager are allowed.
     # @return [Entity]
     def initialize(*components)
-      # Assign new unique ID
-      new_id = self.class.data.find_index(&:nil?)
-      new_id = self.class.data.size if new_id.nil?
-      self.id = new_id
-
       # Add each component
       add(*components)
 
-      self.class.data[id] = self
+      self.class._data.push self
     end
 
-    # A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the {FelFlame::ComponentManager#id IDs} of the components attached to this entity.
+    # A hash that uses component manager constant names as keys, and where the values of those keys are arrays that contain the the components attached to this entity.
     # @return [Hash<Component_Manager, Array<Integer>>]
     def components
       @components ||= {}
     end
 
-    # An alias for the {#id ID reader}
-    # @return [Integer]
-    def to_i
-      id
-    end
-
-    # Removes this Entity from the list and purges all references to this Entity from other Components, as well as its {id ID} and data.
+    # Removes this Entity from the list and purges all references to this Entity from other Components, as well as its data.
     # @return [Boolean] +true+
     def delete
       components.each do |component_manager, component_array|
-        component_array.each do |component|
+        component_array.reverse_each do |component|
           component.entities.delete(self)
         end
       end
-      FelFlame::Entities.data[id] = nil
+      FelFlame::Entities._data.delete self
       @components = {}
-      @id = nil
       true
     end
 
@@ -99,29 +78,35 @@ class FelFlame
     #def to_json() end
 
     class <<self
-      include Enumerable
+      #include Enumerable
+
+      # Makes component managers behave like arrays with additional
+      # methods for managing the array
+      # @!visibility private
+      def respond_to_missing?(method, *)
+        if self._data.respond_to? method
+          true
+        else
+          super
+        end
+      end
+
+      # Makes component managers behave like arrays with additional
+      # methods for managing the array
+      # @!visibility private
+      def method_missing(method, *args, **kwargs, &block)
+        if self._data.respond_to? method
+          self._data.send(method, *args, **kwargs, &block)
+        else
+          super
+        end
+      end
+
+
       # @return [Array<Entity>] Array of all Entities that exist
       # @!visibility private
-      def data
+      def _data
         @data ||= []
-      end
-
-      # Gets an Entity from the given {id unique ID}. Usage is simular to how an Array lookup works
-      #
-      # @example
-      #   # This gets the Entity with ID 7
-      #   FelFlame::Entities[7]
-      # @param entity_id [Integer]
-      # @return [Entity] returns the Entity that uses the given unique ID, nil if there is no Entity associated with the given ID
-      def [](entity_id)
-        data[entity_id]
-      end
-
-      # Iterates over all entities. The data is compacted so that means index does not correlate to ID.
-      # You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
-      # @return [Enumerator]
-      def each(&block)
-        data.compact.each(&block)
       end
 
       # Creates a new entity using the data from a JSON string
