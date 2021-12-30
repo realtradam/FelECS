@@ -11,6 +11,26 @@ require "rubocop/rake_task"
 task :default => [:spec, :yard, 'coverage:format']
 #task default: :rubocop
 
+desc 'Export to single file'
+task :buildfile do
+  result = ''
+  main = File.read('lib/felflame.rb')
+  tmp = main.lines(chomp: true).select do |line|
+    line.include? "require_relative "
+  end
+  tmp.each do |file|
+    file.delete_prefix!("require_relative ")
+    result += File.read("lib/#{file[1,file.length-2]}.rb") + "\n"
+  end
+
+  result += main.lines.reject do |line|
+    line.include? "require_relative "
+  end.join
+
+  `mkdir pkg`
+  File.write('pkg/felflame.rb', result)
+end
+
 RuboCop::RakeTask.new
 
 namespace :coverage do
