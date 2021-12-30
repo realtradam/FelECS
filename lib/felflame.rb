@@ -4,10 +4,10 @@ require_relative 'felflame/system_manager'
 require_relative 'felflame/scene_manager'
 require_relative 'felflame/stage_manager'
 
-require_relative 'felflame/version'
+require_relative "felflame/version"
 
 # The FelFlame namespace where all its functionality resides under.
-module FelFlame
+class FelFlame
   class <<self
     # :nocov:
 
@@ -18,26 +18,26 @@ module FelFlame
     # :nocov:
   end
 
-  # Creates and manages Entities. Allows iterating or accessing Entities using array methods directly on the class. Entities are just collections of Components.
+  # Creates and manages Entities. Allows accessing Entities using their {FelFlame::Entities#id ID}. Entities are just collections of Components.
   class Entities; end
 
-  # Creates component managers and allows accessing them them under the {FelFlame::Components} namespace as Constants.
+  # Creates component managers and allows accessing them them under the {FelFlame::Components} namespace as Constants
   #
   # To see how component managers are used please look at the {FelFlame::ComponentManager} documentation.
-  module Components; end
+  class Components; end
 
-  # Creates an manages Systems. Systems are the logic of the game and do not contain any data within them. Any systems you create are accessable under the {FelFlame::Systems} namespace as Constants.
+  # Creates an manages Systems. Systems are the logic of the game and do not contain any data within them.
   #
   # TODO: Improve Systems overview
   class Systems; end
 
-  # Creates and manages Scenes. Scenes are collections of Systems, and execute all the Systems when called upon. Any scenes you create are accessable under the {FelFlame::Scenes} namespace as Constants.
+  # Creates and manages Scenes. Scenes are collections of Systems, and execute all the Systems when called upon.
   # 
   # TODO: Improve Scenes overview
   class Scenes; end
 
-  # Stores Scenes you add to it which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.
-  module Stage; end
+  # Stores Scenes which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.
+  class Stage; end
 end
 
 # An alias for {FelFlame}

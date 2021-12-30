@@ -1,4 +1,4 @@
-module FelFlame
+class FelFlame
   class Scenes
     # The Constant name assigned to this Scene
     attr_reader :const_name
@@ -33,16 +33,16 @@ module FelFlame
     # @return [Boolean] +true+
     def add(*systems_to_add)
       self.systems |= systems_to_add
-      self.systems = systems.sort_by(&:priority)
+      systems.sort_by!(&:priority)
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
 
-    # Removes any number of Systems from this Scene
+    # Removes any number of SystemS from this Scene
     # @return [Boolean] +true+
     def remove(*systems_to_remove)
       self.systems -= systems_to_remove
-      self.systems = systems.sort_by(&:priority)
+      systems.sort_by!(&:priority)
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end

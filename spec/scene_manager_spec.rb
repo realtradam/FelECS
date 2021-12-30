@@ -1,4 +1,4 @@
-require_relative '../lib/felflame.rb'
+require 'felflame'
 
 #class EntitiesTest < Minitest::Test
 

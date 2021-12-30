@@ -1,7 +1,8 @@
-module FelFlame
-  module Components
+class FelFlame
+  class Components
     @component_map = []
     class <<self
+      include Enumerable
       # Creates a new {FelFlame::ComponentManager component manager}.
       #
       # @example
@@ -45,26 +46,10 @@ module FelFlame
         FelFlame::Components.const_get(component_name)
       end
 
-      # Makes component module behave like an array of component
-      # managers with additional methods for managing the array
-      # @!visibility private
-      def respond_to_missing?(method, *)
-        if constants.respond_to? method
-          true
-        else
-          super
-        end
-      end
-
-      # Makes component module behave like arrays with additional
-      # methods for managing the array
-      # @!visibility private
-      def method_missing(method, *args, **kwargs, &block)
-        if constants.respond_to? method
-          constants.send(method, *args, **kwargs, &block)
-        else
-          super
-        end
+      # Iterate over all existing component managers. You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
+      # @return [Enumerator]
+      def each(&block)
+        constants.each(&block)
       end
     end
   end
@@ -72,6 +57,16 @@ module FelFlame
   # Component Managers are what is used to create individual components which can be attached to entities.
   # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g +@component.var = 5+), or by using the {#attrs} and {#update_attrs} methods instead.
   class ComponentManager
+
+    # Holds the {id unique ID} of a component. The {id ID} is only unique within the scope of the component manager it was created from.
+    # @return [Integer]
+    attr_reader :id
+
+    # A seperate attr_writer was made for documentation readability reasons.
+    # Yard will list attr_reader is readonly which is my intention.
+    # This value needs to be changable as it is set by other functions.
+    # @!visibility private
+    attr_writer :id
 
     # Allows overwriting the storage of triggers, such as for clearing.
     # This method should generally only need to be used internally and
@@ -109,8 +104,13 @@ module FelFlame
     def initialize(**attrs)
       # Prepare the object
       # (this is a function created with metaprogramming
-      # in FelFlame::Components)
+      # in FelFlame::Components
       set_defaults
+
+      # Generate ID
+      new_id = self.class.data.find_index { |i| i.nil? }
+      new_id = self.class.data.size if new_id.nil?
+      @id = new_id
 
       # Fill params
       attrs.each do |key, value|
@@ -118,33 +118,10 @@ module FelFlame
       end
 
       # Save Component
-      self.class.push self
+      self.class.data[new_id] = self
     end
 
     class <<self
-
-      # Makes component managers behave like arrays with additional
-      # methods for managing the array
-      # @!visibility private
-      def respond_to_missing?(method, *)
-        if self._data.respond_to? method
-          true
-        else
-          super
-        end
-      end
-
-      # Makes component managers behave like arrays with additional
-      # methods for managing the array
-      # @!visibility private
-      def method_missing(method, *args, **kwargs, &block)
-        if self._data.respond_to? method
-          self._data.send(method, *args, **kwargs, &block)
-        else
-          super
-        end
-      end
-
 
       # Allows overwriting the storage of triggers, such as for clearing.
       # This method should generally only need to be used internally and
@@ -178,26 +155,39 @@ module FelFlame
 
       # @return [Array<Component>] Array of all Components that belong to a given component manager
       # @!visibility private
-      def _data
+      def data
         @data ||= []
       end
+
+      # Gets a Component from the given {id unique ID}. Usage is simular to how an Array lookup works.
+      #
+      # @example
+      #   # this gets the 'Health' Component with ID 7
+      #   FelFlame::Components::Health[7]
+      # @param component_id [Integer]
+      # @return [Component] Returns the Component that uses the given unique {id ID}, nil if there is no Component associated with the given {id ID}
+      def [](component_id)
+        data[component_id]
+      end
+
+      # Iterates over all components within the component manager.
+      # Special Enumerable methods like +map+ or +each_with_index+ are not implemented
+      # @return [Enumerator]
+      def each(&block)
+        data.compact.each(&block)
+      end
     end
 
-    # Entities that have this component
-    # @return [Array<Component>]
+    # An alias for the {id ID Reader}
+    # @return [Integer]
+    def to_i
+      id
+    end
+
+    # A list of entity ids that are linked to the component
+    # @return [Array<Integer>]
     def entities
       @entities ||= []
-    end
-
-    # A single entity. Use this if you expect the component to only belong to one entity and you want to access it.
-    # @return [Component]
-    def entity
-      if entities.empty?
-        Warning.warn("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
-      elsif entities.length > 1
-        Warning.warn("This component belongs to MANY entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
-      end
-      entities.first
     end
 
     # Update attribute values using a hash or keywords.
@@ -216,19 +206,25 @@ module FelFlame
 
       systems_to_execute |= attr_triggers[attr] unless attr_triggers[attr].nil?
 
-      systems_to_execute.sort_by(&:priority).reverse_each(&:call)
+      systems_to_execute.sort_by(&:priority).reverse.each(&:call)
       true
     end
-    # Removes this component from the list and purges all references to this Component from other Entities, as well as its data.
+
+    # Removes this component from the list and purges all references to this Component from other Entities, as well as its {id ID} and data.
     # @return [Boolean] +true+.
     def delete
       addition_triggers.each do |system|
         system.clear_triggers component_or_manager: self
       end
-      entities.reverse_each do |entity|
+      # This needs to be cloned because indices get deleted as
+      # the remove command is called, breaking the loop if it
+      # wasn't referencing a clone(will get Nil errors)
+      iter = entities.map(&:clone)
+      iter.each do |entity|
+        #FelFlame::Entities[entity_id].remove self #unless FelFlame::Entities[entity_id].nil?
         entity.remove self
       end
-      self.class._data.delete self
+      self.class.data[id] = nil
       instance_variables.each do |var|
         instance_variable_set(var, nil)
       end
@@ -236,7 +232,7 @@ module FelFlame
     end
 
     # @return [Hash<Symbol, Value>] A hash, where all the keys are attributes linked to their respective values.
-    def to_h
+    def attrs
       return_hash = instance_variables.each_with_object({}) do |key, final|
         final[key.to_s.delete_prefix('@').to_sym] = instance_variable_get(key)
       end

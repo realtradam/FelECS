@@ -1,5 +1,5 @@
-module FelFlame
-  module Stage
+class FelFlame
+  class Stage
     class <<self
       # Allows clearing of scenes and systems.
       # Used internally by FelFlame and shouldn't need to be ever used by developers
@@ -13,7 +13,7 @@ module FelFlame
         scenes_to_add.each do |scene|
           self.systems |= scene.systems
         end
-        self.systems = systems.sort_by(&:priority)
+        systems.sort_by!(&:priority)
         true
       end
 
@@ -34,7 +34,7 @@ module FelFlame
         scenes.each do |scene|
           self.systems |= scene.systems
         end
-        self.systems = systems.sort_by(&:priority)
+        systems.sort_by!(&:priority)
         true
       end
 
