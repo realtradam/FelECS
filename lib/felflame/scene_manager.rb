@@ -34,8 +34,11 @@ module FelFlame
     def add(*systems_to_add)
       self.systems |= systems_to_add
       self.systems = systems.sort_by(&:priority)
-      FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
-      true
+      systems_to_add.each do |system|
+        system.scenes |= [self]
+      end
+      #FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
+      #true
     end
 
     # Removes any number of Systems from this Scene
@@ -43,6 +46,9 @@ module FelFlame
     def remove(*systems_to_remove)
       self.systems -= systems_to_remove
       self.systems = systems.sort_by(&:priority)
+      systems_to_remove.each do |system|
+        system.scenes.delete system
+      end
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
@@ -50,6 +56,9 @@ module FelFlame
     # Removes all Systems from this Scene
     # @return [Boolean] +true+
     def clear
+      systems.each do |system|
+        system.scenes.delete self
+      end
       systems.clear
       FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true

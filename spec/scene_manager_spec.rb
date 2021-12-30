@@ -35,6 +35,9 @@ describe 'Scenes' do
 
   it 'can add Systems' do
     @scene.add @system2, @system3, @system1
+    expect(@system1.scenes.length).to eq(1)
+    expect(@system2.scenes.length).to eq(1)
+    expect(@system3.scenes.length).to eq(1)
     expect(@scene.systems).to eq([@system1, @system2, @system3])
   end
 
@@ -47,6 +50,9 @@ describe 'Scenes' do
   it 'can clear Systems' do
     @scene.add @system2, @system3, @system1
     @scene.clear
+    expect(@system1.scenes.length).to eq(0)
+    expect(@system2.scenes.length).to eq(0)
+    expect(@system3.scenes.length).to eq(0)
     expect(@scene.systems).to eq([])
   end
 
@@ -60,5 +66,9 @@ describe 'Scenes' do
     @scene.add @system2, @system3, @system1
     @scene.call
     expect(@cmp.order).to eq([1, 2, 3])
+    @cmp.order = []
+    @system3.priority = -1
+    @scene.call
+    expect(@cmp.order).to eq([3, 1, 2])
   end
 end

@@ -12,10 +12,20 @@ module FelFlame
     # @!visibility private
     attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
+    # Stores all the scenes this system is a part of.
+    attr_writer :scenes
+
+    def scenes
+      @scenes ||= []
+    end
+
     def priority=(priority)
       @priority = priority
-      FelFlame::Stage.systems = FelFlame::Stage.systems.sort_by(&:priority)
+      scenes.each do |scene|
+        scene.systems = scene.systems.sort_by(&:priority)
+      end
     end
+
     # Stores references to components or their managers that trigger
     # this component when a component or component from that manager
     # is added to an entity.
@@ -73,6 +83,7 @@ module FelFlame
       @const_name = name
       @priority = priority
       @block = block
+      @scenes = []
     end
 
     # Manually execute the system a single time
