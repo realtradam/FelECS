@@ -1,4 +1,4 @@
-class FelFlame
+module FelFlame
   class Scenes
     # The Constant name assigned to this Scene
     attr_reader :const_name
@@ -38,7 +38,7 @@ class FelFlame
       true
     end
 
-    # Removes any number of SystemS from this Scene
+    # Removes any number of Systems from this Scene
     # @return [Boolean] +true+
     def remove(*systems_to_remove)
       self.systems -= systems_to_remove

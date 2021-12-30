@@ -1,4 +1,4 @@
-require 'felflame'
+require_relative '../lib/felflame.rb'
 
 describe 'Components' do
 
@@ -11,6 +11,8 @@ describe 'Components' do
   end
 
   before :each do
+    @orig_stderr = $stderr
+    $stderr = StringIO.new
     @ent0 = FelFlame::Entities.new
     @ent1 = FelFlame::Entities.new
     @ent2 = FelFlame::Entities.new
@@ -20,21 +22,61 @@ describe 'Components' do
   end
 
   after :each do
-    FelFlame::Entities.each(&:delete)
-    @component_manager.each(&:delete)
+    $stderr = @orig_stderr
+    FelFlame::Entities.reverse_each(&:delete)
+    @component_manager.reverse_each(&:delete)
+  end
+
+  it 'can get a single entity' do
+    @cmp0.entity
+    $stderr.rewind
+    $stderr.string.chomp.should eq("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+    @ent0.add @cmp0
+    expect(@cmp0.entity).to eq(@ent0)
+    @ent1.add @cmp0
+    @cmp0.entity
+    $stderr.rewind
+    $stderr.string.chomp.should eq("This component belongs to MANY entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+  end
+
+  it 'responds to array methods' do
+    expect(@component_manager.respond_to?(:[])).to be true
+    expect(@component_manager.respond_to?(:each)).to be true
+    expect(@component_manager.respond_to?(:filter)).to be true
+    expect(@component_manager.respond_to?(:first)).to be true
+    expect(@component_manager.respond_to?(:last)).to be true
+    expect(@component_manager.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'dont respond to missing methods' do
+    expect { @component_manager.somethingwrong }.to raise_error(NoMethodError)
+  end
+
+  it 'Component module responds to array methods' do
+    expect(FelFlame::Components.respond_to?(:[])).to be true
+    expect(FelFlame::Components.respond_to?(:each)).to be true
+    expect(FelFlame::Components.respond_to?(:filter)).to be true
+    expect(FelFlame::Components.respond_to?(:first)).to be true
+    expect(FelFlame::Components.respond_to?(:last)).to be true
+    expect(FelFlame::Components.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'Component module doesnt respond to missing methods' do
+    expect { FelFlame::Components.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can delete a component' do
-    component_id = @cmp1.id
+    #component_id = @cmp1.id
     @ent0.add @cmp1
-
+    length = @component_manager.length
     expect(@cmp1.delete).to be true
-    expect(@cmp1.id).to be_nil
-    expect(@component_manager[component_id]).to be_nil
+    expect(@component_manager.length).to eq(length-1)
+    #expect(@cmp1.id).to be_nil
+    #expect(@component_manager[component_id]).to be_nil
     expect(@cmp1.entities).to eq([])
   end
 
-  it 'can iterate over all component managers' do
+  it 'can iterate component managers' do
     all_components = FelFlame::Components.constants
     expect(all_components.length).to be > 0
     expect(FelFlame::Components.each).to be_an Enumerator
@@ -46,7 +88,7 @@ describe 'Components' do
 
   it 'can change params on initialization' do
     @cmp3 = @component_manager.new(param1: 'ok', param2: 10)
-    expect(@cmp3.attrs).to eq(param1: 'ok', param2: 10, id: @cmp3.id)
+    expect(@cmp3.to_h).to eq(param1: 'ok', param2: 10)
   end
 
 
@@ -59,29 +101,33 @@ describe 'Components' do
     expect(@cmp2.param2).to eq('def')
   end
 
-  it 'can read attrs' do
-    expect(@cmp0.attrs).to eq(param2: 'def', id: 0)
-    expect(@cmp1.attrs).to eq(param2: 'def', id: 1)
-    expect(@cmp2.attrs).to eq(param2: 'def', id: 2)
+  it 'can read attributes' do
+    expect(@cmp0.to_h).to eq(param2: 'def')
+    expect(@cmp1.to_h).to eq(param2: 'def')
+    expect(@cmp2.to_h).to eq(param2: 'def')
   end
 
   it 'can set attrs' do
     expect(@cmp0.param1 = 4).to eq(4)
     expect(@cmp1.update_attrs(param1: 3, param2: 'new')).to eq(param1: 3, param2: 'new')
-    expect(@cmp1.attrs).to eq(param1: 3, param2: 'new', id: 1)
+    expect(@cmp1.to_h).to eq(param1: 3, param2: 'new')
   end
 
-  it 'can be accessed' do
-    expect(@cmp0).to eq(@component_manager[0])
-    expect(@cmp1).to eq(@component_manager[1])
-    expect(@cmp2).to eq(@component_manager[2])
+  it 'can be used as a singleton' do
+    expect(@component_manager.first).to eq(@cmp0)
   end
 
-  it 'can get id from to_i' do
-    expect(@cmp0.id).to eq(@cmp0.to_i)
-    expect(@cmp1.id).to eq(@cmp1.to_i)
-    expect(@cmp2.id).to eq(@cmp2.to_i)
-  end
+  #it 'can be accessed' do
+  #  expect(@cmp0).to eq(@component_manager[0])
+  #  expect(@cmp1).to eq(@component_manager[1])
+  #  expect(@cmp2).to eq(@component_manager[2])
+  #end
+
+  #it 'can get id from to_i' do
+  #  expect(@cmp0.id).to eq(@cmp0.to_i)
+  #  expect(@cmp1.id).to eq(@cmp1.to_i)
+  #  expect(@cmp2.id).to eq(@cmp2.to_i)
+  #end
 
   it 'cant overwrite exiting component managers' do
     FelFlame::Components.new('TestComponent1')
@@ -89,7 +135,7 @@ describe 'Components' do
   end
 
   it 'can\'t create an attribute when its name is an existing method' do
-    expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
+    #expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :addition_triggers) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :removal_triggers) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :attr_triggers) }.to raise_error(NameError)

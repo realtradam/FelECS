@@ -8,6 +8,23 @@
 ![Deprecated](https://img.shields.io/badge/-Deprecated-orange)
 ![Removed](https://img.shields.io/badge/-Removed-red)
 
+## [4.0.0](https://github.com/realtradam/FelFlame/releases/tag/4.0.0) - 2021-12-30
+![Removed](https://img.shields.io/badge/-Removed-red)
+- Removed all ids as they were not used
+
+![Changed](https://img.shields.io/badge/-Changed-yellow)
+- Component method `.attrs` was renamed to `.to_h`
+- Renamed the `data` accessor to `._data`
+- Various arrays are automatically compacted
+
+![Added](https://img.shields.io/badge/-Added-brightgreen)
+- Classes and Modules which used a data array now have the entire set of array methods available to their respective Classes and Modules
+- Convenience methods for accessing a single entity in a component(`@component.entity`) and accessing a single entity in a component(`@entity.component[@component_manager]`)
+
+![Fixed](https://img.shields.io/badge/-Fixed-blue)
+- Replaced all instances of `sort_by!` with `sort_by` for compatibility with DragonRuby
+- Minor optimizations such as less array duplication
+
 ## [3.0.0](https://github.com/realtradam/FelFlame/releases/tag/3.0.0) - 2021-07-12
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
 - The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive.

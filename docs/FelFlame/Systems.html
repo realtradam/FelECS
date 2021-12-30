@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="../_index.html">Index (S)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span>
+    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span>
      &raquo; 
     <span class="title">Systems</span>
   
@@ -109,7 +109,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Creates an manages Systems. Systems are the logic of the game and do not contain any data within them.</p>
+<p>Creates an manages Systems. Systems are the logic of the game and do not contain any data within them. Any systems you create are accessable under the <span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span> namespace as Constants.</p>
 
 <p>TODO: Improve Systems overview</p>
 
@@ -515,8 +515,8 @@
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PassiveHeal</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Components.html" title="FelFlame::Components (class)">Components</a></span></span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>PassiveHeal</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Components.html" title="FelFlame::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
     <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_hp'>hp</span> <span class='op'>+=</span> <span class='int'>5</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span>
@@ -597,7 +597,7 @@
       <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
   <span class='ivar'>@const_name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@priority</span> <span class='op'>=</span> <span class='id identifier rubyid_priority'>priority</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
@@ -998,19 +998,19 @@
     
       
       <pre class="example code"><code><span class='comment'># To clear all triggers that execute this system when a component is added:
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span>
 <span class='comment'># Same as above but for when a component is removed instead
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:removal_triggers</span>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:removal_triggers</span>
 <span class='comment'># Same as above but for when a component has a certain attribute changed
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span>
 
 <span class='comment'># Clear a trigger from a specific component
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
 <span class='comment'># Clear a trigger from a specific component manager
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='op'>::</span><span class='const'>ExampleComponent</span>
 
 <span class='comment'># Clear the trigger that executes a system when the &#39;:example_attr&#39; is changes
-</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span><span class='comma'>,</span> <span class='symbol'>:example_attr</span></code></pre>
+</span><span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>ExampleSystem</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span> <span class='symbol'>:attr_triggers</span><span class='comma'>,</span> <span class='symbol'>:example_attr</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1531,7 +1531,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Dec 29 06:04:55 2021 by
+  Generated on Thu Dec 30 07:28:05 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
