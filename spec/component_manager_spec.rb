@@ -11,6 +11,8 @@ describe 'Components' do
   end
 
   before :each do
+    @orig_stderr = $stderr
+    $stderr = StringIO.new
     @ent0 = FelFlame::Entities.new
     @ent1 = FelFlame::Entities.new
     @ent2 = FelFlame::Entities.new
@@ -20,8 +22,21 @@ describe 'Components' do
   end
 
   after :each do
+    $stderr = @orig_stderr
     FelFlame::Entities.reverse_each(&:delete)
     @component_manager.reverse_each(&:delete)
+  end
+
+  it 'can get a single entity' do
+    @cmp0.entity
+    $stderr.rewind
+    $stderr.string.chomp.should eq("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+    @ent0.add @cmp0
+    expect(@cmp0.entity).to eq(@ent0)
+    @ent1.add @cmp0
+    @cmp0.entity
+    $stderr.rewind
+    $stderr.string.chomp.should eq("This component belongs to MANY entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
   end
 
   it 'responds to array methods' do
@@ -35,6 +50,19 @@ describe 'Components' do
 
   it 'dont respond to missing methods' do
     expect { @component_manager.somethingwrong }.to raise_error(NoMethodError)
+  end
+
+  it 'Component module responds to array methods' do
+    expect(FelFlame::Components.respond_to?(:[])).to be true
+    expect(FelFlame::Components.respond_to?(:each)).to be true
+    expect(FelFlame::Components.respond_to?(:filter)).to be true
+    expect(FelFlame::Components.respond_to?(:first)).to be true
+    expect(FelFlame::Components.respond_to?(:last)).to be true
+    expect(FelFlame::Components.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'Component module doesnt respond to missing methods' do
+    expect { FelFlame::Components.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can delete a component' do

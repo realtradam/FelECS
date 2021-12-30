@@ -184,9 +184,20 @@ module FelFlame
     end
 
     # Entities that have this component
-    # @return [Array<Integer>]
+    # @return [Array<Component>]
     def entities
       @entities ||= []
+    end
+
+    # A single entity. Use this if you expect the component to only belong to one entity and you want to access it.
+    # @return [Component]
+    def entity
+      if entities.empty?
+        Warning.warn("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+      elsif entities.length > 1
+        Warning.warn("This component belongs to MANY entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+      end
+      entities.first
     end
 
     # Update attribute values using a hash or keywords.

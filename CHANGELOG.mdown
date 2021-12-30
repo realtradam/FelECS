@@ -15,9 +15,11 @@
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
 - Component method `.attrs` was renamed to `.to_h`
 - Renamed the `data` accessor to `._data`
+- Various arrays are automatically compacted
 
 ![Added](https://img.shields.io/badge/-Added-brightgreen)
 - Classes and Modules which used a data array now have the entire set of array methods available to their respective Classes and Modules
+- Convenience methods for accessing a single entity in a component(`@component.entity`) and accessing a single entity in a component(`@entity.component[@component_manager]`)
 
 ![Fixed](https://img.shields.io/badge/-Fixed-blue)
 - Replaced all instances of `sort_by!` with `sort_by` for compatibility with DragonRuby

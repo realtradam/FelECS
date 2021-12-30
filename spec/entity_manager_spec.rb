@@ -15,6 +15,8 @@ describe 'Entities' do
 
 
   before :each do
+    @orig_stderr = $stderr
+    $stderr = StringIO.new
     @ent0 = FelFlame::Entities.new
     @ent1 = FelFlame::Entities.new
     @ent2 = FelFlame::Entities.new
@@ -24,9 +26,29 @@ describe 'Entities' do
   end
 
   after :each do
+    $stderr = @orig_stderr
     FelFlame::Entities.reverse_each(&:delete)
     @component_manager.reverse_each(&:delete)
   end
+
+  it 'can get a single component' do
+    expect { @ent0.component[@component_manager] }.to raise_error(RuntimeError)
+    #$stderr.rewind
+    #$stderr.string.chomp.should eq("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
+    @ent0.add @cmp0
+    expect(@ent0.component[@component_manager]).to eq(@cmp0)
+    expect(@ent0.component[@component_manager]).to eq(@ent0.component(@component_manager))
+    @ent0.add @cmp1
+    @ent0.component[@component_manager]
+    $stderr.rewind
+    $stderr.string.chomp.should eq("This entity has MANY of this component but you called the method that is intended for having a single of this component type.\nYou may have a bug in your logic.")
+    @ent0.components[@component_manager].reverse_each do |component|
+      @ent0.remove component
+    end
+    expect { @ent0.component[@component_manager] }.to raise_error(RuntimeError)
+  end
+
+
 
   it 'responds to array methods' do
     expect(FelFlame::Entities.respond_to?(:[])).to be true
@@ -79,7 +101,10 @@ describe 'Entities' do
     @ent0.add @cmp0
     expect(@ent0.remove @cmp0).to be true
     expect(@cmp0.entities.empty?).to be true
-    expect(@ent0.components[@component_manager].empty?).to be true
+    expect(@ent0.components[@component_manager].nil?).to be true
+    @ent0.add @cmp0
+    @cmp0.delete
+    expect(@ent0.components[@component_manager].nil?).to be true
   end
 
   it 'can have many components added then removed' do
@@ -99,8 +124,8 @@ describe 'Entities' do
     @component_manager.reverse_each(&:delete)
     expect(@component_manager.length).to eq(0)
     expect(@component_manager.empty?).to be true
-    expect(@ent0.components).to eq({@component_manager => []})
-    expect(@ent2.components).to eq({@component_manager => []})
+    expect(@ent0.components).to eq({})
+    expect(@ent2.components).to eq({})
     FelFlame::Entities.reverse_each(&:delete)
     expect(FelFlame::Entities.empty?).to be true
   end

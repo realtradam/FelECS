@@ -8,6 +8,13 @@ module FelFlame
       # Add each component
       add(*components)
 
+      # Fancy method redirection for when the `component` method is called
+      @component_redirect = Object.new
+      @component_redirect.instance_variable_set(:@entity, self)
+      @component_redirect.define_singleton_method(:[]) do |component_manager|
+        instance_variable_get(:@entity).component(component_manager)
+      end
+
       self.class._data.push self
     end
 
@@ -16,6 +23,26 @@ module FelFlame
     def components
       @components ||= {}
     end
+
+    # A single component from a component manager. Use this if you expect the component to only belong to one entity and you want to access it. Access the component using either parameter notation or array notation.
+    # @example
+    #   @entity.component[@component_manager] # array notation
+    #   @entity.component(@component_manager) # method notation
+    # @param manager [ComponentManager] If you pass nil you can then use array notation to access the same value.
+    # @return [Component]
+    def component(manager = nil)
+      if manager.nil?
+        @component_redirect
+      else
+        if components[manager].nil?
+          raise "This entity(#{self}) doesnt have any components of this type: #{manager}"
+        elsif components[manager].length > 1
+          Warning.warn("This entity has MANY of this component but you called the method that is intended for having a single of this component type.\nYou may have a bug in your logic.")
+        end
+        components[manager].first
+      end
+    end
+
 
     # Removes this Entity from the list and purges all references to this Entity from other Components, as well as its data.
     # @return [Boolean] +true+
@@ -68,6 +95,9 @@ module FelFlame
         check_systems component, :removal_triggers if component.entities.include? self
         component.entities.delete self
         components[component.class].delete component
+        if components[component.class].empty?
+          components.delete component.class
+        end
       end
       true
     end
@@ -78,8 +108,6 @@ module FelFlame
     #def to_json() end
 
     class <<self
-      #include Enumerable
-
       # Makes component managers behave like arrays with additional
       # methods for managing the array
       # @!visibility private
