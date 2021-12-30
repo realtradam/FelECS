@@ -1,4 +1,4 @@
-require_relative '../lib/felflame.rb'
+require 'felflame'
 
 describe 'Components' do
 
@@ -71,16 +71,6 @@ describe 'Components' do
     end
     expect(first.health).to eq(init1 - (multiple * 10))
     expect(second.health).to eq(init2 - (multiple * 10))
-  end
-
-  it 'can clear triggers from components and systems' do
-    @cmp0 = @component_manager.new
-    @system.trigger_when_added @cmp0
-    expect(@cmp0.addition_triggers.length).to eq(1)
-    expect(@system.addition_triggers.length).to eq(1)
-    expect(@cmp0.delete).to be true
-    expect(@cmp0.addition_triggers.length).to eq(0)
-    expect(@system.addition_triggers.length).to eq(0)
   end
 
   it 'can trigger when a single Component is added' do
@@ -336,7 +326,7 @@ describe 'Components' do
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
   end
-
+  
   it 'can clear addition_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
@@ -379,7 +369,7 @@ describe 'Components' do
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
   end
-
+  
   it 'can clear removal_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
