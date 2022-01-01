@@ -4,16 +4,17 @@ module FelFlame
       # Allows clearing of scenes and systems.
       # Used internally by FelFlame and shouldn't need to be ever used by developers
       # @!visibility private
-      attr_writer :scenes, :systems
+      attr_writer :scenes
 
       # Add any number of Scenes to the Stage
       # @return [Boolean] +true+
       def add(*scenes_to_add)
         self.scenes |= scenes_to_add
-        scenes_to_add.each do |scene|
-          self.systems |= scene.systems
-        end
-        self.systems = systems.sort_by(&:priority)
+        #scenes_to_add.each do |scene|
+        #  self.systems |= scene.systems
+        #end
+        self.scenes = scenes.sort_by(&:priority)
+        #self.systems = systems.sort_by(&:priority)
         true
       end
 
@@ -21,7 +22,8 @@ module FelFlame
       # @return [Boolean] +true+
       def remove(*scenes_to_remove)
         self.scenes -= scenes_to_remove
-        update_systems_list
+        self.scenes = scenes.sort_by(&:priority)
+        #update_systems_list
         true
       end
 
@@ -29,19 +31,19 @@ module FelFlame
       # This is used internally by FelFlame and shouldn't need to be ever used by developers
       # @return [Boolean] +true+
       # @!visibility private
-      def update_systems_list
-        systems.clear
-        scenes.each do |scene|
-          self.systems |= scene.systems
-        end
-        self.systems = systems.sort_by(&:priority)
-        true
-      end
+      #def update_systems_list
+      #  systems.clear
+      #  scenes.each do |scene|
+      #    self.systems |= scene.systems
+      #  end
+      #  self.systems = systems.sort_by(&:priority)
+      #  true
+      #end
 
       # Clears all Scenes that were added to the Stage
       # @return [Boolean] +true+
       def clear
-        systems.clear
+        #systems.clear
         scenes.clear
         true
       end
@@ -49,7 +51,8 @@ module FelFlame
       # Executes one frame of the game. This executes all the Systems in the Scenes added to the Stage. Systems that exist in two or more different Scenes will still only get executed once.
       # @return [Boolean] +true+
       def call
-        systems.each(&:call)
+        #systems.each(&:call)
+        scenes.each(&:call)
         true
       end
 
@@ -62,9 +65,9 @@ module FelFlame
       # Stores systems in the order the stage manager needs to call them
       # This method should generally only need to be used internally and not by a game developer
       # @!visibility private
-      def systems
-        @systems ||= []
-      end
+      #def systems
+      #  @systems ||= []
+      #end
     end
   end
 end

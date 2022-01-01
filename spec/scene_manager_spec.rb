@@ -56,12 +56,6 @@ describe 'Scenes' do
     expect(@scene.systems).to eq([])
   end
 
-  it 'has the correct constant name' do
-    match = FelFlame::Scenes.new('Match')
-    expect(FelFlame::Scenes::Match.const_name).to eq('Match')
-    expect(match.const_name).to eq('Match')
-  end
-
   it 'can execute Systems in the correct order' do
     @scene.add @system2, @system3, @system1
     @scene.call

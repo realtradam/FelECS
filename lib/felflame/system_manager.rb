@@ -4,7 +4,6 @@ module FelFlame
     attr_accessor :priority
 
     # The Constant name assigned to this System
-    attr_reader :const_name
 
     # Allows overwriting the storage of triggers, such as for clearing.
     # This method should generally only need to be used internally and
@@ -80,7 +79,6 @@ module FelFlame
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def initialize(name, priority: 0, &block)
       FelFlame::Systems.const_set(name, self)
-      @const_name = name
       @priority = priority
       @block = block
       @scenes = []
