@@ -80,7 +80,8 @@
     * <a href="#entities">Entities</a>
     * <a href="#systems">Systems</a>
     * <a href="#scenes">Scenes</a>
-    * <a href="#stage">Stage</a></li>
+    * <a href="#stage">Stage</a>
+    * <a href="#order">Order</a></li>
 <li><a href="#usage">Usage</a>
 
 <ul>
@@ -129,6 +130,11 @@
 <li><a href="#removing-scenes">Removing Scenes</a></li>
 <li><a href="#executing">Executing</a></li>
 </ul></li>
+<li><a href="#order-1">Order</a>
+
+<ul>
+<li><a href="#setting-the-order">Setting the order</a></li>
+</ul></li>
 <li><a href="#closing-notes">Closing Notes</a></li>
 </ul></li>
 <li><a href="#contribution">Contribution</a></li>
@@ -169,7 +175,7 @@ ECS stands for Entity, Component, and System.</p>
 
 <p>By using this pattern it allows programmers to easily control what an &quot;object&quot; or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  </p>
 
-<p><strong>&quot;But your framework also has <code>Scenes</code> and a <code>Stage</code>, what is that about?&quot;</strong>  </p>
+<p><strong>&quot;But your framework also has <code>Scenes</code>, <code>Stage</code>, and <code>Order</code>, what is that about?&quot;</strong>  </p>
 
 <hr>
 
@@ -180,6 +186,10 @@ ECS stands for Entity, Component, and System.</p>
 <h3 id="stage">Stage</h3>
 
 <p>The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.</p>
+
+<h3 id="order">Order</h3>
+
+<p>Order is a helper class which can set the priority of Scenes and Systems.</p>
 
 <hr>
 
@@ -504,6 +514,28 @@ E.g priority 1 will go first, priority 2 will go second, etcetera. </p>
 <pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Stage.html" title="FelFlame::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="FelFlame/Stage.html#call-class_method" title="FelFlame::Stage.call (method)">call</a></span></span>
 </code></pre>
 
+<h2 id="order">Order</h2>
+
+<h3 id="setting-the-order">Setting the order</h3>
+
+<p>To set the order you just need to call <code>FelFlame::Order.sort</code> and pass Scenes or Systems in the parameters in the order you wish for them to execute</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Order.html" title="FelFlame::Order (module)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sort'><span class='object_link'><a href="FelFlame/Order.html#sort-class_method" title="FelFlame::Order.sort (method)">sort</a></span></span><span class='lparen'>(</span>
+  <span class='ivar'>@system1</span><span class='comma'>,</span>
+  <span class='ivar'>@system2</span><span class='comma'>,</span>
+  <span class='ivar'>@system3</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<p>If you want some Scenes or Systems to have the same priority then just pass them as an array:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelFlame/Order.html" title="FelFlame::Order (module)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sort'><span class='object_link'><a href="FelFlame/Order.html#sort-class_method" title="FelFlame::Order.sort (method)">sort</a></span></span><span class='lparen'>(</span>
+  <span class='ivar'>@scene1</span><span class='comma'>,</span>
+  <span class='lbracket'>[</span><span class='ivar'>@scene2_1</span><span class='comma'>,</span> <span class='ivar'>@scene2_2</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='ivar'>@scene3</span>
+<span class='rparen'>)</span> 
+</code></pre>
+
 <h2 id="closing-notes">Closing Notes</h2>
 
 <p>There are some methods I haven&#39;t gone over in the overview. If you want to see everything and read in more detail check out the <a href="https://felflame.tradam.fyi">Documentation</a>!</p>
@@ -518,7 +550,7 @@ E.g priority 1 will go first, priority 2 will go second, etcetera. </p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jan  3 08:08:07 2022 by
+  Generated on Mon Jan  3 08:23:03 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

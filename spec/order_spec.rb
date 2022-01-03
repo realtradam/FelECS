@@ -53,7 +53,7 @@ describe 'Order' do
       @system1
     )
     @scene0.call
-    expect(@result).to eq([2,0,1])
+    expect(@result).to eq([2, 0, 1])
   end
 
   it 'can handle array' do
