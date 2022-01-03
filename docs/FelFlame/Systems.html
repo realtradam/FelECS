@@ -85,11 +85,6 @@
 
   
   
-  <dl>
-      <dt>Extended by:</dt>
-      <dd>Enumerable</dd>
-  </dl>
-  
   
   
   
@@ -187,35 +182,6 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#const_name-instance_method" title="#const_name (instance method)">#<strong>const_name</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>The Constant name assigned to this System.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#priority-instance_method" title="#priority (instance method)">#<strong>priority</strong>  &#x21d2; Object </a>
     
 
@@ -269,6 +235,31 @@
 </li>
 
     
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#scenes-instance_method" title="#scenes (instance method)">#<strong>scenes</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
   </ul>
 
 
@@ -285,7 +276,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#each-class_method" title="each (class method)">.<strong>each</strong>(&amp;block)  &#x21d2; Enumerator </a>
+      <a href="#const_cache-class_method" title="const_cache (class method)">.<strong>const_cache</strong>  &#x21d2; Object </a>
     
 
     
@@ -300,7 +291,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Iterate over all Systems, sorted by their priority.</p>
+<p>Stores the systems in <span class='object_link'><a href="Components.html" title="FelFlame::Components (module)">Components</a></span>.</p>
 </div></span>
   
 </li>
@@ -488,8 +479,7 @@
     </ul>
   
 
-
-  <div id="constructor_details" class="method_details_list">
+<div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -586,21 +576,23 @@
       <pre class="lines">
 
 
-71
-72
-73
-74
-75
-76</pre>
+116
+117
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
-  <span class='ivar'>@const_name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='const'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="FelFlame::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_const_cache'>update_const_cache</span>
   <span class='ivar'>@priority</span> <span class='op'>=</span> <span class='id identifier rubyid_priority'>priority</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
+  <span class='ivar'>@scenes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -653,12 +645,12 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_addition_triggers'>addition_triggers</span>
   <span class='ivar'>@addition_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -709,58 +701,15 @@
       <pre class="lines">
 
 
-42
-43
-44</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attr_triggers'>attr_triggers</span>
   <span class='ivar'>@attr_triggers</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <div class="method_details ">
-  <h3 class="signature " id="const_name-instance_method">
-  
-    #<strong>const_name</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>The Constant name assigned to this System</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-7
-8
-9</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 7</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_const_name'>const_name</span>
-  <span class='ivar'>@const_name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -851,15 +800,47 @@
       <pre class="lines">
 
 
-33
-34
-35</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_removal_triggers'>removal_triggers</span>
   <span class='ivar'>@removal_triggers</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="scenes=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="scenes-instance_method">
+  
+    #<strong>scenes</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_scenes'>scenes</span>
+  <span class='ivar'>@scenes</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -874,9 +855,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="each-class_method">
+  <h3 class="signature first" id="const_cache-class_method">
   
-    .<strong>each</strong>(&amp;block)  &#x21d2; <tt>Enumerator</tt> 
+    .<strong>const_cache</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -885,26 +866,13 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Iterate over all Systems, sorted by their priority. You also call other enumerable methods instead of each, such as <code>each_with_index</code> or <code>select</code></p>
+<p>Stores the systems in <span class='object_link'><a href="Components.html" title="FelFlame::Components (module)">Components</a></span>. This is needed because calling `FelFlame::Components.constants` will not let you iterate over the value of the constants but will instead give you an array of symbols. This caches the convertion of those symbols to the actual value of the constants</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Enumerator</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -912,15 +880,15 @@
       <pre class="lines">
 
 
-51
-52
-53</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 63</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_sym'>sym</span><span class='op'>|</span> <span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_sym'>sym</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_const_cache'>const_cache</span>
+  <span class='ivar'>@const_cache</span> <span class='op'>||</span> <span class='id identifier rubyid_update_const_cache'>update_const_cache</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -959,12 +927,12 @@
       <pre class="lines">
 
 
-79
-80
-81</pre>
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='ivar'>@block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
@@ -1077,52 +1045,6 @@
       <pre class="lines">
 
 
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
 157
 158
 159
@@ -1143,10 +1065,56 @@
 174
 175
 176
-177</pre>
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='comma'>,</span> <span class='label'>component_or_manager:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_trigger_types'>trigger_types</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:addition_triggers</span><span class='comma'>,</span> <span class='symbol'>:removal_triggers</span><span class='comma'>,</span> <span class='symbol'>:attr_triggers</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_trigger_types'>trigger_types</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1266,12 +1234,12 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_redefine'>redefine</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@block</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span>
@@ -1345,14 +1313,14 @@
       <pre class="lines">
 
 
-182
-183
-184
-185
-186</pre>
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 228</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_added'>trigger_when_added</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_addition_triggers'>addition_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
@@ -1408,22 +1376,22 @@
       <pre class="lines">
 
 
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211</pre>
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 245</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_is_changed'>trigger_when_is_changed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='comma'>,</span> <span class='id identifier rubyid_attr'>attr</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='period'>.</span><span class='id identifier rubyid_attr_triggers'>attr_triggers</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1507,14 +1475,14 @@
       <pre class="lines">
 
 
-191
-192
-193
-194
-195</pre>
+237
+238
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/system_manager.rb', line 237</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trigger_when_removed'>trigger_when_removed</span><span class='lparen'>(</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_removal_triggers'>removal_triggers</span> <span class='op'>|=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_component_or_manager'>component_or_manager</span><span class='rbracket'>]</span>
@@ -1531,7 +1499,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Dec 30 07:28:05 2021 by
+  Generated on Mon Jan  3 06:20:47 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>

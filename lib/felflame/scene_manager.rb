@@ -12,11 +12,13 @@ module FelFlame
     def priority=(priority)
       @priority = priority
       FelFlame::Stage.scenes = FelFlame::Stage.scenes.sort_by(&:priority)
+      priority
     end
 
     # Create a new Scene using the name given
     # @param name [String] String format must follow requirements of a constant
-    def initialize(name)
+    def initialize(name, priority: 0)
+      self.priority = priority
       FelFlame::Scenes.const_set(name, self)
     end
 
@@ -41,19 +43,13 @@ module FelFlame
       systems_to_add.each do |system|
         system.scenes |= [self]
       end
-      #FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
-      #true
+      true
     end
 
     # Removes any number of Systems from this Scene
     # @return [Boolean] +true+
     def remove(*systems_to_remove)
       self.systems -= systems_to_remove
-      self.systems = systems.sort_by(&:priority)
-      #systems_to_remove.each do |system|
-      #  system.scenes.delete system
-      #end
-      #FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
 

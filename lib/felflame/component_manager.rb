@@ -22,6 +22,7 @@ module FelFlame
 
 
         const_set(component_name, Class.new(FelFlame::ComponentManager) {})
+        update_const_cache
 
         attrs.each do |attr|
           if FelFlame::Components.const_get(component_name).method_defined?("#{attr}") || FelFlame::Components.const_get(component_name).method_defined?("#{attr}=")
@@ -48,8 +49,51 @@ module FelFlame
       # Makes component module behave like an array of component
       # managers with additional methods for managing the array
       # @!visibility private
+      ##def respond_to_missing?(method, *)
+      #  if constants.respond_to? method
+      #    true
+      #  else
+      #    super
+      #  end
+      #end
+
+      ## Makes component module behave like arrays with additional
+      ## methods for managing the array
+      ## @!visibility private
+      #def method_missing(method, *args, **kwargs, &block)
+      #  if constants.respond_to? method
+      #    constants.send(method, *args, **kwargs, &block)
+      #  else
+      #    super
+      #  end
+      #end
+
+      # Stores the components managers in {FelFlame::Components}. This
+      # is needed because calling `FelFlame::Components.constants`
+      # will not let you iterate over the value of the constants
+      # but will instead give you an array of symbols. This caches
+      # the convertion of those symbols to the actual value of the
+      # constants
+      # @!visibility private
+      def const_cache
+        @const_cache || update_const_cache
+      end
+
+      # Updates the array that stores the constants.
+      # Used internally by FelFlame
+      # @!visibility private
+      def update_const_cache
+        @const_cache = self.constants.map do |constant|
+          self.const_get constant
+        end
+      end
+
+      # Forwards undefined methods to the array of constants
+      # if the array can handle the request. Otherwise tells
+      # the programmer their code errored
+      # @!visibility private
       def respond_to_missing?(method, *)
-        if constants.respond_to? method
+        if const_cache.respond_to? method
           true
         else
           super
@@ -60,12 +104,15 @@ module FelFlame
       # methods for managing the array
       # @!visibility private
       def method_missing(method, *args, **kwargs, &block)
-        if constants.respond_to? method
-          constants.send(method, *args, **kwargs, &block)
+        if const_cache.respond_to? method
+          const_cache.send(method, *args, **kwargs, &block)
         else
           super
         end
       end
+
+
+
     end
   end
 

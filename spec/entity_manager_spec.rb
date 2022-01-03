@@ -4,10 +4,6 @@ require_relative '../lib/felflame.rb'
 
 describe 'Entities' do
 
-  #let :component_manager do
-  #  @component_manager ||= FelFlame::Components.new('Test', :param1, param2: 'def')
-  #end
-
   before :all do
     $VERBOSE = nil
     @component_manager ||= FelFlame::Components.new('TestEntity', :param1, param2: 'def')
@@ -33,8 +29,6 @@ describe 'Entities' do
 
   it 'can get a single component' do
     expect { @ent0.component[@component_manager] }.to raise_error(RuntimeError)
-    #$stderr.rewind
-    #$stderr.string.chomp.should eq("This component belongs to NO entities but you called the method that is intended for components belonging to a single entity.\nYou may have a bug in your logic.")
     @ent0.add @cmp0
     expect(@ent0.component[@component_manager]).to eq(@cmp0)
     expect(@ent0.component[@component_manager]).to eq(@ent0.component(@component_manager))
@@ -53,6 +47,9 @@ describe 'Entities' do
   it 'responds to array methods' do
     expect(FelFlame::Entities.respond_to?(:[])).to be true
     expect(FelFlame::Entities.respond_to?(:each)).to be true
+    FelFlame::Entities.each do |entity|
+      expect(entity.respond_to? :components).to be true
+    end
     expect(FelFlame::Entities.respond_to?(:filter)).to be true
     expect(FelFlame::Entities.respond_to?(:first)).to be true
     expect(FelFlame::Entities.respond_to?(:last)).to be true
@@ -69,33 +66,21 @@ describe 'Entities' do
     expect(@ent0.components[@component_manager].count).to eq(2)
   end
 
-  #it 'has correct ID\'s' do
-  #  expect(@ent0.id).to eq(0)
-  #  expect(@ent1.id).to eq(1)
-  #  expect(@ent2.id).to eq(2)
-  #end
-
-  #it 'can be accessed' do
-  #  expect(@ent0).to eq(FelFlame::Entities[0])
-  #  expect(@ent1).to eq(FelFlame::Entities[1])
-  #  expect(@ent2).to eq(FelFlame::Entities[2])
-  #end
+  it 'can be accessed' do
+    expect(FelFlame::Entities[0].respond_to? :components).to eq(true)
+    expect(FelFlame::Entities[1].respond_to? :components).to eq(true)
+    expect(FelFlame::Entities[2].respond_to? :components).to eq(true)
+  end
 
   it 'can have components attached' do
     @ent0.add @cmp0
-    expect(@ent0.components[@component_manager][0]).to eq(@cmp0)
+    expect(@ent0.component[@component_manager]).to eq(@cmp0)
 
     @ent1.add @cmp1, @cmp2
     expect(@ent1.components[@component_manager].length).to eq(2)
     expect(@ent1.components[@component_manager].include?(@cmp1)).to be true
     expect(@ent1.components[@component_manager].include?(@cmp2)).to be true
   end
-
-  #it 'can get id from to_i' do
-  #  expect(@ent0.id).to eq(@ent0.to_i)
-  #  expect(@ent1.id).to eq(@ent1.to_i)
-  #  expect(@ent2.id).to eq(@ent2.to_i)
-  #end
 
   it 'can have components removed' do
     @ent0.add @cmp0

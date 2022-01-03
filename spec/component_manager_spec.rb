@@ -42,6 +42,9 @@ describe 'Components' do
   it 'responds to array methods' do
     expect(@component_manager.respond_to?(:[])).to be true
     expect(@component_manager.respond_to?(:each)).to be true
+    @component_manager.each do |component|
+      expect(component.respond_to? :param1).to be true
+    end
     expect(@component_manager.respond_to?(:filter)).to be true
     expect(@component_manager.respond_to?(:first)).to be true
     expect(@component_manager.respond_to?(:last)).to be true
@@ -55,6 +58,9 @@ describe 'Components' do
   it 'Component module responds to array methods' do
     expect(FelFlame::Components.respond_to?(:[])).to be true
     expect(FelFlame::Components.respond_to?(:each)).to be true
+    FelFlame::Components.each do |component_manager|
+      expect(component_manager.respond_to? :addition_triggers).to be true
+    end
     expect(FelFlame::Components.respond_to?(:filter)).to be true
     expect(FelFlame::Components.respond_to?(:first)).to be true
     expect(FelFlame::Components.respond_to?(:last)).to be true
@@ -77,13 +83,13 @@ describe 'Components' do
   end
 
   it 'can iterate component managers' do
-    all_components = FelFlame::Components.constants
+    all_components_symbols = FelFlame::Components.constants
+    all_components = all_components_symbols.map do |symbol|
+      FelFlame::Components.const_get symbol
+    end
+    expect(all_components).to eq(FF::Components.each.to_a)
     expect(all_components.length).to be > 0
     expect(FelFlame::Components.each).to be_an Enumerator
-    FelFlame::Components.each do |component_manager|
-      all_components.delete component_manager.to_s.to_sym
-    end
-    expect(all_components).to eq([])
   end
 
   it 'can change params on initialization' do
@@ -117,17 +123,11 @@ describe 'Components' do
     expect(@component_manager.first).to eq(@cmp0)
   end
 
-  #it 'can be accessed' do
-  #  expect(@cmp0).to eq(@component_manager[0])
-  #  expect(@cmp1).to eq(@component_manager[1])
-  #  expect(@cmp2).to eq(@component_manager[2])
-  #end
-
-  #it 'can get id from to_i' do
-  #  expect(@cmp0.id).to eq(@cmp0.to_i)
-  #  expect(@cmp1.id).to eq(@cmp1.to_i)
-  #  expect(@cmp2.id).to eq(@cmp2.to_i)
-  #end
+  it 'can be accessed' do
+    expect(@component_manager[0].respond_to? :param1).to eq(true)
+    expect(@component_manager[1].respond_to? :param1).to eq(true)
+    expect(@component_manager[2].respond_to? :param1).to eq(true)
+  end
 
   it 'cant overwrite exiting component managers' do
     FelFlame::Components.new('TestComponent1')

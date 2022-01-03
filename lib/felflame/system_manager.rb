@@ -53,13 +53,49 @@ module FelFlame
     end
 
     class <<self
-      include Enumerable
 
-      # Iterate over all Systems, sorted by their priority. You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
-      # @return [Enumerator]
-      def each(&block)
-        constants.map { |sym| const_get(sym) }.sort_by(&:priority).reverse.each(&block)
+      # Stores the systems in {FelFlame::Components}. This
+      # is needed because calling `FelFlame::Components.constants`
+      # will not let you iterate over the value of the constants
+      # but will instead give you an array of symbols. This caches
+      # the convertion of those symbols to the actual value of the
+      # constants
+      def const_cache
+        @const_cache || update_const_cache
       end
+
+      # Updates the array that stores the constants.
+      # Used internally by FelFlame
+      # @!visibility private
+      def update_const_cache
+        @const_cache = self.constants.map do |constant|
+          self.const_get constant
+        end
+      end
+
+      # Forwards undefined methods to the array of constants
+      # if the array can handle the request. Otherwise tells
+      # the programmer their code errored
+      # @!visibility private
+      def respond_to_missing?(method, *)
+        if const_cache.respond_to? method
+          true
+        else
+          super
+        end
+      end
+
+      # Makes system module behave like arrays with additional
+      # methods for managing the array
+      # @!visibility private
+      def method_missing(method, *args, **kwargs, &block)
+        if const_cache.respond_to? method
+          const_cache.send(method, *args, **kwargs, &block)
+        else
+          super
+        end
+      end
+
     end
 
     # Creates a new System which can be accessed as a constant under the namespace {FelFlame::Systems}.
@@ -79,6 +115,7 @@ module FelFlame
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def initialize(name, priority: 0, &block)
       FelFlame::Systems.const_set(name, self)
+      FelFlame::Systems.update_const_cache
       @priority = priority
       @block = block
       @scenes = []

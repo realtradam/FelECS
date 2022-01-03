@@ -1,6 +1,6 @@
 require_relative '../lib/felflame.rb'
 
-describe 'Components' do
+describe 'Systems' do
 
   before :all do
     @component_manager ||= FelFlame::Components.new('TestSystems', health: 10, whatever: 'imp', mana: 10)
@@ -23,10 +23,11 @@ describe 'Components' do
   end
 
   it 'can create a system' do
-    FelFlame::Systems.new('Test99') do
+    @@testitr += 1
+    sys = FelFlame::Systems.new("Test#{@@testitr}") do
       'Works'
     end
-    expect(FelFlame::Systems::Test99.call).to eq('Works')
+    expect(sys.call).to eq('Works')
   end
 
   it 'can be redefined' do
@@ -36,26 +37,27 @@ describe 'Components' do
     expect(@system.call).to eq('very neat')
   end
 
-  it 'can iterate over the sorted systems by priority' do
-    FelFlame::Systems.new('Test2', priority: 1) {}
-    FelFlame::Systems.new('Test3', priority: 50) {}
-    FelFlame::Systems.new('Test4', priority: 7) {}
-    answer_key = ['Test3', 'Test4', 'Test2']
-    test = FelFlame::Systems.each.to_a
-    # converts the system name to the constant, compares their positions making sure they are sorted
-    # higher priority should be placed first
-    expect(test.map(&:const_name).find_index(answer_key[0])).to be <= test.map(&:const_name).find_index(answer_key[1])
-    expect(test.map(&:const_name).find_index(answer_key[0])).to be <= test.map(&:const_name).find_index(answer_key[2])
-    expect(test.map(&:const_name).find_index(answer_key[1])).to be >= test.map(&:const_name).find_index(answer_key[0])
-    expect(test.map(&:const_name).find_index(answer_key[1])).to be <= test.map(&:const_name).find_index(answer_key[2])
-    expect(test.map(&:const_name).find_index(answer_key[2])).to be >= test.map(&:const_name).find_index(answer_key[0])
-    expect(test.map(&:const_name).find_index(answer_key[2])).to be >= test.map(&:const_name).find_index(answer_key[1])
+  it 'responds to array methods' do
+    expect(FelFlame::Systems.respond_to?(:[])).to be true
+    expect(FelFlame::Systems.respond_to?(:each)).to be true
+    FelFlame::Systems.each do |system|
+      expect(system.respond_to? :call).to be true
+    end
+    expect(FelFlame::Systems.respond_to?(:filter)).to be true
+    expect(FelFlame::Systems.respond_to?(:first)).to be true
+    expect(FelFlame::Systems.respond_to?(:last)).to be true
+    expect(FelFlame::Systems.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'dont respond to missing methods' do
+    expect { FelFlame::Systems.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can manipulate components' do
     init1 = 27
     init2 = 130
     multiple = 3
+    iter = 10
     first = @component_manager.new(health: init1)
     second = @component_manager.new(health: init2)
     @system.redefine do
@@ -66,11 +68,11 @@ describe 'Components' do
     @system.call
     expect(first.health).to eq(init1 -= multiple)
     expect(second.health).to eq(init2 -= multiple)
-    10.times do
+    iter.times do
       @system.call
     end
-    expect(first.health).to eq(init1 - (multiple * 10))
-    expect(second.health).to eq(init2 - (multiple * 10))
+    expect(first.health).to eq(init1 - (multiple * iter))
+    expect(second.health).to eq(init2 - (multiple * iter))
   end
 
   it 'can clear triggers from components and systems' do

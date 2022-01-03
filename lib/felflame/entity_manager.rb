@@ -7,14 +7,6 @@ module FelFlame
     def initialize(*components)
       # Add each component
       add(*components)
-
-      # Fancy method redirection for when the `component` method is called
-      @component_redirect = Object.new
-      @component_redirect.instance_variable_set(:@entity, self)
-      @component_redirect.define_singleton_method(:[]) do |component_manager|
-        instance_variable_get(:@entity).component(component_manager)
-      end
-
       self.class._data.push self
     end
 
@@ -32,7 +24,8 @@ module FelFlame
     # @return [Component]
     def component(manager = nil)
       if manager.nil?
-        @component_redirect
+        FelFlame::Entities.component_redirect.entity = self
+        FelFlame::Entities.component_redirect
       else
         if components[manager].nil?
           raise "This entity(#{self}) doesnt have any components of this type: #{manager}"
@@ -129,6 +122,30 @@ module FelFlame
           super
         end
       end
+
+      # Fancy method redirection for when the `component` method is called
+      # in an Entity
+      # WARNING: This method will not correctly work with multithreading
+      # @!visibility private
+      def component_redirect
+        if @component_redirect
+          @component_redirect
+        else
+          @component_redirect = Object.new
+          @component_redirect.instance_variable_set(:@entity, nil)
+          @component_redirect.define_singleton_method(:entity) do
+            instance_variable_get(:@entity)
+          end
+          @component_redirect.define_singleton_method(:entity=) do |value|
+            instance_variable_set(:@entity, value)
+          end
+          @component_redirect.define_singleton_method(:[]) do |component_manager|
+            self.entity.component(component_manager)
+          end
+          @component_redirect
+        end
+      end
+
 
 
       # @return [Array<Entity>] Array of all Entities that exist

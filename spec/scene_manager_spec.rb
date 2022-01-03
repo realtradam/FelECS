@@ -65,4 +65,8 @@ describe 'Scenes' do
     @scene.call
     expect(@cmp.order).to eq([3, 1, 2])
   end
+
+  it 'will return priority when setting priority' do
+    expect(@scene.priority = 3).to eq(3)
+  end
 end
