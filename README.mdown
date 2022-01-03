@@ -13,48 +13,49 @@
 
 <!-- vim-markdown-toc GFM -->
 
-+ [What is FelFlame?](#what-is-felflame)
-+ [What is ECS?](#what-is-ecs)
-		- [Components](#components)
-		- [Entities](#entities)
-		- [Systems](#systems)
-		- [Scenes](#scenes)
-		- [Stage](#stage)
-+ [Usage](#usage)
+* [What is FelFlame?](#what-is-felflame)
+* [What is ECS?](#what-is-ecs)
+		* [Components](#components)
+		* [Entities](#entities)
+		* [Systems](#systems)
+		* [Scenes](#scenes)
+		* [Stage](#stage)
+		* [Order](#order)
+* [Usage](#usage)
 	* [Entities](#entities-1)
-		- [Creation](#creation)
-		- [Accessing](#accessing)
-		- [Get ID](#get-id)
-		- [Adding and Removing Components](#adding-and-removing-components)
-		- [Accessing Entities' Attached Components](#accessing-entities-attached-components)
-		- [Deletion](#deletion)
+		* [Creation](#creation)
+		* [Accessing](#accessing)
+		* [Adding and Removing Components](#adding-and-removing-components)
+		* [Accessing Entities' Attached Components](#accessing-entities-attached-components)
+		* [Deletion](#deletion)
 	* [Components](#components-1)
-		- [Creating a Component Manager](#creating-a-component-manager)
-		- [Creating a Component from a Component Manager](#creating-a-component-from-a-component-manager)
-		- [Accessing and Getting ID](#accessing-and-getting-id)
-		- [Accessing Attributes and Changing Them](#accessing-attributes-and-changing-them)
-		- [Deleting Components](#deleting-components)
-		- [Iterating over Components](#iterating-over-components)
-		- [Accessing Components' attached Entities](#accessing-components-attached-entities)
+		* [Creating a Component Manager](#creating-a-component-manager)
+		* [Creating a Component from a Component Manager](#creating-a-component-from-a-component-manager)
+		* [Accessing](#accessing-1)
+		* [Accessing Attributes and Changing Them](#accessing-attributes-and-changing-them)
+		* [Deleting Components](#deleting-components)
+		* [Accessing Components' attached Entities](#accessing-components-attached-entities)
 	* [Systems](#systems-1)
-		- [Creation](#creation-1)
-		- [Execution](#execution)
-		- [Alternative Execution](#alternative-execution)
-		- [Clearing Alternative Executions](#clearing-alternative-executions)
-		- [Redefinition](#redefinition)
+		* [Creation](#creation-1)
+		* [Execution](#execution)
+		* [Alternative Execution](#alternative-execution)
+		* [Clearing Alternative Executions](#clearing-alternative-executions)
+		* [Redefinition](#redefinition)
 	* [Scenes](#scenes-1)
-		- [Creation](#creation-2)
-		- [Accessing](#accessing-1)
-		- [Adding Systems](#adding-systems)
-		- [Removing Systems](#removing-systems)
-		- [Clearing](#clearing)
-		- [Execution](#execution-1)
+		* [Creation](#creation-2)
+		* [Accessing](#accessing-2)
+		* [Adding Systems](#adding-systems)
+		* [Removing Systems](#removing-systems)
+		* [Clearing](#clearing)
+		* [Execution](#execution-1)
 	* [Stage](#stage-1)
-		- [Adding Scenes](#adding-scenes)
-		- [Removing Scenes](#removing-scenes)
-		- [Executing](#executing)
+		* [Adding Scenes](#adding-scenes)
+		* [Removing Scenes](#removing-scenes)
+		* [Executing](#executing)
+	* [Order](#order-1)
+		* [Setting the order](#setting-the-order)
 	* [Closing Notes](#closing-notes)
-+ [Contribution](#contribution)
+* [Contribution](#contribution)
 
 <!-- vim-markdown-toc -->
 
@@ -85,7 +86,7 @@ Systems are where all the logic or code is kept. There is no data stored in here
 
 By using this pattern it allows programmers to easily control what an "object" or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  
 
-**"But your framework also has `Scenes` and a `Stage`, what is that about?"**  
+**"But your framework also has `Scenes`, `Stage`, and `Order`, what is that about?"**  
 
 ---
 
@@ -95,13 +96,19 @@ Scenes are simply a collection or subset of Systems. This allows for an easy way
 ### Stage
 The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.
 
+### Order
+Order is a helper class which can set the priority of Scenes and Systems.
+
 ---
 
-If all of this sounds very confusing, don't worry. A video tutorial series is in the works where I will build a game using this framework and explain every step of the way. You can also read some examples and explanations below.
 
 # Usage
 
-To use FelFlame simply install the gem using `gem install felflame` or using bundler `bundle add felflame` and then require it in your project like so: `require 'felflame'`. Working outside of the gem for rendering engines that do not support the usage of gems is a planned feature in the works.
+There are 2 ways of using FelFlame. You can either `include` it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelFlame and then `require_relative` this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.
+
+To use the gem method you can do the following: install the gem using `gem install felflame` or using bundler `bundle add felflame` and then require it in your project like so: `require 'felflame'`.
+
+To use the single file export method you simply download the felflame.rb file from the [releases page on Github](https://github.com/realtradam/FelFlame/releases) and add it to your source folder and add a `require relative 'felflame.rb'` line or wherever you have placed the file to use it.
 
 ## Entities
 
@@ -111,29 +118,24 @@ Entities are essentially "objects" in the game world. To create a new Entity we 
 ```ruby
 @entity = FelFlame::Entities.new
 ```
-or if we want to add (any number of)components to it:
+or if we want to add (any number of)components to it when creating it:
 
 ```ruby
 @entity = FelFlame::Entites.new(
   FelFlame::Components::Health.new,
   @component,
-  FelFlame::Components::Armour[7]
+  FelFlame::Components::EnemyTeam.first
 )
 ```
 
 ### Accessing
-Once components are created we can access them using their ID like so:
+Oftentimes you will not be accessing an Entity this way. Later we will shows you a more common way of accessing entities.
+If you need to you can access Entities using the `Entities` module:
 
 ```ruby
 @entity = FelFlame::Entities[2]
-```
-
-### Get ID
-Entity ID's are generated starting from 0 and ascending, unless if there is a missing ID because of a deleted
-entity where a new entity will claim that ID. To get the ID of an Entity:
-
-```ruby
-@entity.id
+@entity = FelFlame::Entities.first
+@entity = FelFlame::Entities.each # you can iterate over all entities this way. Any valid array method can be used
 ```
 
 ### Adding and Removing Components
@@ -145,14 +147,18 @@ We can still add or remove Components from an Entity after it has been created. 
 ```
 
 ### Accessing Entities' Attached Components
+This is the most common way of accessing an Entity
+
 When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:
 
 ```ruby
-@entity.components[@component_manager] # => [@component1, @component2, component3]
+@entity.components[@component_manager] # => [@component1, @component2, @component3]
 ```
 
 ### Deletion
-To have all Components from an Entity removed and the Entity deleted we do the following:
+To have all Components from an Entity **removed** and the Entity deleted we do the following:
+
+NOTE: The components will **not be deleted**. They are simply **removed** from the entity and then the entity is destroyed. You must handle component deletion yourself as for example singleton components need to removed instead of deleted.
 
 ```ruby
 @entity.delete
@@ -182,20 +188,19 @@ Now that we have a component manager we can make components from it like so:
 @component = FelFlame::Components::Stats.new
 ```
 
-Or we can even change the defaults:
+Or we can even override the defaults when creating the component:
 
 ```ruby
 @component = FelFlame::Components::Stats.new(armour: 'steel')
 ```
 
-### Accessing and Getting ID
-Just like Entities, Components have IDs.
-These IDs are only unique within the scope of their respective Component Managers.
-Here is how we can get the ID, as well as how to access a Component from its Component Manager.
+### Accessing
+You can access components using any array method.
 
 ```ruby
 @component = FelFlame::Components::Stats[2]
-@component.id # => 2
+@component = FelFlame::Components::Stats.first
+@component = FelFlame::Components::Stats.each # you can use iterators this way
 ```
 
 ### Accessing Attributes and Changing Them
@@ -207,23 +212,14 @@ Here are the ways to edit attrubutes, followed by the ways to read them.
 ```
 ```ruby
 @component.hp # => 95
-@component.attrs # => {armour: 'Leather', hp: 95}
+@component.to_h # => {armour: 'Leather', hp: 95}
 ```
 
 ### Deleting Components
-Deleting a Component is the same format as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
+Deleting a Component is the same convention as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
 
 ```ruby
 @component.delete
-```
-
-### Iterating over Components
-When you make Systems you will want to be able to iterate over all Components of the same Component Manager(for example iterating over all sprites to render them). Here is how we do that:
-
-```ruby
-FelFlame::Components::Sprites.each do |component|
-  #do something with components
-end
 ```
 
 ### Accessing Components' attached Entities
@@ -231,6 +227,11 @@ Components also keep track of what Entities are using it. To access this list we
 
 ```ruby
 @component.entities # => [@entity1, @entity2, @entity3]
+
+# get the first entity attached.
+# this will throw a warning if there is more or less then
+# exactly one entity
+@component.entity # => @entity
 ```
 
 
@@ -252,7 +253,9 @@ FelFlame::Systems::Render
 ```
 Priority determines the order Systems should be executed, this is used for `Scenes` and the `Stage`.
 The lower the number, the earlier a given System will be executed.
-E.g priority 1 will go first, priority 2 will go second, etcetera.  
+E.g priority 1 will go first, priority 2 will go second, etcetera. 
+
+Both Scenes and Systems have a priority. System priority will decide the order it will be called inside of a Scene, which the Scene priority will decide the order it will be called inside of the Stage.
 
 Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
 
@@ -355,7 +358,7 @@ end
 Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that [Alternative Executions](#alternative-execution) will occur even if they are not part of a Scene. Here is how we make a new Scene:
 
 ```ruby
-@scene = FelFlame::Scenes.new('ExampleScene')
+@scene = FelFlame::Scenes.new('ExampleScene', priority: 5)
 ```
 
 ### Accessing
@@ -369,14 +372,22 @@ Just like other classes in FelFlame, the name we gave the Scene is how we access
 Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:
 
 ```ruby
-FelFlame::Scenes::ExampleScene.add(FelFlame::Systems::Render, @system2, @system3)
+FelFlame::Scenes::ExampleScene.add(
+  FelFlame::Systems::Render,
+  @system2,
+  @system3
+)
 ```
 
 ### Removing Systems
-Removing Systems works simularly:
+Removing Systems works similarly:
 
 ```ruby
-FelFlame::Scenes::ExampleScene.remove(FelFlame::Systems::Render, @system2, @system3)
+FelFlame::Scenes::ExampleScene.remove(
+  FelFlame::Systems::Render,
+  @system2,
+  @system3
+)
 ```
 
 ### Clearing
@@ -398,7 +409,7 @@ The Scene will make sure that the systems are executed in the correct order base
 ## Stage
 
 ### Adding Scenes
-Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is active. To add a Scene we do the following:
+Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is 'active'. To add a Scene we do the following:
 
 ```ruby
 FelFlame::Stage.add FelFlame::Scene::ExampleScene
@@ -412,10 +423,34 @@ FelFlame::Stage.remove FelFlame::Scene::ExampleScene
 ```
 
 ### Executing
-On each frame of the game we want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will make sure for you that all the Systems from all Scenes added will be executed in the correct order according to their priority. Here is how we do it:
+On each frame of the game generally we will want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will call all Scenes you added to it in the order of their priority. Here is how we do it:
 
 ```ruby
 FelFlame::Stage.call
+```
+
+## Order
+
+### Setting the order
+
+To set the order you just need to call `FelFlame::Order.sort` and pass Scenes or Systems in the parameters in the order you wish for them to execute
+
+```ruby
+FelFlame::Order.sort(
+  @system1,
+  @system2,
+  @system3
+)
+```
+
+If you want some Scenes or Systems to have the same priority then just pass them as an array:
+
+```ruby
+FelFlame::Order.sort(
+  @scene1,
+  [@scene2_1, @scene2_2],
+  @scene3
+) 
 ```
 
 ## Closing Notes

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Components
   # If an entity can be rendered on screen
   class DebugSingleton
-    class <<self
+    class << self
       @data = false
       attr_accessor :data
 

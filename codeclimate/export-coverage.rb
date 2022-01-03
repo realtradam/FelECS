@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'env'
 
-
 class ReportCoverage
-  class <<self
+  class << self
     def format
       puts
       puts 'Formatting Coverage...'

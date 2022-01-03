@@ -1,10 +1,11 @@
-class FelFlame
+# frozen_string_literal: true
+
+module FelFlame
   class Systems
     # How early this System should be executed in a list of Systems
     attr_accessor :priority
 
     # The Constant name assigned to this System
-    attr_reader :const_name
 
     # Allows overwriting the storage of triggers, such as for clearing.
     # This method should generally only need to be used internally and
@@ -12,10 +13,20 @@ class FelFlame
     # @!visibility private
     attr_writer :addition_triggers, :removal_triggers, :attr_triggers
 
+    # Stores all the scenes this system is a part of.
+    attr_writer :scenes
+
+    def scenes
+      @scenes ||= []
+    end
+
     def priority=(priority)
       @priority = priority
-      FelFlame::Stage.systems.sort_by!(&:priority)
+      scenes.each do |scene|
+        scene.systems = scene.systems.sort_by(&:priority)
+      end
     end
+
     # Stores references to components or their managers that trigger
     # this component when a component or component from that manager
     # is added to an entity.
@@ -34,7 +45,6 @@ class FelFlame
       @removal_triggers ||= []
     end
 
-
     # Stores references to systems that should be triggered when an
     # attribute from this manager is changed
     # Do not edit this hash as it is managed by FelFlame automatically.
@@ -43,13 +53,47 @@ class FelFlame
       @attr_triggers ||= {}
     end
 
-    class <<self
-      include Enumerable
+    class << self
+      # Stores the systems in {FelFlame::Components}. This
+      # is needed because calling `FelFlame::Components.constants`
+      # will not let you iterate over the value of the constants
+      # but will instead give you an array of symbols. This caches
+      # the convertion of those symbols to the actual value of the
+      # constants
+      def const_cache
+        @const_cache || update_const_cache
+      end
 
-      # Iterate over all Systems, sorted by their priority. You also call other enumerable methods instead of each, such as +each_with_index+ or +select+
-      # @return [Enumerator]
-      def each(&block)
-        constants.map { |sym| const_get(sym) }.sort_by(&:priority).reverse.each(&block)
+      # Updates the array that stores the constants.
+      # Used internally by FelFlame
+      # @!visibility private
+      def update_const_cache
+        @const_cache = constants.map do |constant|
+          const_get constant
+        end
+      end
+
+      # Forwards undefined methods to the array of constants
+      # if the array can handle the request. Otherwise tells
+      # the programmer their code errored
+      # @!visibility private
+      def respond_to_missing?(method, *)
+        if const_cache.respond_to? method
+          true
+        else
+          super
+        end
+      end
+
+      # Makes system module behave like arrays with additional
+      # methods for managing the array
+      # @!visibility private
+      def method_missing(method, *args, **kwargs, &block)
+        if const_cache.respond_to? method
+          const_cache.send(method, *args, **kwargs, &block)
+        else
+          super
+        end
       end
     end
 
@@ -70,15 +114,17 @@ class FelFlame
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def initialize(name, priority: 0, &block)
       FelFlame::Systems.const_set(name, self)
-      @const_name = name
+      FelFlame::Systems.update_const_cache
       @priority = priority
       @block = block
+      @scenes = []
     end
 
     # Manually execute the system a single time
     def call
       @block.call
     end
+
     # Redefine what code is executed by this System when it is called upon.
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def redefine(&block)
@@ -109,16 +155,16 @@ class FelFlame
     # @param component_or_manager [Component or ComponentManager] The object to clear triggers from. Use Nil to clear triggers from all components associated with this system.
     # @return [Boolean] +true+
     def clear_triggers(*trigger_types, component_or_manager: nil)
-      trigger_types = [:addition_triggers, :removal_triggers, :attr_triggers] if trigger_types.empty?
+      trigger_types = %i[addition_triggers removal_triggers attr_triggers] if trigger_types.empty?
 
       if trigger_types.include? :attr_triggers
-        if (trigger_types - [:addition_triggers,
-            :removal_triggers,
-            :attr_triggers]).empty?
+        if (trigger_types - %i[addition_triggers
+                               removal_triggers
+                               attr_triggers]).empty?
 
           if component_or_manager.nil?
-            #remove all attrs
-            self.attr_triggers.each do |cmp_or_mgr, attrs|
+            # remove all attrs
+            attr_triggers.each do |cmp_or_mgr, attrs|
               attrs.each do |attr|
                 next if cmp_or_mgr.attr_triggers[attr].nil?
 
@@ -127,49 +173,48 @@ class FelFlame
               self.attr_triggers = {}
             end
           else
-            #remove attrs relevant to comp_or_man
-            unless self.attr_triggers[component_or_manager].nil?
-              self.attr_triggers[component_or_manager].each do |attr|
+            # remove attrs relevant to comp_or_man
+            unless attr_triggers[component_or_manager].nil?
+              attr_triggers[component_or_manager].each do |attr|
                 component_or_manager.attr_triggers[attr].delete self
               end
-              self.attr_triggers[component_or_manager] = []
+              attr_triggers[component_or_manager] = []
             end
           end
 
+        elsif component_or_manager.nil?
+
+          (trigger_types - %i[addition_triggers removal_triggers attr_triggers]).each do |attr|
+            # remove attr
+            attr_triggers.each do |cmp_or_mgr, _attrs|
+              cmp_or_mgr.attr_triggers[attr].delete self
+            end
+          end
+          attr_triggers.delete(trigger_types - %i[addition_triggers
+                                                  removal_triggers
+                                                  attr_triggers])
         else
+          # remove attr from component_or_manager
+          (trigger_types - %i[addition_triggers removal_triggers attr_triggers]).each do |attr|
+            next if component_or_manager.attr_triggers[attr].nil?
 
-          if component_or_manager.nil?
-            (trigger_types - [:addition_triggers, :removal_triggers, :attr_triggers]).each do |attr|
-              #remove attr
-              self.attr_triggers.each do |cmp_or_mgr, attrs|
-                cmp_or_mgr.attr_triggers[attr].delete self
-              end
-            end
-            self.attr_triggers.delete (trigger_types - [:addition_triggers,
-                                                        :removal_triggers,
-                                                        :attr_triggers])
-          else
-            #remove attr from component_or_manager
-            (trigger_types - [:addition_triggers, :removal_triggers, :attr_triggers]).each do |attr|
-              next if component_or_manager.attr_triggers[attr].nil?
-              component_or_manager.attr_triggers[attr].delete self
-            end
-            self.attr_triggers[component_or_manager] -= trigger_types unless self.attr_triggers[component_or_manager].nil?
+            component_or_manager.attr_triggers[attr].delete self
           end
+          attr_triggers[component_or_manager] -= trigger_types unless attr_triggers[component_or_manager].nil?
 
         end
       end
 
-      (trigger_types & [:removal_triggers, :addition_triggers] - [:attr_triggers]).each do |trigger_type|
+      (trigger_types & %i[removal_triggers addition_triggers] - [:attr_triggers]).each do |trigger_type|
         if component_or_manager.nil?
-          #remove all removal triggers
-          self.send(trigger_type).each do |trigger|
+          # remove all removal triggers
+          send(trigger_type).each do |trigger|
             trigger.send(trigger_type).delete self
           end
-          self.send("#{trigger_type.to_s}=", [])
+          send("#{trigger_type}=", [])
         else
-          #remove removal trigger relevant to comp/man
-          self.send(trigger_type).delete component_or_manager
+          # remove removal trigger relevant to comp/man
+          send(trigger_type).delete component_or_manager
           component_or_manager.send(trigger_type).delete self
         end
       end
@@ -202,10 +247,10 @@ class FelFlame
       else
         component_or_manager.attr_triggers[attr] |= [self]
       end
-      if self.attr_triggers[component_or_manager].nil?
-        self.attr_triggers[component_or_manager] = [attr]
+      if attr_triggers[component_or_manager].nil?
+        attr_triggers[component_or_manager] = [attr]
       else
-        self.attr_triggers[component_or_manager] |= [attr]
+        attr_triggers[component_or_manager] |= [attr]
       end
       true
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Components
   # If an entity can be rendered on screen
   class Interactable < Helper::BaseComponent
@@ -9,7 +11,7 @@ class Components
 
     def set(**opts)
       opts.each do |key, value|
-        self.send "#{key}=", value
+        send "#{key}=", value
       end
     end
   end

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class Components
   # dragonruby label wrapper
   class Map < Helper::BaseComponent
-
     attr_accessor :json_name, :json, :x, :y, :tilewidth, :tileheight, :a, :r, :g, :b
 
     def set(json_name: @json_name, x: @x, y: @y, tilewidth: @tilewidth,

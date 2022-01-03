@@ -1,7 +1,8 @@
-require 'felflame'
+# frozen_string_literal: true
 
-describe 'Components' do
+require_relative '../lib/felflame'
 
+describe 'Systems' do
   before :all do
     @component_manager ||= FelFlame::Components.new('TestSystems', health: 10, whatever: 'imp', mana: 10)
     @@testitr = 999
@@ -23,10 +24,11 @@ describe 'Components' do
   end
 
   it 'can create a system' do
-    FelFlame::Systems.new('Test99') do
+    @@testitr += 1
+    sys = FelFlame::Systems.new("Test#{@@testitr}") do
       'Works'
     end
-    expect(FelFlame::Systems::Test99.call).to eq('Works')
+    expect(sys.call).to eq('Works')
   end
 
   it 'can be redefined' do
@@ -36,26 +38,27 @@ describe 'Components' do
     expect(@system.call).to eq('very neat')
   end
 
-  it 'can iterate over the sorted systems by priority' do
-    FelFlame::Systems.new('Test2', priority: 1) {}
-    FelFlame::Systems.new('Test3', priority: 50) {}
-    FelFlame::Systems.new('Test4', priority: 7) {}
-    answer_key = ['Test3', 'Test4', 'Test2']
-    test = FelFlame::Systems.each.to_a
-    # converts the system name to the constant, compares their positions making sure they are sorted
-    # higher priority should be placed first
-    expect(test.map(&:const_name).find_index(answer_key[0])).to be <= test.map(&:const_name).find_index(answer_key[1])
-    expect(test.map(&:const_name).find_index(answer_key[0])).to be <= test.map(&:const_name).find_index(answer_key[2])
-    expect(test.map(&:const_name).find_index(answer_key[1])).to be >= test.map(&:const_name).find_index(answer_key[0])
-    expect(test.map(&:const_name).find_index(answer_key[1])).to be <= test.map(&:const_name).find_index(answer_key[2])
-    expect(test.map(&:const_name).find_index(answer_key[2])).to be >= test.map(&:const_name).find_index(answer_key[0])
-    expect(test.map(&:const_name).find_index(answer_key[2])).to be >= test.map(&:const_name).find_index(answer_key[1])
+  it 'responds to array methods' do
+    expect(FelFlame::Systems.respond_to?(:[])).to be true
+    expect(FelFlame::Systems.respond_to?(:each)).to be true
+    FelFlame::Systems.each do |system|
+      expect(system.respond_to?(:call)).to be true
+    end
+    expect(FelFlame::Systems.respond_to?(:filter)).to be true
+    expect(FelFlame::Systems.respond_to?(:first)).to be true
+    expect(FelFlame::Systems.respond_to?(:last)).to be true
+    expect(FelFlame::Systems.respond_to?(:somethingwrong)).to be false
+  end
+
+  it 'dont respond to missing methods' do
+    expect { FelFlame::Systems.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can manipulate components' do
     init1 = 27
     init2 = 130
     multiple = 3
+    iter = 10
     first = @component_manager.new(health: init1)
     second = @component_manager.new(health: init2)
     @system.redefine do
@@ -66,11 +69,21 @@ describe 'Components' do
     @system.call
     expect(first.health).to eq(init1 -= multiple)
     expect(second.health).to eq(init2 -= multiple)
-    10.times do
+    iter.times do
       @system.call
     end
-    expect(first.health).to eq(init1 - (multiple * 10))
-    expect(second.health).to eq(init2 - (multiple * 10))
+    expect(first.health).to eq(init1 - (multiple * iter))
+    expect(second.health).to eq(init2 - (multiple * iter))
+  end
+
+  it 'can clear triggers from components and systems' do
+    @cmp0 = @component_manager.new
+    @system.trigger_when_added @cmp0
+    expect(@cmp0.addition_triggers.length).to eq(1)
+    expect(@system.addition_triggers.length).to eq(1)
+    expect(@cmp0.delete).to be true
+    expect(@cmp0.addition_triggers.length).to eq(0)
+    expect(@system.addition_triggers.length).to eq(0)
   end
 
   it 'can trigger when a single Component is added' do
@@ -219,11 +232,11 @@ describe 'Components' do
     @entity1 = FelFlame::Entities.new
     @system.trigger_when_is_changed @cmp0, :whatever
     @system.trigger_when_is_changed @cmp0, :mana
-    #expect(@system.attr_triggers).to eq({@cmp0 => [:name, :mana]})
-    #expect(@cmp0.attr_triggers).to eq({:name => [@system], :mana => [@system]})
+    # expect(@system.attr_triggers).to eq({@cmp0 => [:name, :mana]})
+    # expect(@cmp0.attr_triggers).to eq({:name => [@system], :mana => [@system]})
     @system.clear_triggers :attr_triggers, :whatever, component_or_manager: @cmp0
-    #expect(@system.attr_triggers).to eq({@cmp0 => [:mana]})
-    #expect(@cmp0.attr_triggers).to eq({:name => [], :mana => [@system]})
+    # expect(@system.attr_triggers).to eq({@cmp0 => [:mana]})
+    # expect(@cmp0.attr_triggers).to eq({:name => [], :mana => [@system]})
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
     @cmp0.whatever = 'something'
@@ -326,7 +339,7 @@ describe 'Components' do
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
   end
-  
+
   it 'can clear addition_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
@@ -369,7 +382,7 @@ describe 'Components' do
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
   end
-  
+
   it 'can clear removal_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Class: FelFlame::Stage
+  Module: FelFlame::Stage
   
     &mdash; Documentation by YARD 0.9.26
   
@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="../_index.html">Index (S)</a> &raquo;
-    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (class)">FelFlame</a></span></span>
+    <span class='title'><span class='object_link'><a href="../FelFlame.html" title="FelFlame (module)">FelFlame</a></span></span>
      &raquo; 
     <span class="title">Stage</span>
   
@@ -59,28 +59,12 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Class: FelFlame::Stage
+      <div id="content"><h1>Module: FelFlame::Stage
   
   
   
 </h1>
 <div class="box_info">
-  
-  <dl>
-    <dt>Inherits:</dt>
-    <dd>
-      <span class="inheritName">Object</span>
-      
-        <ul class="fullTree">
-          <li>Object</li>
-          
-            <li class="next">FelFlame::Stage</li>
-          
-        </ul>
-        <a href="#" class="inheritanceTree">show all</a>
-      
-    </dd>
-  </dl>
   
 
   
@@ -104,7 +88,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Stores Scenes which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.</p>
+<p>Stores Scenes you add to it which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.</p>
 
 
   </div>
@@ -305,12 +289,12 @@
       <pre class="lines">
 
 
-58
-59
-60</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scenes'>scenes</span>
   <span class='ivar'>@scenes</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -371,24 +355,18 @@
       <pre class="lines">
 
 
-11
-12
 13
 14
 15
 16
-17
-18</pre>
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='op'>|=</span> <span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span>
-  <span class='id identifier rubyid_scenes_to_add'>scenes_to_add</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_scene'>scene</span><span class='op'>|</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span> <span class='op'>|=</span> <span class='id identifier rubyid_scene'>scene</span><span class='period'>.</span><span class='id identifier rubyid_systems'>systems</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_sort_by!'>sort_by!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='op'>=</span> <span class='id identifier rubyid_scenes'>scenes</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:priority</span><span class='rparen'>)</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -408,7 +386,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Executes one frame of the game. This executes all the Systems in the Scenes added to the Stage. Systems that exist in two or more different Scenes will still only get executed once.</p>
+<p>Executes one frame of the game. This executes all the Scenes added to the Stage in order of their priority.</p>
 
 
   </div>
@@ -440,16 +418,16 @@
       <pre class="lines">
 
 
-51
-52
-53
-54</pre>
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
-  <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:call</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:call</span><span class='rparen'>)</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -501,18 +479,16 @@
       <pre class="lines">
 
 
-43
-44
-45
-46
-47</pre>
+28
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
-  <span class='id identifier rubyid_systems'>systems</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='id identifier rubyid_scenes'>scenes</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -564,18 +540,16 @@
       <pre class="lines">
 
 
+21
 22
 23
-24
-25
-26</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/felflame/stage_manager.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_scenes_to_remove'>scenes_to_remove</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_scenes'>scenes</span> <span class='op'>-=</span> <span class='id identifier rubyid_scenes_to_remove'>scenes_to_remove</span>
-  <span class='id identifier rubyid_update_systems_list'>update_systems_list</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -588,7 +562,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 12 18:28:27 2021 by
+  Generated on Mon Jan  3 08:23:04 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
