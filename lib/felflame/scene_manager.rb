@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FelFlame
   class Scenes
     # Allows overwriting the storage of systems, such as for clearing.
@@ -60,7 +62,7 @@ module FelFlame
         system.scenes.delete self
       end
       systems.clear
-      #FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
+      # FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
       true
     end
   end

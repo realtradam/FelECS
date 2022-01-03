@@ -1,10 +1,11 @@
-require_relative '../lib/felflame.rb'
+# frozen_string_literal: true
+
+require_relative '../lib/felflame'
 
 describe 'Components' do
-
-  #let :component_manager do
+  # let :component_manager do
   #  @component_manager ||= FelFlame::Components.new('TestComponents', :param1, param2: 'def')
-  #end
+  # end
 
   before :all do
     @component_manager ||= FelFlame::Components.new('TestComponents', :param1, param2: 'def')
@@ -43,7 +44,7 @@ describe 'Components' do
     expect(@component_manager.respond_to?(:[])).to be true
     expect(@component_manager.respond_to?(:each)).to be true
     @component_manager.each do |component|
-      expect(component.respond_to? :param1).to be true
+      expect(component.respond_to?(:param1)).to be true
     end
     expect(@component_manager.respond_to?(:filter)).to be true
     expect(@component_manager.respond_to?(:first)).to be true
@@ -59,7 +60,7 @@ describe 'Components' do
     expect(FelFlame::Components.respond_to?(:[])).to be true
     expect(FelFlame::Components.respond_to?(:each)).to be true
     FelFlame::Components.each do |component_manager|
-      expect(component_manager.respond_to? :addition_triggers).to be true
+      expect(component_manager.respond_to?(:addition_triggers)).to be true
     end
     expect(FelFlame::Components.respond_to?(:filter)).to be true
     expect(FelFlame::Components.respond_to?(:first)).to be true
@@ -72,13 +73,13 @@ describe 'Components' do
   end
 
   it 'can delete a component' do
-    #component_id = @cmp1.id
+    # component_id = @cmp1.id
     @ent0.add @cmp1
     length = @component_manager.length
     expect(@cmp1.delete).to be true
-    expect(@component_manager.length).to eq(length-1)
-    #expect(@cmp1.id).to be_nil
-    #expect(@component_manager[component_id]).to be_nil
+    expect(@component_manager.length).to eq(length - 1)
+    # expect(@cmp1.id).to be_nil
+    # expect(@component_manager[component_id]).to be_nil
     expect(@cmp1.entities).to eq([])
   end
 
@@ -96,7 +97,6 @@ describe 'Components' do
     @cmp3 = @component_manager.new(param1: 'ok', param2: 10)
     expect(@cmp3.to_h).to eq(param1: 'ok', param2: 10)
   end
-
 
   it 'sets default params correctly' do
     expect(@cmp0.param1).to be_nil
@@ -124,9 +124,9 @@ describe 'Components' do
   end
 
   it 'can be accessed' do
-    expect(@component_manager[0].respond_to? :param1).to eq(true)
-    expect(@component_manager[1].respond_to? :param1).to eq(true)
-    expect(@component_manager[2].respond_to? :param1).to eq(true)
+    expect(@component_manager[0].respond_to?(:param1)).to eq(true)
+    expect(@component_manager[1].respond_to?(:param1)).to eq(true)
+    expect(@component_manager[2].respond_to?(:param1)).to eq(true)
   end
 
   it 'cant overwrite exiting component managers' do
@@ -135,7 +135,7 @@ describe 'Components' do
   end
 
   it 'can\'t create an attribute when its name is an existing method' do
-    #expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
+    # expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :addition_triggers) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :removal_triggers) }.to raise_error(NameError)
     expect { FelFlame::Components.new('TestComponent2', :attr_triggers) }.to raise_error(NameError)

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module FelFlame
   module Components
     @component_map = []
-    class <<self
+    class << self
       # Creates a new {FelFlame::ComponentManager component manager}.
       #
       # @example
@@ -20,14 +22,14 @@ module FelFlame
           raise(NameError.new, "Component Manager '#{component_name}' is already defined")
         end
 
-
         const_set(component_name, Class.new(FelFlame::ComponentManager) {})
         update_const_cache
 
         attrs.each do |attr|
-          if FelFlame::Components.const_get(component_name).method_defined?("#{attr}") || FelFlame::Components.const_get(component_name).method_defined?("#{attr}=")
-            raise NameError.new "The attribute name \"#{attr}\" is already a method"
+          if FelFlame::Components.const_get(component_name).method_defined?(attr.to_s) || FelFlame::Components.const_get(component_name).method_defined?("#{attr}=")
+            raise NameError, "The attribute name \"#{attr}\" is already a method"
           end
+
           FelFlame::Components.const_get(component_name).attr_accessor attr
         end
         attrs_with_defaults.each do |attr, _default|
@@ -49,24 +51,24 @@ module FelFlame
       # Makes component module behave like an array of component
       # managers with additional methods for managing the array
       # @!visibility private
-      ##def respond_to_missing?(method, *)
+      # #def respond_to_missing?(method, *)
       #  if constants.respond_to? method
       #    true
       #  else
       #    super
       #  end
-      #end
+      # end
 
       ## Makes component module behave like arrays with additional
       ## methods for managing the array
       ## @!visibility private
-      #def method_missing(method, *args, **kwargs, &block)
+      # def method_missing(method, *args, **kwargs, &block)
       #  if constants.respond_to? method
       #    constants.send(method, *args, **kwargs, &block)
       #  else
       #    super
       #  end
-      #end
+      # end
 
       # Stores the components managers in {FelFlame::Components}. This
       # is needed because calling `FelFlame::Components.constants`
@@ -83,8 +85,8 @@ module FelFlame
       # Used internally by FelFlame
       # @!visibility private
       def update_const_cache
-        @const_cache = self.constants.map do |constant|
-          self.const_get constant
+        @const_cache = constants.map do |constant|
+          const_get constant
         end
       end
 
@@ -110,16 +112,12 @@ module FelFlame
           super
         end
       end
-
-
-
     end
   end
 
   # Component Managers are what is used to create individual components which can be attached to entities.
-  # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g +@component.var = 5+), or by using the {#attrs} and {#update_attrs} methods instead.
+  # When a Component is created from a Component Manager that has accessors given to it, you can set or get the values of those accessors using standard ruby message sending (e.g +@component.var = 5+), or by using the {#to_h} and {#update_attrs} methods instead.
   class ComponentManager
-
     # Allows overwriting the storage of triggers, such as for clearing.
     # This method should generally only need to be used internally and
     # not by a game developer.
@@ -168,13 +166,12 @@ module FelFlame
       self.class.push self
     end
 
-    class <<self
-
+    class << self
       # Makes component managers behave like arrays with additional
       # methods for managing the array
       # @!visibility private
       def respond_to_missing?(method, *)
-        if self._data.respond_to? method
+        if _data.respond_to? method
           true
         else
           super
@@ -185,13 +182,12 @@ module FelFlame
       # methods for managing the array
       # @!visibility private
       def method_missing(method, *args, **kwargs, &block)
-        if self._data.respond_to? method
-          self._data.send(method, *args, **kwargs, &block)
+        if _data.respond_to? method
+          _data.send(method, *args, **kwargs, &block)
         else
           super
         end
       end
-
 
       # Allows overwriting the storage of triggers, such as for clearing.
       # This method should generally only need to be used internally and
@@ -257,6 +253,7 @@ module FelFlame
 
     # Execute systems that have been added to execute on variable change
     # @return [Boolean] +true+
+    # @!visibility private
     def attr_changed_trigger_systems(attr)
       systems_to_execute = self.class.attr_triggers[attr]
       systems_to_execute = [] if systems_to_execute.nil?
@@ -266,6 +263,7 @@ module FelFlame
       systems_to_execute.sort_by(&:priority).reverse_each(&:call)
       true
     end
+
     # Removes this component from the list and purges all references to this Component from other Entities, as well as its data.
     # @return [Boolean] +true+.
     def delete
@@ -282,7 +280,7 @@ module FelFlame
       true
     end
 
-    # @return [Hash<Symbol, Value>] A hash, where all the keys are attributes linked to their respective values.
+    # @return [Hash<Symbol, Value>] A hash, where all the keys are attributes storing their respective values.
     def to_h
       return_hash = instance_variables.each_with_object({}) do |key, final|
         final[key.to_s.delete_prefix('@').to_sym] = instance_variable_get(key)
@@ -294,8 +292,8 @@ module FelFlame
     # Export all data into a JSON String, which could then later be loaded or saved to a file
     # TODO: This function is not yet complete
     # @return [String] a JSON formatted String
-    #def to_json
+    # def to_json
     #  # should return a json or hash of all data in this component
-    #end
+    # end
   end
 end

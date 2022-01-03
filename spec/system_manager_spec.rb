@@ -1,7 +1,8 @@
-require_relative '../lib/felflame.rb'
+# frozen_string_literal: true
+
+require_relative '../lib/felflame'
 
 describe 'Systems' do
-
   before :all do
     @component_manager ||= FelFlame::Components.new('TestSystems', health: 10, whatever: 'imp', mana: 10)
     @@testitr = 999
@@ -41,7 +42,7 @@ describe 'Systems' do
     expect(FelFlame::Systems.respond_to?(:[])).to be true
     expect(FelFlame::Systems.respond_to?(:each)).to be true
     FelFlame::Systems.each do |system|
-      expect(system.respond_to? :call).to be true
+      expect(system.respond_to?(:call)).to be true
     end
     expect(FelFlame::Systems.respond_to?(:filter)).to be true
     expect(FelFlame::Systems.respond_to?(:first)).to be true
@@ -231,11 +232,11 @@ describe 'Systems' do
     @entity1 = FelFlame::Entities.new
     @system.trigger_when_is_changed @cmp0, :whatever
     @system.trigger_when_is_changed @cmp0, :mana
-    #expect(@system.attr_triggers).to eq({@cmp0 => [:name, :mana]})
-    #expect(@cmp0.attr_triggers).to eq({:name => [@system], :mana => [@system]})
+    # expect(@system.attr_triggers).to eq({@cmp0 => [:name, :mana]})
+    # expect(@cmp0.attr_triggers).to eq({:name => [@system], :mana => [@system]})
     @system.clear_triggers :attr_triggers, :whatever, component_or_manager: @cmp0
-    #expect(@system.attr_triggers).to eq({@cmp0 => [:mana]})
-    #expect(@cmp0.attr_triggers).to eq({:name => [], :mana => [@system]})
+    # expect(@system.attr_triggers).to eq({@cmp0 => [:mana]})
+    # expect(@cmp0.attr_triggers).to eq({:name => [], :mana => [@system]})
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
     @cmp0.whatever = 'something'

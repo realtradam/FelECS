@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module FelFlame
   module Stage
-    class <<self
+    class << self
       # Allows clearing of scenes and systems.
       # Used internally by FelFlame and shouldn't need to be ever used by developers
       # @!visibility private
@@ -28,7 +30,7 @@ module FelFlame
         true
       end
 
-      # Executes one frame of the game. This executes all the Systems in the Scenes added to the Stage. Systems that exist in two or more different Scenes will still only get executed once.
+      # Executes one frame of the game. This executes all the Scenes added to the Stage in order of their priority.
       # @return [Boolean] +true+
       def call
         self.scenes.each(&:call)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Systems
   class UpdateLevels
     @co = Components::Overworld
@@ -6,7 +8,7 @@ class Systems
         @co.data[:add].delete(id)
         if !(Components::Sprite.id & Entity.signatures[id]).zero?
           @co.data[:grid][@co.data[id].x][@co.data[id].y] = {} if @co.data[:grid][@co.data[id].x][@co.data[id].y].nil?
-          #@co.data[:grid][@co.data[id].x][@co.data[id].y].merge!({ player: true })
+          # @co.data[:grid][@co.data[id].x][@co.data[id].y].merge!({ player: true })
           puts @co.data[:grid][@co.data[id].x][@co.data[id].y].inspect
         elsif !(Components::Map.id & Entity.signatures[id]).zero?
           if Components::Map.data[id].json['tilesets'].last['source'].split('/').last.delete('\\').delete_suffix('.tsx') == 'hitbox'

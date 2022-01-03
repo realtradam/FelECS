@@ -13,6 +13,8 @@
 - Removed all ids as they were not used
 
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
+- Scenes now have their own priority attribute
+	- Stages now sort and execute by Scenes, rather then the net Systems in the Scenes
 - Component method `.attrs` was renamed to `.to_h`
 - Renamed the `data` accessor to `._data`
 - Various arrays are automatically compacted
@@ -22,12 +24,12 @@
 - Convenience methods for accessing a single entity in a component(`@component.entity`) and accessing a single entity in a component(`@entity.component[@component_manager]`)
 
 ![Fixed](https://img.shields.io/badge/-Fixed-blue)
-- Replaced all instances of `sort_by!` with `sort_by` for compatibility with DragonRuby
+- Replaced all instances of `sort_by!` with `sort_by` for compatibility with mruby
 - Minor optimizations such as less array duplication
 
 ## [3.0.0](https://github.com/realtradam/FelFlame/releases/tag/3.0.0) - 2021-07-12
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
-- The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive.
+- The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive
 
 ## [2.0.0](https://github.com/realtradam/FelFlame/releases/tag/2.0.0) - 2021-07-10
 ![Changed](https://img.shields.io/badge/-Changed-yellow)

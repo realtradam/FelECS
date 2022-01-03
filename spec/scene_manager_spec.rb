@@ -1,6 +1,8 @@
-require_relative '../lib/felflame.rb'
+# frozen_string_literal: true
 
-#class EntitiesTest < Minitest::Test
+require_relative '../lib/felflame'
+
+# class EntitiesTest < Minitest::Test
 
 describe 'Scenes' do
   before :all do

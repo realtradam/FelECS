@@ -1,10 +1,12 @@
-require_relative '../lib/felflame.rb'
+# frozen_string_literal: true
 
-#class EntitiesTest < Minitest::Test
+require_relative '../lib/felflame'
+
+# class EntitiesTest < Minitest::Test
 
 describe 'Stage' do
   before :all do
-    @component_manager ||= FelFlame::Components.new('TestStage', order: Array.new)
+    @component_manager ||= FelFlame::Components.new('TestStage', order: [])
     @system2 = FelFlame::Systems.new('StageTest', priority: 1) do
       @component_manager.first.order.push 2
     end
@@ -58,7 +60,6 @@ describe 'Stage' do
     @scene2.add @system2
     @scene3.add @system3
     FelFlame::Stage.call
-    expect(@component_manager.first.order).to eq([1,2,3])
+    expect(@component_manager.first.order).to eq([1, 2, 3])
   end
-
 end

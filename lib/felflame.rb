@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'felflame/entity_manager'
 require_relative 'felflame/component_manager'
 require_relative 'felflame/system_manager'
@@ -8,7 +10,7 @@ require_relative 'felflame/version'
 
 # The FelFlame namespace where all its functionality resides under.
 module FelFlame
-  class <<self
+  class << self
     # :nocov:
 
     # An alias for {FelFlame::Stage.call}. It executes a single frame in the game.
@@ -18,22 +20,21 @@ module FelFlame
     # :nocov:
   end
 
-  # Creates and manages Entities. Allows iterating or accessing Entities using array methods directly on the class. Entities are just collections of Components.
+  # Creates and manages Entities. Entities are just collections of Components.
+  # You can use array methods directly on this class to access Entities.
   class Entities; end
 
   # Creates component managers and allows accessing them them under the {FelFlame::Components} namespace as Constants.
+  # You can use array methods directly on this class to access Component Managers.
   #
   # To see how component managers are used please look at the {FelFlame::ComponentManager} documentation.
   module Components; end
 
-  # Creates an manages Systems. Systems are the logic of the game and do not contain any data within them. Any systems you create are accessable under the {FelFlame::Systems} namespace as Constants.
-  #
-  # TODO: Improve Systems overview
+  # Creates and manages Systems. Systems are the logic of the game and do not contain any data within them. Any systems you create are accessable under the {FelFlame::Systems} namespace as Constants.
+  # You can use array methods directly on this class to access Systems.
   class Systems; end
 
   # Creates and manages Scenes. Scenes are collections of Systems, and execute all the Systems when called upon. Any scenes you create are accessable under the {FelFlame::Scenes} namespace as Constants.
-  # 
-  # TODO: Improve Scenes overview
   class Scenes; end
 
   # Stores Scenes you add to it which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.

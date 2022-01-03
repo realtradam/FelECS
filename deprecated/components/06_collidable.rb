@@ -1,11 +1,9 @@
+# frozen_string_literal: true
+
 class Components
   # If an entity can be rendered on screen
   class Collidable < Helper::BaseComponent
-    class <<self
-      def add(entity_id)
-        super(entity_id)
-        #add to grid?
-      end
+    class << self
     end
     attr_accessor :grid
 
@@ -15,7 +13,7 @@ class Components
 
     def set(**opts)
       opts.each do |key, value|
-        self.send "#{key}=", value
+        send "#{key}=", value
       end
     end
   end
