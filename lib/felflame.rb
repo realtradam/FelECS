@@ -5,6 +5,7 @@ require_relative 'felflame/component_manager'
 require_relative 'felflame/system_manager'
 require_relative 'felflame/scene_manager'
 require_relative 'felflame/stage_manager'
+require_relative 'felflame/order'
 
 require_relative 'felflame/version'
 
@@ -39,6 +40,9 @@ module FelFlame
 
   # Stores Scenes you add to it which you want to execute on each frame. When called upon will execute all Systems in the Scenes in the Stage and will execute them according to their priority order.
   module Stage; end
+
+  # Sets the priority of a list of Systems or Scenes for you in the order you pass them to this class.
+  module Order; end
 end
 
 # An alias for {FelFlame}
@@ -58,3 +62,6 @@ FF::Scn = FelFlame::Scenes
 
 # An alias for {FelFlame::Stage}
 FF::Stg = FelFlame::Stage
+
+# An alias for {FelFlame::
+FF::Odr = FelFlame::Order
