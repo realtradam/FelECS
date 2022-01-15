@@ -1,0 +1,17 @@
+# How to draw logo
+
+- Use the existing title's curve and "put on path".  
+- Text size: 200  
+- Font: Asul  
+- place 1 space at the start of your title text 
+- need to apply some unknown number of horizontal kerning to align with existing.  
+- "Stoke to Path"  
+- duplicate coloured letters twice  
+- move one duplicate 3 steps diagonally up/left  
+- select bottom then select top and press `Path > Difference"  
+- move outer line back
+
+---
+
+- for alternate colour, use initial colour of light green, select HSV and slide hue.
+- for darker colour change the "L" value from 50 to 42
