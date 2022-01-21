@@ -1,10 +1,10 @@
-![FelECS](https://github.com/realtradam/FelECS/blob/master/logos/felecs-logo-text.png?raw=true)
-<!-- ![FelECS](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
+![FelECS](https://raw.githubusercontent.com/realtradam/FelFlame/master/logos/felflame-logo-text.png)
+<!-- ![FelFlame](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
-[![Inline docs](http://inch-ci.org/github/realtradam/FelECS.svg?branch=master)](http://inch-ci.org/github/realtradam/FelECS)
-[![MIT License](https://img.shields.io/github/license/realtradam/FelECS)](https://github.com/realtradam/FelECS/blob/master/LICENSE)
+[![Inline docs](http://inch-ci.org/github/realtradam/FelFlame.svg?branch=master)](http://inch-ci.org/github/realtradam/FelFlame)
+[![MIT License](https://img.shields.io/github/license/realtradam/FelFlame?label=license&style=flat)](https://github.com/realtradam/FelFlame/blob/master/LICENSE)
 [![Ko-Fi](https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20)](https://ko-fi.com/tradam)
 
 **[Check out the comprehensive documentation here!](https://felflame.tradam.fyi/)**
@@ -35,33 +35,12 @@
 		* [Accessing Attributes and Changing Them](#accessing-attributes-and-changing-them)
 		* [Deleting Components](#deleting-components)
 		* [Accessing Components' attached Entities](#accessing-components-attached-entities)
-* [get the first entity attached.](#get-the-first-entity-attached)
-* [this will throw a warning if there is more or less then](#this-will-throw-a-warning-if-there-is-more-or-less-then)
-* [exactly one entity](#exactly-one-entity)
 	* [Systems](#systems-1)
 		* [Creation](#creation-1)
-* [Code and Logic](#code-and-logic)
-* [do something with these components](#do-something-with-these-components)
 		* [Execution](#execution)
 		* [Alternative Execution](#alternative-execution)
-* [When this Component is added to an Entity, this System will be called](#when-this-component-is-added-to-an-entity-this-system-will-be-called)
-* [When this Component is removed from an Entity, this System will be called](#when-this-component-is-removed-from-an-entity-this-system-will-be-called)
-* [When this Component's health attribute is changed, this System will be called](#when-this-components-health-attribute-is-changed-this-system-will-be-called)
-* [When a Component from this Component Manager is added to an Entity, this System will be called](#when-a-component-from-this-component-manager-is-added-to-an-entity-this-system-will-be-called)
-* [When a Component from this Component Manager is removed from an Entity, this System will be called](#when-a-component-from-this-component-manager-is-removed-from-an-entity-this-system-will-be-called)
-* [When this Component's health attribute from this Component Manager is changed, this System will be called](#when-this-components-health-attribute-from-this-component-manager-is-changed-this-system-will-be-called)
 		* [Clearing Alternative Executions](#clearing-alternative-executions)
-* [clears ALL triggers with this system](#clears-all-triggers-with-this-system)
-* [clears ALL triggers with this Component Manager](#clears-all-triggers-with-this-component-manager)
-* [clear the 'trigger_when_added' for this Component](#clear-the-trigger_when_added-for-this-component)
-* [clear the 'trigger_when_removed' for this Component](#clear-the-trigger_when_removed-for-this-component)
-* [clear the 'trigger_when_is_set' for this Component specifically for the health attribute](#clear-the-trigger_when_is_set-for-this-component-specifically-for-the-health-attribute)
-* [clears ALL triggers with this Component](#clears-all-triggers-with-this-component)
-* [clear the 'trigger_when_added' for this Component Manager](#clear-the-trigger_when_added-for-this-component-manager)
-* [clear the 'trigger_when_removed' for this Component Manager](#clear-the-trigger_when_removed-for-this-component-manager)
-* [clear the 'trigger_when_is_set' for this Component Manager specifically for the health attribute](#clear-the-trigger_when_is_set-for-this-component-manager-specifically-for-the-health-attribute)
 		* [Redefinition](#redefinition)
-* [Some new logic or code](#some-new-logic-or-code)
 	* [Scenes](#scenes-1)
 		* [Creation](#creation-2)
 		* [Accessing](#accessing-2)
@@ -82,225 +61,225 @@
 
 # What is FelECS?
 
-	FelECS is an ECS framework for developing games in the Ruby language. FelECS has been designed from the ground up with these three ideas in mind:
+FelECS is an ECS framework for developing games in the Ruby language. FelECS has been designed from the ground up with these three ideas in mind:
 
-	1. **Engine Agnostic:** FelECS has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as [Ruby2D](http://www.ruby2d.com) or [DRGTK](https://dragonruby.org/toolkit/game) with little modifications.
-	2. **Easily Extensible:** FelECS has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.
-	3. **Principle of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
+1. **Engine Agnostic:** FelECS has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as [Ruby2D](http://www.ruby2d.com) or [DRGTK](https://dragonruby.org/toolkit/game) with little modifications.
+2. **Easily Extensible:** FelECS has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.
+3. **Principle of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
 
 # What is ECS?
-	ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.  
-	ECS stands for Entity, Component, and System.
+ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.  
+ECS stands for Entity, Component, and System.
 
-	---
+---
 
 ### Components
-	This is where the data or information of a given "object" is stored. There is no logic or code here. 
+This is where the data or information of a given "object" is stored. There is no logic or code here. 
 
 ### Entities
-	Entities will contain one or more Components, but contains no logic or data otherwise
+Entities will contain one or more Components, but contains no logic or data otherwise
 
 ### Systems
-	Systems are where all the logic or code is kept. There is no data stored in here.
+Systems are where all the logic or code is kept. There is no data stored in here.
 
-	---
+---
 
-	By using this pattern it allows programmers to easily control what an "object" or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  
+By using this pattern it allows programmers to easily control what an "object" or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  
 
-	**"But your framework also has `Scenes`, `Stage`, and `Order`, what is that about?"**  
+**"But your framework also has `Scenes`, `Stage`, and `Order`, what is that about?"**  
 
-	---
+---
 
 ### Scenes
-	Scenes are simply a collection or subset of Systems. This allows for an easy way to activate and deactivate Systems.
+Scenes are simply a collection or subset of Systems. This allows for an easy way to activate and deactivate Systems.
 
 ### Stage
-	The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.
+The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.
 
 ### Order
-	Order is a helper class which can set the priority of Scenes and Systems.
+Order is a helper class which can set the priority of Scenes and Systems.
 
-	---
+---
 
 
 # Usage
 
-	There are 2 ways of using FelECS. You can either `include` it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelECS and then `require_relative` this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.
+There are 2 ways of using FelECS. You can either `include` it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelECS and then `require_relative` this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.
 
-	To use the gem method you can do the following: install the gem using `gem install felflame` or using bundler `bundle add felflame` and then require it in your project like so: `require 'felflame'`.
+To use the gem method you can do the following: install the gem using `gem install felecs` or using bundler `bundle add felecs` and then require it in your project like so: `require 'felecs'`.
 
-	To use the single file export method you simply download the felflame.rb file from the [releases page on Github](https://github.com/realtradam/FelECS/releases) and add it to your source folder and add a `require relative 'felflame.rb'` line or wherever you have placed the file to use it.
+To use the single file export method you simply download the felecs.rb file from the [releases page on Github](https://github.com/realtradam/FelECS/releases) and add it to your source folder and add a `require relative 'felecs.rb'` line or wherever you have placed the file to use it.
 
 ## Entities
 
 ### Creation
-	Entities are essentially "objects" in the game world. To create a new Entity we do the following:
+Entities are essentially "objects" in the game world. To create a new Entity we do the following:
 
-	```ruby
-	@entity = FelECS::Entities.new
-	```
-	or if we want to add (any number of)components to it when creating it:
+```ruby
+@entity = FelECS::Entities.new
+```
+or if we want to add (any number of)components to it when creating it:
 
-	```ruby
+```ruby
 @entity = FelECS::Entites.new(
-		FelECS::Components::Health.new,
-		@component,
-		FelECS::Components::EnemyTeam.first
-		)
-	```
+  FelECS::Components::Health.new,
+  @component,
+  FelECS::Components::EnemyTeam.first
+)
+```
 
 ### Accessing
-	Oftentimes you will not be accessing an Entity this way. Later we will shows you a more common way of accessing entities.
-	If you need to you can access Entities using the `Entities` module:
+Oftentimes you will not be accessing an Entity this way. Later we will shows you a more common way of accessing entities.
+If you need to you can access Entities using the `Entities` module:
 
-	```ruby
-	@entity = FelECS::Entities[2]
-	@entity = FelECS::Entities.first
-	@entity = FelECS::Entities.each # you can iterate over all entities this way. Any valid array method can be used
-	```
+```ruby
+@entity = FelECS::Entities[2]
+@entity = FelECS::Entities.first
+@entity = FelECS::Entities.each # you can iterate over all entities this way. Any valid array method can be used
+```
 
 ### Adding and Removing Components
-	We can still add or remove Components from an Entity after it has been created. Here is how:
+We can still add or remove Components from an Entity after it has been created. Here is how:
 
-	```ruby
-	@entity.add @component
-	@entity.remove @component
-	```
+```ruby
+@entity.add @component
+@entity.remove @component
+```
 
 ### Accessing Entities' Attached Components
-	This is the most common way of accessing an Entity
+This is the most common way of accessing an Entity
 
-	When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:
+When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:
 
-	```ruby
-	@entity.components[@component_manager] # => [@component1, @component2, @component3]
-	```
+```ruby
+@entity.components[@component_manager] # => [@component1, @component2, @component3]
+```
 
 ### Deletion
-	To have all Components from an Entity **removed** and the Entity deleted we do the following:
+To have all Components from an Entity **removed** and the Entity deleted we do the following:
 
-	NOTE: The components will **not be deleted**. They are simply **removed** from the entity and then the entity is destroyed. You must handle component deletion yourself as for example singleton components need to removed instead of deleted.
+NOTE: The components will **not be deleted**. They are simply **removed** from the entity and then the entity is destroyed. You must handle component deletion yourself as for example singleton components need to removed instead of deleted.
 
-	```ruby
-	@entity.delete
-	```
+```ruby
+@entity.delete
+```
 
 ## Components
 
 ### Creating a Component Manager
-	Components are where all the data is stored. The data is stored in variables or accessors in each component.
-	These accessors and their defaults are configured when a component manager is created, like so:
+Components are where all the data is stored. The data is stored in variables or accessors in each component.
+These accessors and their defaults are configured when a component manager is created, like so:
 
-	```ruby
-	@component_manager = FelECS::Components.new('Stats', :armour, hp: 100)
-	```
+```ruby
+@component_manager = FelECS::Components.new('Stats', :armour, hp: 100)
+```
 
-	In this example we created a component manager called "Stats".
-	The name given to component managers must follow the same rules for naming constants in ruby for a reason you will shortly see.
-	The parameters following are all creating the attributes we can set.
-	We can set any number of parameters we wish, in this example we define two.
-	The `:armour` parameter is being created without a default, it will equal to `nil` when a new component is created, while `hp` will be equal to 100 when a component is created.
-	When defining attributes symbols should be used.
+In this example we created a component manager called "Stats".
+The name given to component managers must follow the same rules for naming constants in ruby for a reason you will shortly see.
+The parameters following are all creating the attributes we can set.
+We can set any number of parameters we wish, in this example we define two.
+The `:armour` parameter is being created without a default, it will equal to `nil` when a new component is created, while `hp` will be equal to 100 when a component is created.
+When defining attributes symbols should be used.
 
 ### Creating a Component from a Component Manager
-	Now that we have a component manager we can make components from it like so:
+Now that we have a component manager we can make components from it like so:
 
-	```ruby
-	@component = FelECS::Components::Stats.new
-	```
+```ruby
+@component = FelECS::Components::Stats.new
+```
 
-	Or we can even override the defaults when creating the component:
+Or we can even override the defaults when creating the component:
 
-	```ruby
-	@component = FelECS::Components::Stats.new(armour: 'steel')
-	```
+```ruby
+@component = FelECS::Components::Stats.new(armour: 'steel')
+```
 
 ### Accessing
-	You can access components using any array method.
+You can access components using any array method.
 
-	```ruby
-	@component = FelECS::Components::Stats[2]
-	@component = FelECS::Components::Stats.first
-	@component = FelECS::Components::Stats.each # you can use iterators this way
-	```
+```ruby
+@component = FelECS::Components::Stats[2]
+@component = FelECS::Components::Stats.first
+@component = FelECS::Components::Stats.each # you can use iterators this way
+```
 
 ### Accessing Attributes and Changing Them
-	There are a few different ways we can read or change the attributes of a component depending on what our needs are.
-	Here are the ways to edit attrubutes, followed by the ways to read them.
-	```ruby
-	@component.armour = 'Mythril'
-	@component.update_attrs(armour: 'Leather', hp: 95)
-	```
-	```ruby
-	@component.hp # => 95
-	@component.to_h # => {armour: 'Leather', hp: 95}
-	```
+There are a few different ways we can read or change the attributes of a component depending on what our needs are.
+Here are the ways to edit attrubutes, followed by the ways to read them.
+```ruby
+@component.armour = 'Mythril'
+@component.update_attrs(armour: 'Leather', hp: 95)
+```
+```ruby
+@component.hp # => 95
+@component.to_h # => {armour: 'Leather', hp: 95}
+```
 
 ### Deleting Components
-	Deleting a Component is the same convention as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
+Deleting a Component is the same convention as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
 
-	```ruby
-	@component.delete
-	```
+```ruby
+@component.delete
+```
 
 ### Accessing Components' attached Entities
-	Components also keep track of what Entities are using it. To access this list we do the following:
+Components also keep track of what Entities are using it. To access this list we do the following:
 
-	```ruby
-	@component.entities # => [@entity1, @entity2, @entity3]
+```ruby
+@component.entities # => [@entity1, @entity2, @entity3]
 
 # get the first entity attached.
 # this will throw a warning if there is more or less then
 # exactly one entity
-	@component.entity # => @entity
-	```
+@component.entity # => @entity
+```
 
 
 ## Systems
 
 ### Creation
-	We can create Systems like so:
+We can create Systems like so:
 
-	```ruby
-	FelECS::Systems.new('Render', priority: 2) do
-# Code and Logic
-	end
-	```
+```ruby
+FelECS::Systems.new('Render', priority: 2) do
+  # Code and Logic
+end
+```
 
-	The name we assign is how we can access the System, like so:
+The name we assign is how we can access the System, like so:
 
-	```ruby
-	FelECS::Systems::Render
-	```
-	Priority determines the order Systems should be executed, this is used for `Scenes` and the `Stage`.
-	The lower the number, the earlier a given System will be executed.
-	E.g priority 1 will go first, priority 2 will go second, etcetera. 
+```ruby
+FelECS::Systems::Render
+```
+Priority determines the order Systems should be executed, this is used for `Scenes` and the `Stage`.
+The lower the number, the earlier a given System will be executed.
+E.g priority 1 will go first, priority 2 will go second, etcetera. 
 
-	Both Scenes and Systems have a priority. System priority will decide the order it will be called inside of a Scene, which the Scene priority will decide the order it will be called inside of the Stage.
+Both Scenes and Systems have a priority. System priority will decide the order it will be called inside of a Scene, which the Scene priority will decide the order it will be called inside of the Stage.
 
-	Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
+Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
 
-	```ruby
-	FelECS::Systems.new('Render', priority: 2) do
-	FelECS::Components::Sprites.each do |component|
-# do something with these components
-	end
-	end
-	```
+```ruby
+FelECS::Systems.new('Render', priority: 2) do
+  FelECS::Components::Sprites.each do |component|
+    # do something with these components
+  end
+end
+```
 
 ### Execution
-	After we create a System, it won't do anything on its own until we tell it to. Here is how:
+After we create a System, it won't do anything on its own until we tell it to. Here is how:
 
-	```ruby
-	FelECS::Systems::Render.call
-	```
+```ruby
+FelECS::Systems::Render.call
+```
 
-	Sometimes you might want to manually activate a System, but the more common way to have Systems be triggered is to use Scenes and the Stage or the alternative ways of execution.
+Sometimes you might want to manually activate a System, but the more common way to have Systems be triggered is to use Scenes and the Stage or the alternative ways of execution.
 
 ### Alternative Execution
-	Sometimes you want a System to automatically trigger when a special even happens. FelECS can keep track of when a Component is added, removed, or when an attribute is changed and then execute Systems linked to these events. Here is how to create these links:
+Sometimes you want a System to automatically trigger when a special even happens. FelECS can keep track of when a Component is added, removed, or when an attribute is changed and then execute Systems linked to these events. Here is how to create these links:
 
-	```ruby
+```ruby
 # When this Component is added to an Entity, this System will be called
 FelECS::Systems::PassiveRegen.trigger_when_added(@component)
 
@@ -309,11 +288,11 @@ FelECS::Systems::PassiveRegen.trigger_when_removed(@component)
 
 # When this Component's health attribute is changed, this System will be called
 FelECS::Systems::PassiveRegen.trigger_when_is_set(@component, :health)
-	```
+```
 
-	If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:
+If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:
 
-	```ruby
+```ruby
 # When a Component from this Component Manager is added to an Entity, this System will be called
 FelECS::Systems::PassiveRegen.trigger_when_added(@component_manager)
 
@@ -322,17 +301,17 @@ FelECS::Systems::PassiveRegen.trigger_when_removed(@component_manager)
 
 # When this Component's health attribute from this Component Manager is changed, this System will be called
 FelECS::Systems::PassiveRegen.trigger_when_is_set(@component_manager, :health)
-	```
+```
 
-	We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers
+We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers
 
 ### Clearing Alternative Executions
 
-	If we wish to remove these links that we created, we can do that using the follwing function in any of the following ways:
+If we wish to remove these links that we created, we can do that using the follwing function in any of the following ways:
 
-	```ruby
+```ruby
 # clears ALL triggers with this system
-	FelECS::Systems::PassiveRegen.clear_triggers
+FelECS::Systems::PassiveRegen.clear_triggers
 
 # clears ALL triggers with this Component Manager
 FelECS::Systems::PassiveRegen.clear_triggers(@component)
@@ -345,11 +324,11 @@ FelECS::Systems::PassiveRegen.clear_triggers(@component, :removed)
 
 # clear the 'trigger_when_is_set' for this Component specifically for the health attribute
 FelECS::Systems::PassiveRegen.clear_triggers(@component, :is_set, :health)
-	```
+```
 
-	Likewise we can do the same with Component Managers:
+Likewise we can do the same with Component Managers:
 
-	```ruby
+```ruby
 # clears ALL triggers with this Component
 FelECS::Systems::PassiveRegen.clear_triggers(@component_manager) 
 
@@ -361,126 +340,126 @@ FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :removed)
 
 # clear the 'trigger_when_is_set' for this Component Manager specifically for the health attribute
 FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :is_set, :health) 
-	```
+```
 
 ### Redefinition
 
-	If we wanted to change what code or logic a given System executes, we could do that with:
+If we wanted to change what code or logic a given System executes, we could do that with:
 
-	```ruby
-	FelECS::Systems::PassiveRegen.redefine do
-# Some new logic or code
-	end
-	```
+```ruby
+FelECS::Systems::PassiveRegen.redefine do
+  # Some new logic or code
+end
+```
 
 ## Scenes
 
 ### Creation
-	Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that [Alternative Executions](#alternative-execution) will occur even if they are not part of a Scene. Here is how we make a new Scene:
+Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that [Alternative Executions](#alternative-execution) will occur even if they are not part of a Scene. Here is how we make a new Scene:
 
-	```ruby
-	@scene = FelECS::Scenes.new('ExampleScene', priority: 5)
-	```
+```ruby
+@scene = FelECS::Scenes.new('ExampleScene', priority: 5)
+```
 
 ### Accessing
-	Just like other classes in FelECS, the name we gave the Scene is how we access it:
+Just like other classes in FelECS, the name we gave the Scene is how we access it:
 
-	```ruby
-	@scene = FelECS::Scenes::ExampleScene
-	```
+```ruby
+@scene = FelECS::Scenes::ExampleScene
+```
 
 ### Adding Systems
-	Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:
+Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:
 
-	```ruby
+```ruby
 FelECS::Scenes::ExampleScene.add(
-		FelECS::Systems::Render,
-		@system2,
-		@system3
-		)
-	```
+  FelECS::Systems::Render,
+  @system2,
+  @system3
+)
+```
 
 ### Removing Systems
-	Removing Systems works similarly:
+Removing Systems works similarly:
 
-	```ruby
+```ruby
 FelECS::Scenes::ExampleScene.remove(
-		FelECS::Systems::Render,
-		@system2,
-		@system3
-		)
-	```
+  FelECS::Systems::Render,
+  @system2,
+  @system3
+)
+```
 
 ### Clearing
-	If you want to remove all Systems from a Scene here is how we do it:
+If you want to remove all Systems from a Scene here is how we do it:
 
-	```ruby
-	@scene.clear
-	```
+```ruby
+@scene.clear
+```
 
 ### Execution
-	To execute all Systems within a scene once we can just do:
+To execute all Systems within a scene once we can just do:
 
-	```ruby
-	@scene.call
-	```
+```ruby
+@scene.call
+```
 
-	The Scene will make sure that the systems are executed in the correct order based on their given priorities
+The Scene will make sure that the systems are executed in the correct order based on their given priorities
 
 ## Stage
 
 ### Adding Scenes
-	Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is 'active'. To add a Scene we do the following:
+Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is 'active'. To add a Scene we do the following:
 
-	```ruby
-	FelECS::Stage.add FelECS::Scene::ExampleScene
-	```
+```ruby
+FelECS::Stage.add FelECS::Scene::ExampleScene
+```
 
 ### Removing Scenes
-	Likewise we can remove Scenes:
+Likewise we can remove Scenes:
 
-	```ruby
-	FelECS::Stage.remove FelECS::Scene::ExampleScene
-	```
+```ruby
+FelECS::Stage.remove FelECS::Scene::ExampleScene
+```
 
 ### Executing
-	On each frame of the game generally we will want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will call all Scenes you added to it in the order of their priority. Here is how we do it:
+On each frame of the game generally we will want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will call all Scenes you added to it in the order of their priority. Here is how we do it:
 
-	```ruby
-	FelECS::Stage.call
-	```
+```ruby
+FelECS::Stage.call
+```
 
 ## Order
 
 ### Setting the order
 
-	To set the order you just need to call `FelECS::Order.sort` and pass Scenes or Systems in the parameters in the order you wish for them to execute
+To set the order you just need to call `FelECS::Order.sort` and pass Scenes or Systems in the parameters in the order you wish for them to execute
 
-	```ruby
+```ruby
 FelECS::Order.sort(
-		@system1,
-		@system2,
-		@system3
-		)
-	```
+  @system1,
+  @system2,
+  @system3
+)
+```
 
-	If you want some Scenes or Systems to have the same priority then just pass them as an array:
+If you want some Scenes or Systems to have the same priority then just pass them as an array:
 
-	```ruby
+```ruby
 FelECS::Order.sort(
-		@scene1,
-		[@scene2_1, @scene2_2],
-		@scene3
-		) 
-	```
+  @scene1,
+  [@scene2_1, @scene2_2],
+  @scene3
+) 
+```
 
 ## Closing Notes
 
-	There are some methods I haven't gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://felflame.tradam.fyi)!
+There are some methods I haven't gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://felflame.tradam.fyi)!
 
 # Contribution
-	Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  
+Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  
 
-	If you need help writing documentation or tests feel free to ask!  
+If you need help writing documentation or tests feel free to ask!  
 
-	If you want to contribute to development with a thanks you can always [buy me a coffee ;^)](https://ko-fi.com/tradam)
+If you want to contribute to development with a thanks you can always [buy me a coffee ;^)](https://ko-fi.com/tradam)
