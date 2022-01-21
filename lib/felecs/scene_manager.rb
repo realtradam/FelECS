@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   class Scenes
     # Allows overwriting the storage of systems, such as for clearing.
     # This method should generally only need to be used internally and
@@ -13,7 +13,7 @@ module FelFlame
 
     def priority=(priority)
       @priority = priority
-      FelFlame::Stage.scenes = FelFlame::Stage.scenes.sort_by(&:priority)
+      FelECS::Stage.scenes = FelECS::Stage.scenes.sort_by(&:priority)
       priority
     end
 
@@ -21,7 +21,7 @@ module FelFlame
     # @param name [String] String format must follow requirements of a constant
     def initialize(name, priority: 0)
       self.priority = priority
-      FelFlame::Scenes.const_set(name, self)
+      FelECS::Scenes.const_set(name, self)
     end
 
     # The list of Systems this Scene contains
@@ -62,7 +62,7 @@ module FelFlame
         system.scenes.delete self
       end
       systems.clear
-      # FelFlame::Stage.update_systems_list if FelFlame::Stage.scenes.include? self
+      # FelECS::Stage.update_systems_list if FelECS::Stage.scenes.include? self
       true
     end
   end

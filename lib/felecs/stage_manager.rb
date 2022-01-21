@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   module Stage
     class << self
       # Allows clearing of scenes and systems.
-      # Used internally by FelFlame and shouldn't need to be ever used by developers
+      # Used internally by FelECS and shouldn't need to be ever used by developers
       # @!visibility private
       attr_writer :scenes
 

@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require_relative '../lib/felflame'
+require_relative '../lib/felecs'
 
 # class EntitiesTest < Minitest::Test
 
 describe 'Entities' do
   before :all do
     $VERBOSE = nil
-    @component_manager ||= FelFlame::Components.new('TestEntity', :param1, param2: 'def')
+    @component_manager ||= FelECS::Components.new('TestEntity', :param1, param2: 'def')
   end
 
   before :each do
     @orig_stderr = $stderr
     $stderr = StringIO.new
-    @ent0 = FelFlame::Entities.new
-    @ent1 = FelFlame::Entities.new
-    @ent2 = FelFlame::Entities.new
+    @ent0 = FelECS::Entities.new
+    @ent1 = FelECS::Entities.new
+    @ent2 = FelECS::Entities.new
     @cmp0 = @component_manager.new
     @cmp1 = @component_manager.new
     @cmp2 = @component_manager.new
@@ -23,7 +23,7 @@ describe 'Entities' do
 
   after :each do
     $stderr = @orig_stderr
-    FelFlame::Entities.reverse_each(&:delete)
+    FelECS::Entities.reverse_each(&:delete)
     @component_manager.reverse_each(&:delete)
   end
 
@@ -43,19 +43,19 @@ describe 'Entities' do
   end
 
   it 'responds to array methods' do
-    expect(FelFlame::Entities.respond_to?(:[])).to be true
-    expect(FelFlame::Entities.respond_to?(:each)).to be true
-    FelFlame::Entities.each do |entity|
+    expect(FelECS::Entities.respond_to?(:[])).to be true
+    expect(FelECS::Entities.respond_to?(:each)).to be true
+    FelECS::Entities.each do |entity|
       expect(entity.respond_to?(:components)).to be true
     end
-    expect(FelFlame::Entities.respond_to?(:filter)).to be true
-    expect(FelFlame::Entities.respond_to?(:first)).to be true
-    expect(FelFlame::Entities.respond_to?(:last)).to be true
-    expect(FelFlame::Entities.respond_to?(:somethingwrong)).to be false
+    expect(FelECS::Entities.respond_to?(:filter)).to be true
+    expect(FelECS::Entities.respond_to?(:first)).to be true
+    expect(FelECS::Entities.respond_to?(:last)).to be true
+    expect(FelECS::Entities.respond_to?(:somethingwrong)).to be false
   end
 
   it 'dont respond to missing methods' do
-    expect { FelFlame::Entities.somethingwrong }.to raise_error(NoMethodError)
+    expect { FelECS::Entities.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'won\'t add duplicate entities' do
@@ -64,9 +64,9 @@ describe 'Entities' do
   end
 
   it 'can be accessed' do
-    expect(FelFlame::Entities[0].respond_to?(:components)).to eq(true)
-    expect(FelFlame::Entities[1].respond_to?(:components)).to eq(true)
-    expect(FelFlame::Entities[2].respond_to?(:components)).to eq(true)
+    expect(FelECS::Entities[0].respond_to?(:components)).to eq(true)
+    expect(FelECS::Entities[1].respond_to?(:components)).to eq(true)
+    expect(FelECS::Entities[2].respond_to?(:components)).to eq(true)
   end
 
   it 'can have components attached' do
@@ -108,7 +108,7 @@ describe 'Entities' do
     expect(@component_manager.empty?).to be true
     expect(@ent0.components).to eq({})
     expect(@ent2.components).to eq({})
-    FelFlame::Entities.reverse_each(&:delete)
-    expect(FelFlame::Entities.empty?).to be true
+    FelECS::Entities.reverse_each(&:delete)
+    expect(FelECS::Entities.empty?).to be true
   end
 end

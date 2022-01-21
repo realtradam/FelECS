@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   class Entities
     # Creating a new Entity
     # @param components [Components] Can be any number of components, identical duplicates will be automatically purged however different components from the same component manager are allowed.
@@ -25,8 +25,8 @@ module FelFlame
     # @return [Component]
     def component(manager = nil)
       if manager.nil?
-        FelFlame::Entities.component_redirect.entity = self
-        FelFlame::Entities.component_redirect
+        FelECS::Entities.component_redirect.entity = self
+        FelECS::Entities.component_redirect
       else
         if components[manager].nil?
           raise "This entity(#{self}) doesnt have any components of this type: #{manager}"
@@ -46,7 +46,7 @@ module FelFlame
           component.entities.delete(self)
         end
       end
-      FelFlame::Entities._data.delete self
+      FelECS::Entities._data.delete self
       @components = {}
       true
     end
@@ -152,8 +152,8 @@ module FelFlame
 
       # Creates a new entity using the data from a JSON string
       # TODO: This function is not yet complete
-      # @param json_string [String] A string that was exported originally using the {FelFlame::Entities#to_json to_json} function
-      # @param opts [Keywords] What values(its {FelFlame::Entities#id ID} or the {FelFlame::ComponentManager#id component IDs}) should be overwritten TODO: this might change
+      # @param json_string [String] A string that was exported originally using the {FelECS::Entities#to_json to_json} function
+      # @param opts [Keywords] What values(its {FelECS::Entities#id ID} or the {FelECS::ComponentManager#id component IDs}) should be overwritten TODO: this might change
       # def from_json(json_string, **opts) end
     end
   end

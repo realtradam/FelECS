@@ -1,55 +1,55 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   module Components
     @component_map = []
     class << self
-      # Creates a new {FelFlame::ComponentManager component manager}.
+      # Creates a new {FelECS::ComponentManager component manager}.
       #
       # @example
       #   # Here color is set to default to red
       #   # while max and current are nil until set.
       #   # When you make a new component using this component manager
       #   # these are the values and accessors it will have.
-      #   FelFlame::Component.new('Health', :max, :current, color: 'red')
+      #   FelECS::Component.new('Health', :max, :current, color: 'red')
       #
       # @param component_name [String] Name of your new component manager. Must be stylized in the format of constants in Ruby
       # @param attrs [:Symbols] New components made with this manager will include these symbols as accessors, the values of these accessors will default to nil
       # @param attrs_with_defaults [Keyword: DefaultValue] New components made with this manager will include these keywords as accessors, their defaults set to the values given to the keywords
       # @return [ComponentManager]
       def new(component_name, *attrs, **attrs_with_defaults)
-        if FelFlame::Components.const_defined?(component_name)
+        if FelECS::Components.const_defined?(component_name)
           raise(NameError.new, "Component Manager '#{component_name}' is already defined")
         end
 
-        const_set(component_name, Class.new(FelFlame::ComponentManager) {})
+        const_set(component_name, Class.new(FelECS::ComponentManager) {})
         update_const_cache
 
         attrs.each do |attr|
-          if FelFlame::Components.const_get(component_name).method_defined?(attr.to_s) || FelFlame::Components.const_get(component_name).method_defined?("#{attr}=")
+          if FelECS::Components.const_get(component_name).method_defined?(attr.to_s) || FelECS::Components.const_get(component_name).method_defined?("#{attr}=")
             raise NameError, "The attribute name \"#{attr}\" is already a method"
           end
 
-          FelFlame::Components.const_get(component_name).attr_accessor attr
+          FelECS::Components.const_get(component_name).attr_accessor attr
         end
         attrs_with_defaults.each do |attr, _default|
           attrs_with_defaults[attr] = _default.dup
-          FelFlame::Components.const_get(component_name).attr_reader attr
-          FelFlame::Components.const_get(component_name).define_method("#{attr}=") do |value|
+          FelECS::Components.const_get(component_name).attr_reader attr
+          FelECS::Components.const_get(component_name).define_method("#{attr}=") do |value|
             attr_changed_trigger_systems(attr) unless value.equal? send(attr)
             instance_variable_set("@#{attr}", value)
           end
         end
-        FelFlame::Components.const_get(component_name).define_method(:set_defaults) do
+        FelECS::Components.const_get(component_name).define_method(:set_defaults) do
           attrs_with_defaults.each do |attr, default|
             instance_variable_set("@#{attr}", default.dup)
           end
         end
-        FelFlame::Components.const_get(component_name)
+        FelECS::Components.const_get(component_name)
       end
 
-      # Stores the components managers in {FelFlame::Components}. This
-      # is needed because calling `FelFlame::Components.constants`
+      # Stores the components managers in {FelECS::Components}. This
+      # is needed because calling `FelECS::Components.constants`
       # will not let you iterate over the value of the constants
       # but will instead give you an array of symbols. This caches
       # the convertion of those symbols to the actual value of the
@@ -60,7 +60,7 @@ module FelFlame
       end
 
       # Updates the array that stores the constants.
-      # Used internally by FelFlame
+      # Used internally by FelECS
       # @!visibility private
       def update_const_cache
         @const_cache = constants.map do |constant|
@@ -104,7 +104,7 @@ module FelFlame
 
     # Stores references to systems that should be triggered when a
     # component from this manager is added.
-    # Do not edit this array as it is managed by FelFlame automatically.
+    # Do not edit this array as it is managed by FelECS automatically.
     # @return [Array<System>]
     def addition_triggers
       @addition_triggers ||= []
@@ -112,7 +112,7 @@ module FelFlame
 
     # Stores references to systems that should be triggered when a
     # component from this manager is removed.
-    # Do not edit this array as it is managed by FelFlame automatically.
+    # Do not edit this array as it is managed by FelECS automatically.
     # @return [Array<System>]
     def removal_triggers
       @removal_triggers ||= []
@@ -120,7 +120,7 @@ module FelFlame
 
     # Stores references to systems that should be triggered when an
     # attribute from this manager is changed.
-    # Do not edit this hash as it is managed by FelFlame automatically.
+    # Do not edit this hash as it is managed by FelECS automatically.
     # @return [Hash<Symbol, Array<System>>]
     def attr_triggers
       @attr_triggers ||= {}
@@ -132,7 +132,7 @@ module FelFlame
     def initialize(**attrs)
       # Prepare the object
       # (this is a function created with metaprogramming
-      # in FelFlame::Components)
+      # in FelECS::Components)
       set_defaults
 
       # Fill params
@@ -175,7 +175,7 @@ module FelFlame
 
       # Stores references to systems that should be triggered when this
       # component is added to an enitity.
-      # Do not edit this array as it is managed by FelFlame automatically.
+      # Do not edit this array as it is managed by FelECS automatically.
       # @return [Array<System>]
       def addition_triggers
         @addition_triggers ||= []
@@ -183,7 +183,7 @@ module FelFlame
 
       # Stores references to systems that should be triggered when this
       # component is removed from an enitity.
-      # Do not edit this array as it is managed by FelFlame automatically.
+      # Do not edit this array as it is managed by FelECS automatically.
       # @return [Array<System>]
       def removal_triggers
         @removal_triggers ||= []
@@ -191,7 +191,7 @@ module FelFlame
 
       # Stores references to systems that should be triggered when an
       # attribute from this component changed.
-      # Do not edit this hash as it is managed by FelFlame automatically.
+      # Do not edit this hash as it is managed by FelECS automatically.
       # @return [Hash<Symbol, System>]
       def attr_triggers
         @attr_triggers ||= {}

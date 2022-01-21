@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-require_relative '../lib/felflame'
+require_relative '../lib/felecs'
 
 describe 'Components' do
   # let :component_manager do
-  #  @component_manager ||= FelFlame::Components.new('TestComponents', :param1, param2: 'def')
+  #  @component_manager ||= FelECS::Components.new('TestComponents', :param1, param2: 'def')
   # end
 
   before :all do
-    @component_manager ||= FelFlame::Components.new('TestComponents', :param1, param2: 'def')
+    @component_manager ||= FelECS::Components.new('TestComponents', :param1, param2: 'def')
   end
 
   before :each do
     @orig_stderr = $stderr
     $stderr = StringIO.new
-    @ent0 = FelFlame::Entities.new
-    @ent1 = FelFlame::Entities.new
-    @ent2 = FelFlame::Entities.new
+    @ent0 = FelECS::Entities.new
+    @ent1 = FelECS::Entities.new
+    @ent2 = FelECS::Entities.new
     @cmp0 = @component_manager.new
     @cmp1 = @component_manager.new
     @cmp2 = @component_manager.new
@@ -24,7 +24,7 @@ describe 'Components' do
 
   after :each do
     $stderr = @orig_stderr
-    FelFlame::Entities.reverse_each(&:delete)
+    FelECS::Entities.reverse_each(&:delete)
     @component_manager.reverse_each(&:delete)
   end
 
@@ -57,19 +57,19 @@ describe 'Components' do
   end
 
   it 'Component module responds to array methods' do
-    expect(FelFlame::Components.respond_to?(:[])).to be true
-    expect(FelFlame::Components.respond_to?(:each)).to be true
-    FelFlame::Components.each do |component_manager|
+    expect(FelECS::Components.respond_to?(:[])).to be true
+    expect(FelECS::Components.respond_to?(:each)).to be true
+    FelECS::Components.each do |component_manager|
       expect(component_manager.respond_to?(:addition_triggers)).to be true
     end
-    expect(FelFlame::Components.respond_to?(:filter)).to be true
-    expect(FelFlame::Components.respond_to?(:first)).to be true
-    expect(FelFlame::Components.respond_to?(:last)).to be true
-    expect(FelFlame::Components.respond_to?(:somethingwrong)).to be false
+    expect(FelECS::Components.respond_to?(:filter)).to be true
+    expect(FelECS::Components.respond_to?(:first)).to be true
+    expect(FelECS::Components.respond_to?(:last)).to be true
+    expect(FelECS::Components.respond_to?(:somethingwrong)).to be false
   end
 
   it 'Component module doesnt respond to missing methods' do
-    expect { FelFlame::Components.somethingwrong }.to raise_error(NoMethodError)
+    expect { FelECS::Components.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can delete a component' do
@@ -84,13 +84,13 @@ describe 'Components' do
   end
 
   it 'can iterate component managers' do
-    all_components_symbols = FelFlame::Components.constants
+    all_components_symbols = FelECS::Components.constants
     all_components = all_components_symbols.map do |symbol|
-      FelFlame::Components.const_get symbol
+      FelECS::Components.const_get symbol
     end
-    expect(all_components).to eq(FF::Components.each.to_a)
+    expect(all_components).to eq(FelECS::Components.each.to_a)
     expect(all_components.length).to be > 0
-    expect(FelFlame::Components.each).to be_an Enumerator
+    expect(FelECS::Components.each).to be_an Enumerator
   end
 
   it 'can change params on initialization' do
@@ -130,15 +130,15 @@ describe 'Components' do
   end
 
   it 'cant overwrite exiting component managers' do
-    FelFlame::Components.new('TestComponent1')
-    expect { FelFlame::Components.new('TestComponent1') }.to raise_error(NameError)
+    FelECS::Components.new('TestComponent1')
+    expect { FelECS::Components.new('TestComponent1') }.to raise_error(NameError)
   end
 
   it 'can\'t create an attribute when its name is an existing method' do
-    # expect { FelFlame::Components.new('TestComponent2', :id) }.to raise_error(NameError)
-    expect { FelFlame::Components.new('TestComponent2', :addition_triggers) }.to raise_error(NameError)
-    expect { FelFlame::Components.new('TestComponent2', :removal_triggers) }.to raise_error(NameError)
-    expect { FelFlame::Components.new('TestComponent2', :attr_triggers) }.to raise_error(NameError)
-    expect { FelFlame::Components.new('TestComponent3', :same, :same) }.to raise_error(NameError)
+    # expect { FelECS::Components.new('TestComponent2', :id) }.to raise_error(NameError)
+    expect { FelECS::Components.new('TestComponent2', :addition_triggers) }.to raise_error(NameError)
+    expect { FelECS::Components.new('TestComponent2', :removal_triggers) }.to raise_error(NameError)
+    expect { FelECS::Components.new('TestComponent2', :attr_triggers) }.to raise_error(NameError)
+    expect { FelECS::Components.new('TestComponent3', :same, :same) }.to raise_error(NameError)
   end
 end

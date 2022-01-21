@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/felflame/version'
+require_relative 'lib/felecs/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'felflame'
-  spec.version       = Felflame::VERSION
+  spec.name          = 'felecs'
+  spec.version       = FelECS::VERSION
   spec.authors       = ['Tradam']
   spec.email         = ['felflame@tradam.dev']
 

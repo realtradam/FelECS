@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative '../lib/felflame'
+require_relative '../lib/felecs'
 
 describe 'Systems' do
   before :all do
-    @component_manager ||= FelFlame::Components.new('TestSystems', health: 10, whatever: 'imp', mana: 10)
+    @component_manager ||= FelECS::Components.new('TestSystems', health: 10, whatever: 'imp', mana: 10)
     @@testitr = 999
   end
 
   before :each do
     @@testitr += 1
-    @system = FelFlame::Systems.new "Test#{@@testitr}" do
+    @system = FelECS::Systems.new "Test#{@@testitr}" do
       @component_manager.each do |component|
         component.health += 5
       end
@@ -19,13 +19,13 @@ describe 'Systems' do
 
   after :each do
     @component_manager.each(&:delete)
-    FelFlame::Entities.each(&:delete)
-    FelFlame::Systems.each(&:clear_triggers)
+    FelECS::Entities.each(&:delete)
+    FelECS::Systems.each(&:clear_triggers)
   end
 
   it 'can create a system' do
     @@testitr += 1
-    sys = FelFlame::Systems.new("Test#{@@testitr}") do
+    sys = FelECS::Systems.new("Test#{@@testitr}") do
       'Works'
     end
     expect(sys.call).to eq('Works')
@@ -39,19 +39,19 @@ describe 'Systems' do
   end
 
   it 'responds to array methods' do
-    expect(FelFlame::Systems.respond_to?(:[])).to be true
-    expect(FelFlame::Systems.respond_to?(:each)).to be true
-    FelFlame::Systems.each do |system|
+    expect(FelECS::Systems.respond_to?(:[])).to be true
+    expect(FelECS::Systems.respond_to?(:each)).to be true
+    FelECS::Systems.each do |system|
       expect(system.respond_to?(:call)).to be true
     end
-    expect(FelFlame::Systems.respond_to?(:filter)).to be true
-    expect(FelFlame::Systems.respond_to?(:first)).to be true
-    expect(FelFlame::Systems.respond_to?(:last)).to be true
-    expect(FelFlame::Systems.respond_to?(:somethingwrong)).to be false
+    expect(FelECS::Systems.respond_to?(:filter)).to be true
+    expect(FelECS::Systems.respond_to?(:first)).to be true
+    expect(FelECS::Systems.respond_to?(:last)).to be true
+    expect(FelECS::Systems.respond_to?(:somethingwrong)).to be false
   end
 
   it 'dont respond to missing methods' do
-    expect { FelFlame::Systems.somethingwrong }.to raise_error(NoMethodError)
+    expect { FelECS::Systems.somethingwrong }.to raise_error(NoMethodError)
   end
 
   it 'can manipulate components' do
@@ -92,8 +92,8 @@ describe 'Systems' do
     @system.trigger_when_added @cmp0
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
-    @entity0 = FelFlame::Entities.new
-    @entity1 = FelFlame::Entities.new @cmp0
+    @entity0 = FelECS::Entities.new
+    @entity1 = FelECS::Entities.new @cmp0
     expect(@cmp0.health).to eq(15)
     expect(@cmp1.health).to eq(25)
     @entity0.add @cmp0
@@ -107,8 +107,8 @@ describe 'Systems' do
     @system.trigger_when_added @component_manager
     expect(@cmp1.health).to eq(10)
     expect(@cmp2.health).to eq(20)
-    @entity1 = FelFlame::Entities.new
-    @entity2 = FelFlame::Entities.new @cmp2
+    @entity1 = FelECS::Entities.new
+    @entity2 = FelECS::Entities.new @cmp2
     expect(@cmp1.health).to eq(15)
     expect(@cmp2.health).to eq(25)
     @system.trigger_when_added @cmp1
@@ -123,8 +123,8 @@ describe 'Systems' do
     @system.trigger_when_removed @cmp0
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
-    @entity0 = FelFlame::Entities.new
-    @entity1 = FelFlame::Entities.new @cmp0
+    @entity0 = FelECS::Entities.new
+    @entity1 = FelECS::Entities.new @cmp0
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
     @entity1.remove @cmp0
@@ -147,8 +147,8 @@ describe 'Systems' do
     @system.trigger_when_removed @component_manager
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
-    @entity0 = FelFlame::Entities.new
-    @entity1 = FelFlame::Entities.new @cmp0
+    @entity0 = FelECS::Entities.new
+    @entity1 = FelECS::Entities.new @cmp0
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
     @entity1.remove @cmp0
@@ -172,8 +172,8 @@ describe 'Systems' do
     @system.trigger_when_is_changed @cmp0, :whatever
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
-    @entity0 = FelFlame::Entities.new
-    @entity1 = FelFlame::Entities.new @cmp0
+    @entity0 = FelECS::Entities.new
+    @entity1 = FelECS::Entities.new @cmp0
     expect(@cmp0.health).to eq(10)
     expect(@cmp1.health).to eq(20)
     @cmp0.whatever = 'different'
@@ -187,7 +187,7 @@ describe 'Systems' do
   it 'can clear all triggers' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_added @cmp0
     @system.trigger_when_added @component_manager
     @system.trigger_when_removed @cmp0
@@ -208,7 +208,7 @@ describe 'Systems' do
   it 'can clear individual attr_triggers, without component or manager' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @cmp0, :whatever
     @system.trigger_when_is_changed @component_manager, :whatever
     @system.trigger_when_is_changed @cmp0, :mana
@@ -229,7 +229,7 @@ describe 'Systems' do
   it 'can clear individual attr_triggers, with component' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @cmp0, :whatever
     @system.trigger_when_is_changed @cmp0, :mana
     # expect(@system.attr_triggers).to eq({@cmp0 => [:name, :mana]})
@@ -252,7 +252,7 @@ describe 'Systems' do
   it 'can clear individual attr_triggers, with manager' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @component_manager, :whatever
     @system.trigger_when_is_changed @component_manager, :mana
     @system.clear_triggers :attr_triggers, :whatever, component_or_manager: @component_manager
@@ -271,7 +271,7 @@ describe 'Systems' do
   it 'can clear all attr_triggers, without component or manager' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @component_manager, :whatever
     @system.trigger_when_is_changed @cmp1, :mana
     @system.clear_triggers :attr_triggers
@@ -290,7 +290,7 @@ describe 'Systems' do
   it 'can clear all attr_triggers, with component' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @component_manager, :whatever
     @system.trigger_when_is_changed @cmp1, :mana
     @system.clear_triggers :attr_triggers, component_or_manager: @cmp1
@@ -309,7 +309,7 @@ describe 'Systems' do
   it 'can clear all attr_triggers, with manager' do
     @cmp0 = @component_manager.new health: 10, mana: 10
     @cmp1 = @component_manager.new health: 20, mana: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_is_changed @component_manager, :whatever
     @system.trigger_when_is_changed @cmp1, :mana
     @system.clear_triggers :attr_triggers, component_or_manager: @component_manager
@@ -328,7 +328,7 @@ describe 'Systems' do
   it 'can clear addition_trigger, without component or manager' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_added @cmp0
     @system.trigger_when_added @component_manager
     @system.clear_triggers(:addition_triggers)
@@ -343,7 +343,7 @@ describe 'Systems' do
   it 'can clear addition_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_added @cmp0
     @system.clear_triggers :addition_triggers, component_or_manager: @cmp0
     expect(@cmp0.health).to eq(10)
@@ -357,7 +357,7 @@ describe 'Systems' do
   it 'can clear addition_trigger, with manager' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_added @component_manager
     @system.clear_triggers :addition_triggers, component_or_manager: @component_manager
     expect(@cmp0.health).to eq(10)
@@ -371,7 +371,7 @@ describe 'Systems' do
   it 'can clear removal_trigger, without component or manager' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_removed @cmp0
     @system.trigger_when_removed @component_manager
     @system.clear_triggers(:removal_triggers)
@@ -386,7 +386,7 @@ describe 'Systems' do
   it 'can clear removal_trigger, with component' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_removed @cmp0
     @system.clear_triggers :removal_triggers, component_or_manager: @cmp0
     expect(@cmp0.health).to eq(10)
@@ -400,7 +400,7 @@ describe 'Systems' do
   it 'can clear removal_trigger, with manager' do
     @cmp0 = @component_manager.new health: 10
     @cmp1 = @component_manager.new health: 20
-    @entity1 = FelFlame::Entities.new
+    @entity1 = FelECS::Entities.new
     @system.trigger_when_removed @component_manager
     @system.clear_triggers :removal_triggers, component_or_manager: @component_manager
     expect(@cmp0.health).to eq(10)

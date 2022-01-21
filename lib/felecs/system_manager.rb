@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   class Systems
     # How early this System should be executed in a list of Systems
     attr_accessor :priority
@@ -30,7 +30,7 @@ module FelFlame
     # Stores references to components or their managers that trigger
     # this component when a component or component from that manager
     # is added to an entity.
-    # Do not edit this hash as it is managed by FelFlame automatically.
+    # Do not edit this hash as it is managed by FelECS automatically.
     # @return [Array<Component>]
     def addition_triggers
       @addition_triggers ||= []
@@ -39,7 +39,7 @@ module FelFlame
     # Stores references to components or their managers that trigger
     # this component when a component or component from that manager
     # is removed from an entity.
-    # Do not edit this hash as it is managed by FelFlame automatically.
+    # Do not edit this hash as it is managed by FelECS automatically.
     # @return [Array<Component>]
     def removal_triggers
       @removal_triggers ||= []
@@ -47,15 +47,15 @@ module FelFlame
 
     # Stores references to systems that should be triggered when an
     # attribute from this manager is changed
-    # Do not edit this hash as it is managed by FelFlame automatically.
+    # Do not edit this hash as it is managed by FelECS automatically.
     # @return [Hash<Symbol, Array<Symbol>>]
     def attr_triggers
       @attr_triggers ||= {}
     end
 
     class << self
-      # Stores the systems in {FelFlame::Components}. This
-      # is needed because calling `FelFlame::Components.constants`
+      # Stores the systems in {FelECS::Components}. This
+      # is needed because calling `FelECS::Components.constants`
       # will not let you iterate over the value of the constants
       # but will instead give you an array of symbols. This caches
       # the convertion of those symbols to the actual value of the
@@ -65,7 +65,7 @@ module FelFlame
       end
 
       # Updates the array that stores the constants.
-      # Used internally by FelFlame
+      # Used internally by FelECS
       # @!visibility private
       def update_const_cache
         @const_cache = constants.map do |constant|
@@ -97,12 +97,12 @@ module FelFlame
       end
     end
 
-    # Creates a new System which can be accessed as a constant under the namespace {FelFlame::Systems}.
+    # Creates a new System which can be accessed as a constant under the namespace {FelECS::Systems}.
     # The name given is what constant the system is assigned to
     #
     # @example
-    #   FelFlame::Systems.new('PassiveHeal', priority: -2) do
-    #     FelFlame::Components::Health.each do |component|
+    #   FelECS::Systems.new('PassiveHeal', priority: -2) do
+    #     FelECS::Components::Health.each do |component|
     #       component.hp += 5
     #     end
     #   end
@@ -113,8 +113,8 @@ module FelFlame
     # @param priority [Integer] Which priority order this system should be executed in relative to other systems. Higher means executed earlier.
     # @param block [Proc] The code you wish to be executed when the system is triggered. Can be defined by using a +do end+ block or using +{ }+ braces.
     def initialize(name, priority: 0, &block)
-      FelFlame::Systems.const_set(name, self)
-      FelFlame::Systems.update_const_cache
+      FelECS::Systems.const_set(name, self)
+      FelECS::Systems.update_const_cache
       @priority = priority
       @block = block
       @scenes = []
@@ -138,19 +138,19 @@ module FelFlame
     # For attr_triggers
     # @example
     #   # To clear all triggers that execute this system when a component is added:
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers
+    #   FelECS::Systems::ExampleSystem.clear_triggers :addition_triggers
     #   # Same as above but for when a component is removed instead
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :removal_triggers
+    #   FelECS::Systems::ExampleSystem.clear_triggers :removal_triggers
     #   # Same as above but for when a component has a certain attribute changed
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :attr_triggers
+    #   FelECS::Systems::ExampleSystem.clear_triggers :attr_triggers
     #
     #   # Clear a trigger from a specific component
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers, FelFlame::Component::ExampleComponent[0]
+    #   FelECS::Systems::ExampleSystem.clear_triggers :addition_triggers, FelECS::Component::ExampleComponent[0]
     #   # Clear a trigger from a specific component manager
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :addition_triggers, FelFlame::Component::ExampleComponent
+    #   FelECS::Systems::ExampleSystem.clear_triggers :addition_triggers, FelECS::Component::ExampleComponent
     #
     #   # Clear the trigger that executes a system when the ':example_attr' is changes
-    #   FelFlame::Systems::ExampleSystem.clear_triggers :attr_triggers, :example_attr
+    #   FelECS::Systems::ExampleSystem.clear_triggers :attr_triggers, :example_attr
     # @param trigger_types [:Symbols] One or more of  the following trigger types: +:addition_triggers+, +:removal_triggers+, or +:attr_triggers+. If attr_triggers is used then you may pass attributes you wish to be cleared as symbols in this parameter as well
     # @param component_or_manager [Component or ComponentManager] The object to clear triggers from. Use Nil to clear triggers from all components associated with this system.
     # @return [Boolean] +true+
@@ -159,28 +159,28 @@ module FelFlame
 
       if trigger_types.include? :attr_triggers
         if (trigger_types - %i[addition_triggers
-                               removal_triggers
-                               attr_triggers]).empty?
+            removal_triggers
+            attr_triggers]).empty?
 
-          if component_or_manager.nil?
-            # remove all attrs
-            attr_triggers.each do |cmp_or_mgr, attrs|
-              attrs.each do |attr|
-                next if cmp_or_mgr.attr_triggers[attr].nil?
+            if component_or_manager.nil?
+              # remove all attrs
+              attr_triggers.each do |cmp_or_mgr, attrs|
+                attrs.each do |attr|
+                  next if cmp_or_mgr.attr_triggers[attr].nil?
 
-                cmp_or_mgr.attr_triggers[attr].delete self
+                  cmp_or_mgr.attr_triggers[attr].delete self
+                end
+                self.attr_triggers = {}
               end
-              self.attr_triggers = {}
-            end
-          else
-            # remove attrs relevant to comp_or_man
-            unless attr_triggers[component_or_manager].nil?
-              attr_triggers[component_or_manager].each do |attr|
-                component_or_manager.attr_triggers[attr].delete self
+            else
+              # remove attrs relevant to comp_or_man
+              unless attr_triggers[component_or_manager].nil?
+                attr_triggers[component_or_manager].each do |attr|
+                  component_or_manager.attr_triggers[attr].delete self
+                end
+                attr_triggers[component_or_manager] = []
               end
-              attr_triggers[component_or_manager] = []
             end
-          end
 
         elsif component_or_manager.nil?
 
@@ -191,8 +191,8 @@ module FelFlame
             end
           end
           attr_triggers.delete(trigger_types - %i[addition_triggers
-                                                  removal_triggers
-                                                  attr_triggers])
+                               removal_triggers
+                               attr_triggers])
         else
           # remove attr from component_or_manager
           (trigger_types - %i[addition_triggers removal_triggers attr_triggers]).each do |attr|

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FelFlame
+module FelECS
   module Order
     # Sets the priority of all items passed into this method
     # according to the order they were passed.

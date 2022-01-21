@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require_relative '../lib/felflame'
+require_relative '../lib/felecs'
 
 # class EntitiesTest < Minitest::Test
 
 describe 'Order' do
   before :all do
     @result = []
-    @system0 = FelFlame::Systems.new('System1', priority: 0) do
+    @system0 = FelECS::Systems.new('System1', priority: 0) do
       @result.push 0
     end
-    @system2 = FelFlame::Systems.new('System3', priority: 2) do
+    @system2 = FelECS::Systems.new('System3', priority: 2) do
       @result.push 2
     end
-    @system1 = FelFlame::Systems.new('System2', priority: 1) do
+    @system1 = FelECS::Systems.new('System2', priority: 1) do
       @result.push 1
     end
 
-    @scene1 = FelFlame::Scenes.new('Scene0', priority: 1)
-    @scene0 = FelFlame::Scenes.new('Scene0', priority: 0)
+    @scene1 = FelECS::Scenes.new('Scene0', priority: 1)
+    @scene0 = FelECS::Scenes.new('Scene0', priority: 0)
   end
 
   before :each do
@@ -38,7 +38,7 @@ describe 'Order' do
   it 'can sort Scenes' do
     @scene0.add @system0
     @scene1.add @system1
-    FelFlame::Order.sort(
+    FelECS::Order.sort(
       @scene1,
       @scene0
     )
@@ -47,7 +47,7 @@ describe 'Order' do
 
   it 'can sort Systems' do
     @scene0.add @system0, @system1, @system2
-    FelFlame::Order.sort(
+    FelECS::Order.sort(
       @system2,
       @system0,
       @system1
@@ -57,7 +57,7 @@ describe 'Order' do
   end
 
   it 'can handle array' do
-    FelFlame::Order.sort(
+    FelECS::Order.sort(
       @system0,
       [
         @system1,
