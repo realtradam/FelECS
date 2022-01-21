@@ -1,4 +1,4 @@
-![FelECS](https://raw.githubusercontent.com/realtradam/FelECS/master/logos/felecs-logo-text.png)
+![FelECS](https://github.com/realtradam/FelECS/blob/master/logos/felecs-logo-text.png?raw=true)
 <!-- ![FelECS](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
