@@ -14,7 +14,7 @@ task default: [:spec, :yard, 'coverage:format']
 desc 'Export to single file'
 task :buildfile do
   result = ''
-  main = File.read('lib/felflame.rb')
+  main = File.read('lib/felecs.rb')
   tmp = main.lines(chomp: true).select do |line|
     line.include? 'require_relative '
   end
@@ -28,7 +28,8 @@ task :buildfile do
   end.join
 
   `mkdir pkg`
-  File.write('pkg/felflame.rb', result)
+  File.write('pkg/felecs.rb', result)
+  File.write('mrbgem/mrblib/felecs.rb', result)
 end
 
 RuboCop::RakeTask.new
@@ -46,7 +47,7 @@ namespace :coverage do
 end
 
 YARD::Rake::YardocTask.new do |t|
-  t.files = ['lib/felflame.rb', 'lib/felflame/*'] # ['system_manager.rb', 'component_manager.rb', 'entity_manager.rb', 'scene_manager.rb', 'stage_manager.rb', 'felflame.rb']
+  t.files = ['lib/felecs.rb', 'lib/felecs/*'] # ['system_manager.rb', 'component_manager.rb', 'entity_manager.rb', 'scene_manager.rb', 'stage_manager.rb', 'felecs.rb']
   t.options = ['--output-dir', './docs', 'yardoc --markup=markdown|textile|rdoc(default)']
   t.stats_options = ['--list-undoc']
 end
