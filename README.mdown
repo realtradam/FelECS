@@ -1,10 +1,10 @@
 ![FelECS](https://raw.githubusercontent.com/realtradam/FelECS/master/logos/felecs-logo-text.png)
 <!-- ![FelECS](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelECS/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelECS/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability)](https://codeclimate.com/github/realtradam/FelFlame/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
 [![Inline docs](http://inch-ci.org/github/realtradam/FelECS.svg?branch=master)](http://inch-ci.org/github/realtradam/FelECS)
-[![MIT License](https://img.shields.io/github/license/realtradam/FelECS?label=license&style=flat)](https://github.com/realtradam/FelECS/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/realtradam/FelECS)](https://github.com/realtradam/FelECS/blob/master/LICENSE)
 [![Ko-Fi](https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20)](https://ko-fi.com/tradam)
 
 **[Check out the comprehensive documentation here!](https://felflame.tradam.fyi/)**
