@@ -287,7 +287,7 @@ FelECS::Systems::PassiveRegen.trigger_when_added(@component)
 FelECS::Systems::PassiveRegen.trigger_when_removed(@component)
 
 # When this Component's health attribute is changed, this System will be called
-FelECS::Systems::PassiveRegen.trigger_when_is_set(@component, :health)
+FelECS::Systems::PassiveRegen.trigger_when_is_changed(@component, :health)
 ```
 
 If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:
@@ -300,7 +300,7 @@ FelECS::Systems::PassiveRegen.trigger_when_added(@component_manager)
 FelECS::Systems::PassiveRegen.trigger_when_removed(@component_manager)
 
 # When this Component's health attribute from this Component Manager is changed, this System will be called
-FelECS::Systems::PassiveRegen.trigger_when_is_set(@component_manager, :health)
+FelECS::Systems::PassiveRegen.trigger_when_is_changed(@component_manager, :health)
 ```
 
 We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers
@@ -322,7 +322,7 @@ FelECS::Systems::PassiveRegen.clear_triggers(@component, :added)
 # clear the 'trigger_when_removed' for this Component
 FelECS::Systems::PassiveRegen.clear_triggers(@component, :removed)
 
-# clear the 'trigger_when_is_set' for this Component specifically for the health attribute
+# clear the 'trigger_when_is_changed' for this Component specifically for the health attribute
 FelECS::Systems::PassiveRegen.clear_triggers(@component, :is_set, :health)
 ```
 
@@ -338,7 +338,7 @@ FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :added)
 # clear the 'trigger_when_removed' for this Component Manager
 FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :removed) 
 
-# clear the 'trigger_when_is_set' for this Component Manager specifically for the health attribute
+# clear the 'trigger_when_is_changed' for this Component Manager specifically for the health attribute
 FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :is_set, :health) 
 ```
 
