@@ -197,8 +197,10 @@ module FelECS
           attrs_with_defaults[attr] = _default.dup
           FelECS::Components.const_get(component_name).attr_reader attr
           FelECS::Components.const_get(component_name).define_method("#{attr}=") do |value|
-            attr_changed_trigger_systems(attr) unless value.equal? send(attr)
-            instance_variable_set("@#{attr}", value)
+            unless value.equal? send(attr)
+              instance_variable_set("@#{attr}", value)
+              attr_changed_trigger_systems(attr)
+            end
           end
         end
         FelECS::Components.const_get(component_name).define_method(:set_defaults) do

@@ -59,12 +59,12 @@
 
       <div id="content"><div id='filecontents'><p><img src="https://raw.githubusercontent.com/realtradam/FelECS/master/logos/felecs-logo-text.png" alt="FelECS"></p>
 
-<!-- ![FelECS](https://filestorage.catgirls.rodeo/images/felflame-logo-smaller-text.png) -->
+<!-- ![FelFlame](https://filestorage.catgirls.rodeo/images/felecs-logo-smaller-text.png) -->
 
-<p><a href="https://codeclimate.com/github/realtradam/FelECS/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability"></a>
-<a href="https://codeclimate.com/github/realtradam/FelECS/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage"></a>
+<p><a href="https://codeclimate.com/github/realtradam/FelFlame/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability"></a>
+<a href="https://codeclimate.com/github/realtradam/FelFlame/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage"></a>
 <a href="http://inch-ci.org/github/realtradam/FelECS"><img src="http://inch-ci.org/github/realtradam/FelECS.svg?branch=master" alt="Inline docs"></a>
-<a href="https://github.com/realtradam/FelECS/blob/master/LICENSE"><img src="https://img.shields.io/github/license/realtradam/FelECS?label=license&style=flat" alt="MIT License"></a>
+<a href="https://github.com/realtradam/FelFlame/blob/master/LICENSE"><img src="https://img.shields.io/github/license/realtradam/FelECS" alt="MIT License"></a>
 <a href="https://ko-fi.com/tradam"><img src="https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20" alt="Ko-Fi"></a></p>
 
 <p><strong><a href="https://felflame.tradam.fyi/">Check out the comprehensive documentation here!</a></strong></p>
@@ -104,42 +104,15 @@
 <li><a href="#deleting-components">Deleting Components</a></li>
 <li><a href="#accessing-components-attached-entities">Accessing Components&#39; attached Entities</a></li>
 </ul></li>
-</ul></li>
-<li><a href="#get-the-first-entity-attached">get the first entity attached.</a></li>
-<li><a href="#this-will-throw-a-warning-if-there-is-more-or-less-then">this will throw a warning if there is more or less then</a></li>
-<li><a href="#exactly-one-entity">exactly one entity</a>
-
-<ul>
 <li><a href="#systems-1">Systems</a>
 
 <ul>
 <li><a href="#creation-1">Creation</a></li>
+<li><a href="#execution">Execution</a></li>
+<li><a href="#alternative-execution">Alternative Execution</a></li>
+<li><a href="#clearing-alternative-executions">Clearing Alternative Executions</a></li>
+<li><a href="#redefinition">Redefinition</a></li>
 </ul></li>
-</ul></li>
-<li><a href="#code-and-logic">Code and Logic</a></li>
-<li><a href="#do-something-with-these-components">do something with these components</a>
-    * <a href="#execution">Execution</a>
-    * <a href="#alternative-execution">Alternative Execution</a></li>
-<li><a href="#when-this-component-is-added-to-an-entity-this-system-will-be-called">When this Component is added to an Entity, this System will be called</a></li>
-<li><a href="#when-this-component-is-removed-from-an-entity-this-system-will-be-called">When this Component is removed from an Entity, this System will be called</a></li>
-<li><a href="#when-this-components-health-attribute-is-changed-this-system-will-be-called">When this Component&#39;s health attribute is changed, this System will be called</a></li>
-<li><a href="#when-a-component-from-this-component-manager-is-added-to-an-entity-this-system-will-be-called">When a Component from this Component Manager is added to an Entity, this System will be called</a></li>
-<li><a href="#when-a-component-from-this-component-manager-is-removed-from-an-entity-this-system-will-be-called">When a Component from this Component Manager is removed from an Entity, this System will be called</a></li>
-<li><a href="#when-this-components-health-attribute-from-this-component-manager-is-changed-this-system-will-be-called">When this Component&#39;s health attribute from this Component Manager is changed, this System will be called</a>
-    * <a href="#clearing-alternative-executions">Clearing Alternative Executions</a></li>
-<li><a href="#clears-all-triggers-with-this-system">clears ALL triggers with this system</a></li>
-<li><a href="#clears-all-triggers-with-this-component-manager">clears ALL triggers with this Component Manager</a></li>
-<li><a href="#clear-the-trigger_when_added-for-this-component">clear the &#39;trigger_when_added&#39; for this Component</a></li>
-<li><a href="#clear-the-trigger_when_removed-for-this-component">clear the &#39;trigger_when_removed&#39; for this Component</a></li>
-<li><a href="#clear-the-trigger_when_is_set-for-this-component-specifically-for-the-health-attribute">clear the &#39;trigger_when_is_set&#39; for this Component specifically for the health attribute</a></li>
-<li><a href="#clears-all-triggers-with-this-component">clears ALL triggers with this Component</a></li>
-<li><a href="#clear-the-trigger_when_added-for-this-component-manager">clear the &#39;trigger_when_added&#39; for this Component Manager</a></li>
-<li><a href="#clear-the-trigger_when_removed-for-this-component-manager">clear the &#39;trigger_when_removed&#39; for this Component Manager</a></li>
-<li><a href="#clear-the-trigger_when_is_set-for-this-component-manager-specifically-for-the-health-attribute">clear the &#39;trigger_when_is_set&#39; for this Component Manager specifically for the health attribute</a>
-    * <a href="#redefinition">Redefinition</a></li>
-<li><a href="#some-new-logic-or-code">Some new logic or code</a>
-
-<ul>
 <li><a href="#scenes-1">Scenes</a>
 
 <ul>
@@ -171,520 +144,413 @@
 
 <h1 id="what-is-felecs">What is FelECS?</h1>
 
-<pre class="code ruby"><code class="ruby">FelECS is an ECS framework for developing games in the Ruby language. FelECS has been designed from the ground up with these three ideas in mind:
+<p>FelECS is an ECS framework for developing games in the Ruby language. FelECS has been designed from the ground up with these three ideas in mind:</p>
 
-1. **Engine Agnostic:** FelECS has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as [Ruby2D](http://www.ruby2d.com) or [DRGTK](https://dragonruby.org/toolkit/game) with little modifications.
-2. **Easily Extensible:** FelECS has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.
-3. **Principle of (My) Least Astonishment:** I want to develop games using a language and framework I love and makes sense to me, inspired by the [Philosophy of the creator of Ruby](https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy).
-</code></pre>
+<ol>
+<li><strong>Engine Agnostic:</strong> FelECS has been designed to be rendering engine agnostic as long as the target rendering engine is written in Ruby. This means that this framework can be dropped into existing rendering engines such as <a href="http://www.ruby2d.com">Ruby2D</a> or <a href="https://dragonruby.org/toolkit/game">DRGTK</a> with little modifications.</li>
+<li><strong>Easily Extensible:</strong> FelECS has been designed such that extensions to its capabilities can be easily added. Extensions such as rendering engine wrappers, premade systems, premade components, etcetera can be easily coded and then distributed as gems.</li>
+<li><strong>Principle of (My) Least Astonishment:</strong> I want to develop games using a language and framework I love and makes sense to me, inspired by the <a href="https://en.wikipedia.org/wiki/Ruby_(programming_language)#Philosophy">Philosophy of the creator of Ruby</a>.</li>
+</ol>
 
 <h1 id="what-is-ecs">What is ECS?</h1>
 
-<pre class="code ruby"><code class="ruby">ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.  
-ECS stands for Entity, Component, and System.
+<p>ECS is a software architectural pattern that is used in video game development. Traditionally games were programmed using an object oriented method, while ECS instead attempts to program games using a data oriented method instead.<br>
+ECS stands for Entity, Component, and System.</p>
 
----
-</code></pre>
+<hr>
 
 <h3 id="components">Components</h3>
 
-<pre class="code ruby"><code class="ruby">This is where the data or information of a given &quot;object&quot; is stored. There is no logic or code here. 
-</code></pre>
+<p>This is where the data or information of a given &quot;object&quot; is stored. There is no logic or code here. </p>
 
 <h3 id="entities">Entities</h3>
 
-<pre class="code ruby"><code class="ruby">Entities will contain one or more Components, but contains no logic or data otherwise
-</code></pre>
+<p>Entities will contain one or more Components, but contains no logic or data otherwise</p>
 
 <h3 id="systems">Systems</h3>
 
-<pre class="code ruby"><code class="ruby">Systems are where all the logic or code is kept. There is no data stored in here.
+<p>Systems are where all the logic or code is kept. There is no data stored in here.</p>
 
----
+<hr>
 
-By using this pattern it allows programmers to easily control what an &quot;object&quot; or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  
+<p>By using this pattern it allows programmers to easily control what an &quot;object&quot; or entity can do and how much data it needs to have. It avoids the issue of inhertance as no inhertance is ever required in this system. If you need a certain entity to have a certain functionality you just add the relevant component to it, and the systems that automatically go over specific components will give your entitiy the desired functionality.  </p>
 
-**&quot;But your framework also has `Scenes`, `Stage`, and `Order`, what is that about?&quot;**  
+<p><strong>&quot;But your framework also has <code>Scenes</code>, <code>Stage</code>, and <code>Order</code>, what is that about?&quot;</strong>  </p>
 
----
-</code></pre>
+<hr>
 
 <h3 id="scenes">Scenes</h3>
 
-<pre class="code ruby"><code class="ruby">Scenes are simply a collection or subset of Systems. This allows for an easy way to activate and deactivate Systems.
-</code></pre>
+<p>Scenes are simply a collection or subset of Systems. This allows for an easy way to activate and deactivate Systems.</p>
 
 <h3 id="stage">Stage</h3>
 
-<pre class="code ruby"><code class="ruby">The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.
-</code></pre>
+<p>The Stage is Scenes which are activated. This means any Scenes on the Stage are executed each frame, while the rest of the Systems are not.</p>
 
 <h3 id="order">Order</h3>
 
-<pre class="code ruby"><code class="ruby">Order is a helper class which can set the priority of Scenes and Systems.
+<p>Order is a helper class which can set the priority of Scenes and Systems.</p>
 
----
-</code></pre>
+<hr>
 
 <h1 id="usage">Usage</h1>
 
-<pre class="code ruby"><code class="ruby">There are 2 ways of using FelECS. You can either `include` it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelECS and then `require_relative` this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.
+<p>There are 2 ways of using FelECS. You can either <code>include</code> it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelECS and then <code>require_relative</code> this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.</p>
 
-To use the gem method you can do the following: install the gem using `gem install felflame` or using bundler `bundle add felflame` and then require it in your project like so: `require &#39;felflame&#39;`.
+<p>To use the gem method you can do the following: install the gem using <code>gem install felecs</code> or using bundler <code>bundle add felecs</code> and then require it in your project like so: <code>require &#39;felecs&#39;</code>.</p>
 
-To use the single file export method you simply download the felflame.rb file from the [releases page on Github](https://github.com/realtradam/FelECS/releases) and add it to your source folder and add a `require relative &#39;felflame.rb&#39;` line or wherever you have placed the file to use it.
-</code></pre>
+<p>To use the single file export method you simply download the felecs.rb file from the <a href="https://github.com/realtradam/FelECS/releases">releases page on Github</a> and add it to your source folder and add a <code>require relative &#39;felecs.rb&#39;</code> line or wherever you have placed the file to use it.</p>
 
 <h2 id="entities">Entities</h2>
 
 <h3 id="creation">Creation</h3>
 
-<pre class="code ruby"><code class="ruby">Entities are essentially &quot;objects&quot; in the game world. To create a new Entity we do the following:
+<p>Entities are essentially &quot;objects&quot; in the game world. To create a new Entity we do the following:</p>
 
-```ruby
-@entity = FelECS::Entities.new
-```
-or if we want to add (any number of)components to it when creating it:
-
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Entities.html" title="FelECS::Entities (class)">Entities</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelECS/Entities.html#initialize-instance_method" title="FelECS::Entities#initialize (method)">new</a></span></span>
 </code></pre>
 
-<p>@entity = FelECS::Entites.new(
-        FelECS::Components::Health.new,
-        @component,
-        FelECS::Components::EnemyTeam.first
-        )
-    ```</p>
+<p>or if we want to add (any number of)components to it when creating it:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'>Entites</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+  <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Health</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='comma'>,</span>
+  <span class='ivar'>@component</span><span class='comma'>,</span>
+  <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>EnemyTeam</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+<span class='rparen'>)</span>
+</code></pre>
 
 <h3 id="accessing">Accessing</h3>
 
-<pre class="code ruby"><code class="ruby">Oftentimes you will not be accessing an Entity this way. Later we will shows you a more common way of accessing entities.
-If you need to you can access Entities using the `Entities` module:
+<p>Oftentimes you will not be accessing an Entity this way. Later we will shows you a more common way of accessing entities.
+If you need to you can access Entities using the <code>Entities</code> module:</p>
 
-```ruby
-@entity = FelECS::Entities[2]
-@entity = FelECS::Entities.first
-@entity = FelECS::Entities.each # you can iterate over all entities this way. Any valid array method can be used
-```
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Entities.html" title="FelECS::Entities (class)">Entities</a></span></span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+<span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Entities.html" title="FelECS::Entities (class)">Entities</a></span></span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+<span class='ivar'>@entity</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Entities.html" title="FelECS::Entities (class)">Entities</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='comment'># you can iterate over all entities this way. Any valid array method can be used
+</span></code></pre>
 
 <h3 id="adding-and-removing-components">Adding and Removing Components</h3>
 
-<pre class="code ruby"><code class="ruby">We can still add or remove Components from an Entity after it has been created. Here is how:
+<p>We can still add or remove Components from an Entity after it has been created. Here is how:</p>
 
-```ruby
-@entity.add @component
-@entity.remove @component
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='ivar'>@component</span>
+<span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span> <span class='ivar'>@component</span>
 </code></pre>
 
 <h3 id="accessing-entities-attached-components">Accessing Entities&#39; Attached Components</h3>
 
-<pre class="code ruby"><code class="ruby">This is the most common way of accessing an Entity
+<p>This is the most common way of accessing an Entity</p>
 
-When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:
+<p>When Components are added to Entities, they can be accessed from the Entity. By using a Component Manager as a key we can access an array of all components created from that Component Manager that are attached to an entity:</p>
 
-```ruby
-@entity.components[@component_manager] # =&gt; [@component1, @component2, @component3]
-```
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='ivar'>@component_manager</span><span class='rbracket'>]</span> <span class='comment'># =&gt; [@component1, @component2, @component3]
+</span></code></pre>
 
 <h3 id="deletion">Deletion</h3>
 
-<pre class="code ruby"><code class="ruby">To have all Components from an Entity **removed** and the Entity deleted we do the following:
+<p>To have all Components from an Entity <strong>removed</strong> and the Entity deleted we do the following:</p>
 
-NOTE: The components will **not be deleted**. They are simply **removed** from the entity and then the entity is destroyed. You must handle component deletion yourself as for example singleton components need to removed instead of deleted.
+<p>NOTE: The components will <strong>not be deleted</strong>. They are simply <strong>removed</strong> from the entity and then the entity is destroyed. You must handle component deletion yourself as for example singleton components need to removed instead of deleted.</p>
 
-```ruby
-@entity.delete
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span>
 </code></pre>
 
 <h2 id="components">Components</h2>
 
 <h3 id="creating-a-component-manager">Creating a Component Manager</h3>
 
-<pre class="code ruby"><code class="ruby">Components are where all the data is stored. The data is stored in variables or accessors in each component.
-These accessors and their defaults are configured when a component manager is created, like so:
+<p>Components are where all the data is stored. The data is stored in variables or accessors in each component.
+These accessors and their defaults are configured when a component manager is created, like so:</p>
 
-```ruby
-@component_manager = FelECS::Components.new(&#39;Stats&#39;, :armour, hp: 100)
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component_manager</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelECS/Components.html#new-class_method" title="FelECS::Components.new (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Stats</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='symbol'>:armour</span><span class='comma'>,</span> <span class='label'>hp:</span> <span class='int'>100</span><span class='rparen'>)</span>
+</code></pre>
 
-In this example we created a component manager called &quot;Stats&quot;.
+<p>In this example we created a component manager called &quot;Stats&quot;.
 The name given to component managers must follow the same rules for naming constants in ruby for a reason you will shortly see.
 The parameters following are all creating the attributes we can set.
 We can set any number of parameters we wish, in this example we define two.
-The `:armour` parameter is being created without a default, it will equal to `nil` when a new component is created, while `hp` will be equal to 100 when a component is created.
-When defining attributes symbols should be used.
-</code></pre>
+The <code>:armour</code> parameter is being created without a default, it will equal to <code>nil</code> when a new component is created, while <code>hp</code> will be equal to 100 when a component is created.
+When defining attributes symbols should be used.</p>
 
 <h3 id="creating-a-component-from-a-component-manager">Creating a Component from a Component Manager</h3>
 
-<pre class="code ruby"><code class="ruby">Now that we have a component manager we can make components from it like so:
+<p>Now that we have a component manager we can make components from it like so:</p>
 
-```ruby
-@component = FelECS::Components::Stats.new
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Stats</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+</code></pre>
 
-Or we can even override the defaults when creating the component:
+<p>Or we can even override the defaults when creating the component:</p>
 
-```ruby
-@component = FelECS::Components::Stats.new(armour: &#39;steel&#39;)
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Stats</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>armour:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>steel</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <h3 id="accessing">Accessing</h3>
 
-<pre class="code ruby"><code class="ruby">You can access components using any array method.
+<p>You can access components using any array method.</p>
 
-```ruby
-@component = FelECS::Components::Stats[2]
-@component = FelECS::Components::Stats.first
-@component = FelECS::Components::Stats.each # you can use iterators this way
-```
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Stats</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span>
+<span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Stats</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+<span class='ivar'>@component</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Stats</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='comment'># you can use iterators this way
+</span></code></pre>
 
 <h3 id="accessing-attributes-and-changing-them">Accessing Attributes and Changing Them</h3>
 
-<pre class="code ruby"><code class="ruby">There are a few different ways we can read or change the attributes of a component depending on what our needs are.
-Here are the ways to edit attrubutes, followed by the ways to read them.
-```ruby
-@component.armour = &#39;Mythril&#39;
-@component.update_attrs(armour: &#39;Leather&#39;, hp: 95)
-```
-```ruby
-@component.hp # =&gt; 95
-@component.to_h # =&gt; {armour: &#39;Leather&#39;, hp: 95}
-```
+<p>There are a few different ways we can read or change the attributes of a component depending on what our needs are.
+Here are the ways to edit attrubutes, followed by the ways to read them.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_armour'>armour</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mythril</span><span class='tstring_end'>&#39;</span></span>
+<span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_update_attrs'>update_attrs</span><span class='lparen'>(</span><span class='label'>armour:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Leather</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>hp:</span> <span class='int'>95</span><span class='rparen'>)</span>
 </code></pre>
+
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_hp'>hp</span> <span class='comment'># =&gt; 95
+</span><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span> <span class='comment'># =&gt; {armour: &#39;Leather&#39;, hp: 95}
+</span></code></pre>
 
 <h3 id="deleting-components">Deleting Components</h3>
 
-<pre class="code ruby"><code class="ruby">Deleting a Component is the same convention as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.
+<p>Deleting a Component is the same convention as deleting an Entity. When a Component is deleted referenced to it such as to entities are automatically cleared.</p>
 
-```ruby
-@component.delete
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span>
 </code></pre>
 
 <h3 id="accessing-components-attached-entities">Accessing Components&#39; attached Entities</h3>
 
-<pre class="code ruby"><code class="ruby">Components also keep track of what Entities are using it. To access this list we do the following:
+<p>Components also keep track of what Entities are using it. To access this list we do the following:</p>
 
-```ruby
-@component.entities # =&gt; [@entity1, @entity2, @entity3]
-</code></pre>
-
-<h1 id="get-the-first-entity-attached">get the first entity attached.</h1>
-
-<h1 id="this-will-throw-a-warning-if-there-is-more-or-less-then">this will throw a warning if there is more or less then</h1>
-
-<h1 id="exactly-one-entity">exactly one entity</h1>
-
-<pre class="code ruby"><code class="ruby">@component.entity # =&gt; @entity
-```
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_entities'>entities</span> <span class='comment'># =&gt; [@entity1, @entity2, @entity3]
+</span>
+<span class='comment'># get the first entity attached.
+</span><span class='comment'># this will throw a warning if there is more or less then
+</span><span class='comment'># exactly one entity
+</span><span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_entity'>entity</span> <span class='comment'># =&gt; @entity
+</span></code></pre>
 
 <h2 id="systems">Systems</h2>
 
 <h3 id="creation">Creation</h3>
 
-<pre class="code ruby"><code class="ruby">We can create Systems like so:
+<p>We can create Systems like so:</p>
 
-```ruby
-FelECS::Systems.new(&#39;Render&#39;, priority: 2) do
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelECS/Systems.html#initialize-instance_method" title="FelECS::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='comment'># Code and Logic
+</span><span class='kw'>end</span>
 </code></pre>
 
-<h1 id="code-and-logic">Code and Logic</h1>
+<p>The name we assign is how we can access the System, like so:</p>
 
-<pre class="code ruby"><code class="ruby">end
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>Render</span>
+</code></pre>
 
-The name we assign is how we can access the System, like so:
-
-```ruby
-FelECS::Systems::Render
-```
-Priority determines the order Systems should be executed, this is used for `Scenes` and the `Stage`.
+<p>Priority determines the order Systems should be executed, this is used for <code>Scenes</code> and the <code>Stage</code>.
 The lower the number, the earlier a given System will be executed.
-E.g priority 1 will go first, priority 2 will go second, etcetera. 
+E.g priority 1 will go first, priority 2 will go second, etcetera. </p>
 
-Both Scenes and Systems have a priority. System priority will decide the order it will be called inside of a Scene, which the Scene priority will decide the order it will be called inside of the Stage.
+<p>Both Scenes and Systems have a priority. System priority will decide the order it will be called inside of a Scene, which the Scene priority will decide the order it will be called inside of the Stage.</p>
 
-Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:
+<p>Often we will want to execute some logic on each Component in a given Component Manager so our code might look like this:</p>
 
-```ruby
-FelECS::Systems.new(&#39;Render&#39;, priority: 2) do
-FelECS::Components::Sprites.each do |component|
-</code></pre>
-
-<h1 id="do-something-with-these-components">do something with these components</h1>
-
-<pre class="code ruby"><code class="ruby">end
-end
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelECS/Systems.html#initialize-instance_method" title="FelECS::Systems#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Render</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>2</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Components.html" title="FelECS::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'>Sprites</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_component'>component</span><span class='op'>|</span>
+    <span class='comment'># do something with these components
+</span>  <span class='kw'>end</span>
+<span class='kw'>end</span>
 </code></pre>
 
 <h3 id="execution">Execution</h3>
 
-<pre class="code ruby"><code class="ruby">After we create a System, it won&#39;t do anything on its own until we tell it to. Here is how:
+<p>After we create a System, it won&#39;t do anything on its own until we tell it to. Here is how:</p>
 
-```ruby
-FelECS::Systems::Render.call
-```
-
-Sometimes you might want to manually activate a System, but the more common way to have Systems be triggered is to use Scenes and the Stage or the alternative ways of execution.
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>Render</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
 </code></pre>
+
+<p>Sometimes you might want to manually activate a System, but the more common way to have Systems be triggered is to use Scenes and the Stage or the alternative ways of execution.</p>
 
 <h3 id="alternative-execution">Alternative Execution</h3>
 
-<pre class="code ruby"><code class="ruby">Sometimes you want a System to automatically trigger when a special even happens. FelECS can keep track of when a Component is added, removed, or when an attribute is changed and then execute Systems linked to these events. Here is how to create these links:
+<p>Sometimes you want a System to automatically trigger when a special even happens. FelECS can keep track of when a Component is added, removed, or when an attribute is changed and then execute Systems linked to these events. Here is how to create these links:</p>
 
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='comment'># When this Component is added to an Entity, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_added'>trigger_when_added</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='rparen'>)</span>
+
+<span class='comment'># When this Component is removed from an Entity, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_removed'>trigger_when_removed</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='rparen'>)</span>
+
+<span class='comment'># When this Component&#39;s health attribute is changed, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_is_changed'>trigger_when_is_changed</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='comma'>,</span> <span class='symbol'>:health</span><span class='rparen'>)</span>
 </code></pre>
 
-<h1 id="when-this-component-is-added-to-an-entity-this-system-will-be-called">When this Component is added to an Entity, this System will be called</h1>
+<p>If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:</p>
 
-<p>FelECS::Systems::PassiveRegen.trigger_when_added(@component)</p>
+<pre class="code ruby"><code class="ruby"><span class='comment'># When a Component from this Component Manager is added to an Entity, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_added'>trigger_when_added</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='rparen'>)</span>
 
-<h1 id="when-this-component-is-removed-from-an-entity-this-system-will-be-called">When this Component is removed from an Entity, this System will be called</h1>
+<span class='comment'># When a Component from this Component Manager is removed from an Entity, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_removed'>trigger_when_removed</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='rparen'>)</span>
 
-<p>FelECS::Systems::PassiveRegen.trigger_when_removed(@component)</p>
-
-<h1 id="when-this-components-health-attribute-is-changed-this-system-will-be-called">When this Component&#39;s health attribute is changed, this System will be called</h1>
-
-<p>FelECS::Systems::PassiveRegen.trigger_when_is_set(@component, :health)
-    ```</p>
-
-<pre class="code ruby"><code class="ruby">If we want these triggers to happen for all Components that belong to specific Component Manager then we can do that instead:
-
-```ruby
+<span class='comment'># When this Component&#39;s health attribute from this Component Manager is changed, this System will be called
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_trigger_when_is_changed'>trigger_when_is_changed</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='comma'>,</span> <span class='symbol'>:health</span><span class='rparen'>)</span>
 </code></pre>
 
-<h1 id="when-a-component-from-this-component-manager-is-added-to-an-entity-this-system-will-be-called">When a Component from this Component Manager is added to an Entity, this System will be called</h1>
-
-<p>FelECS::Systems::PassiveRegen.trigger_when_added(@component_manager)</p>
-
-<h1 id="when-a-component-from-this-component-manager-is-removed-from-an-entity-this-system-will-be-called">When a Component from this Component Manager is removed from an Entity, this System will be called</h1>
-
-<p>FelECS::Systems::PassiveRegen.trigger_when_removed(@component_manager)</p>
-
-<h1 id="when-this-components-health-attribute-from-this-component-manager-is-changed-this-system-will-be-called">When this Component&#39;s health attribute from this Component Manager is changed, this System will be called</h1>
-
-<p>FelECS::Systems::PassiveRegen.trigger_when_is_set(@component_manager, :health)
-    ```</p>
-
-<pre class="code ruby"><code class="ruby">We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers
-</code></pre>
+<p>We can create any number of these links between Systems, Components, and Component Manangers as we like, simply call the method again with our other Components and Component Managers</p>
 
 <h3 id="clearing-alternative-executions">Clearing Alternative Executions</h3>
 
-<pre class="code ruby"><code class="ruby">If we wish to remove these links that we created, we can do that using the follwing function in any of the following ways:
+<p>If we wish to remove these links that we created, we can do that using the follwing function in any of the following ways:</p>
 
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='comment'># clears ALL triggers with this system
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span>
+
+<span class='comment'># clears ALL triggers with this Component Manager
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='rparen'>)</span>
+
+<span class='comment'># clear the &#39;trigger_when_added&#39; for this Component
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='comma'>,</span> <span class='symbol'>:added</span><span class='rparen'>)</span>
+
+<span class='comment'># clear the &#39;trigger_when_removed&#39; for this Component
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='comma'>,</span> <span class='symbol'>:removed</span><span class='rparen'>)</span>
+
+<span class='comment'># clear the &#39;trigger_when_is_changed&#39; for this Component specifically for the health attribute
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component</span><span class='comma'>,</span> <span class='symbol'>:is_set</span><span class='comma'>,</span> <span class='symbol'>:health</span><span class='rparen'>)</span>
 </code></pre>
 
-<h1 id="clears-all-triggers-with-this-system">clears ALL triggers with this system</h1>
+<p>Likewise we can do the same with Component Managers:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>FelECS</span><span class='op'>::</span><span class='const'>Systems</span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span>
+<pre class="code ruby"><code class="ruby"><span class='comment'># clears ALL triggers with this Component
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='rparen'>)</span> 
+
+<span class='comment'># clear the &#39;trigger_when_added&#39; for this Component Manager
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='comma'>,</span> <span class='symbol'>:added</span><span class='rparen'>)</span> 
+
+<span class='comment'># clear the &#39;trigger_when_removed&#39; for this Component Manager
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='comma'>,</span> <span class='symbol'>:removed</span><span class='rparen'>)</span> 
+
+<span class='comment'># clear the &#39;trigger_when_is_changed&#39; for this Component Manager specifically for the health attribute
+</span><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_clear_triggers'>clear_triggers</span><span class='lparen'>(</span><span class='ivar'>@component_manager</span><span class='comma'>,</span> <span class='symbol'>:is_set</span><span class='comma'>,</span> <span class='symbol'>:health</span><span class='rparen'>)</span> 
 </code></pre>
-
-<h1 id="clears-all-triggers-with-this-component-manager">clears ALL triggers with this Component Manager</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component)</p>
-
-<h1 id="clear-the-trigger_when_added-for-this-component">clear the &#39;trigger_when_added&#39; for this Component</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component, :added)</p>
-
-<h1 id="clear-the-trigger_when_removed-for-this-component">clear the &#39;trigger_when_removed&#39; for this Component</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component, :removed)</p>
-
-<h1 id="clear-the-trigger_when_is_set-for-this-component-specifically-for-the-health-attribute">clear the &#39;trigger_when_is_set&#39; for this Component specifically for the health attribute</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component, :is_set, :health)
-    ```</p>
-
-<pre class="code ruby"><code class="ruby">Likewise we can do the same with Component Managers:
-
-```ruby
-</code></pre>
-
-<h1 id="clears-all-triggers-with-this-component">clears ALL triggers with this Component</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component_manager) </p>
-
-<h1 id="clear-the-trigger_when_added-for-this-component-manager">clear the &#39;trigger_when_added&#39; for this Component Manager</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :added) </p>
-
-<h1 id="clear-the-trigger_when_removed-for-this-component-manager">clear the &#39;trigger_when_removed&#39; for this Component Manager</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :removed) </p>
-
-<h1 id="clear-the-trigger_when_is_set-for-this-component-manager-specifically-for-the-health-attribute">clear the &#39;trigger_when_is_set&#39; for this Component Manager specifically for the health attribute</h1>
-
-<p>FelECS::Systems::PassiveRegen.clear_triggers(@component_manager, :is_set, :health) 
-    ```</p>
 
 <h3 id="redefinition">Redefinition</h3>
 
-<pre class="code ruby"><code class="ruby">If we wanted to change what code or logic a given System executes, we could do that with:
+<p>If we wanted to change what code or logic a given System executes, we could do that with:</p>
 
-```ruby
-FelECS::Systems::PassiveRegen.redefine do
-</code></pre>
-
-<h1 id="some-new-logic-or-code">Some new logic or code</h1>
-
-<pre class="code ruby"><code class="ruby">end
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>PassiveRegen</span><span class='period'>.</span><span class='id identifier rubyid_redefine'>redefine</span> <span class='kw'>do</span>
+  <span class='comment'># Some new logic or code
+</span><span class='kw'>end</span>
 </code></pre>
 
 <h2 id="scenes">Scenes</h2>
 
 <h3 id="creation">Creation</h3>
 
-<pre class="code ruby"><code class="ruby">Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that [Alternative Executions](#alternative-execution) will occur even if they are not part of a Scene. Here is how we make a new Scene:
+<p>Once we have all the core parts of ECS, we will want to organize our Systems. To do this we will use Scenes to group up Systems so they can quickly be enabled or disabled. Note that <a href="#alternative-execution">Alternative Executions</a> will occur even if they are not part of a Scene. Here is how we make a new Scene:</p>
 
-```ruby
-@scene = FelECS::Scenes.new(&#39;ExampleScene&#39;, priority: 5)
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@scene</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Scenes.html" title="FelECS::Scenes (class)">Scenes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="FelECS/Scenes.html#initialize-instance_method" title="FelECS::Scenes#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ExampleScene</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>priority:</span> <span class='int'>5</span><span class='rparen'>)</span>
 </code></pre>
 
 <h3 id="accessing">Accessing</h3>
 
-<pre class="code ruby"><code class="ruby">Just like other classes in FelECS, the name we gave the Scene is how we access it:
+<p>Just like other classes in FelECS, the name we gave the Scene is how we access it:</p>
 
-```ruby
-@scene = FelECS::Scenes::ExampleScene
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@scene</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Scenes.html" title="FelECS::Scenes (class)">Scenes</a></span></span><span class='op'>::</span><span class='const'>ExampleScene</span>
 </code></pre>
 
 <h3 id="adding-systems">Adding Systems</h3>
 
-<pre class="code ruby"><code class="ruby">Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:
+<p>Adding Systems is simple. We can add as many as we want. In this example we add 3 different systems:</p>
 
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Scenes.html" title="FelECS::Scenes (class)">Scenes</a></span></span><span class='op'>::</span><span class='const'>ExampleScene</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span>
+  <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>Render</span><span class='comma'>,</span>
+  <span class='ivar'>@system2</span><span class='comma'>,</span>
+  <span class='ivar'>@system3</span>
+<span class='rparen'>)</span>
 </code></pre>
-
-<p>FelECS::Scenes::ExampleScene.add(
-        FelECS::Systems::Render,
-        @system2,
-        @system3
-        )
-    ```</p>
 
 <h3 id="removing-systems">Removing Systems</h3>
 
-<pre class="code ruby"><code class="ruby">Removing Systems works similarly:
+<p>Removing Systems works similarly:</p>
 
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Scenes.html" title="FelECS::Scenes (class)">Scenes</a></span></span><span class='op'>::</span><span class='const'>ExampleScene</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span>
+  <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Systems.html" title="FelECS::Systems (class)">Systems</a></span></span><span class='op'>::</span><span class='const'>Render</span><span class='comma'>,</span>
+  <span class='ivar'>@system2</span><span class='comma'>,</span>
+  <span class='ivar'>@system3</span>
+<span class='rparen'>)</span>
 </code></pre>
-
-<p>FelECS::Scenes::ExampleScene.remove(
-        FelECS::Systems::Render,
-        @system2,
-        @system3
-        )
-    ```</p>
 
 <h3 id="clearing">Clearing</h3>
 
-<pre class="code ruby"><code class="ruby">If you want to remove all Systems from a Scene here is how we do it:
+<p>If you want to remove all Systems from a Scene here is how we do it:</p>
 
-```ruby
-@scene.clear
-```
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@scene</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
 </code></pre>
 
 <h3 id="execution">Execution</h3>
 
-<pre class="code ruby"><code class="ruby">To execute all Systems within a scene once we can just do:
+<p>To execute all Systems within a scene once we can just do:</p>
 
-```ruby
-@scene.call
-```
-
-The Scene will make sure that the systems are executed in the correct order based on their given priorities
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@scene</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
 </code></pre>
+
+<p>The Scene will make sure that the systems are executed in the correct order based on their given priorities</p>
 
 <h2 id="stage">Stage</h2>
 
 <h3 id="adding-scenes">Adding Scenes</h3>
 
-<pre class="code ruby"><code class="ruby">Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is &#39;active&#39;. To add a Scene we do the following:
+<p>Finally we have the Stage. There is only a single Stage and we do not have to create it as it exists by default. By adding a Scene to the Stage we are saying that the Scene is &#39;active&#39;. To add a Scene we do the following:</p>
 
-```ruby
-FelECS::Stage.add FelECS::Scene::ExampleScene
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Stage.html" title="FelECS::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="FelECS/Stage.html#add-class_method" title="FelECS::Stage.add (method)">add</a></span></span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'>Scene</span><span class='op'>::</span><span class='const'>ExampleScene</span>
 </code></pre>
 
 <h3 id="removing-scenes">Removing Scenes</h3>
 
-<pre class="code ruby"><code class="ruby">Likewise we can remove Scenes:
+<p>Likewise we can remove Scenes:</p>
 
-```ruby
-FelECS::Stage.remove FelECS::Scene::ExampleScene
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Stage.html" title="FelECS::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_remove'><span class='object_link'><a href="FelECS/Stage.html#remove-class_method" title="FelECS::Stage.remove (method)">remove</a></span></span> <span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'>Scene</span><span class='op'>::</span><span class='const'>ExampleScene</span>
 </code></pre>
 
 <h3 id="executing">Executing</h3>
 
-<pre class="code ruby"><code class="ruby">On each frame of the game generally we will want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will call all Scenes you added to it in the order of their priority. Here is how we do it:
+<p>On each frame of the game generally we will want to execute the Stage once. When the Stage is executed it is progressing your game 1 frame forward. The Stage will call all Scenes you added to it in the order of their priority. Here is how we do it:</p>
 
-```ruby
-FelECS::Stage.call
-```
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Stage.html" title="FelECS::Stage (module)">Stage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="FelECS/Stage.html#call-class_method" title="FelECS::Stage.call (method)">call</a></span></span>
 </code></pre>
 
 <h2 id="order">Order</h2>
 
 <h3 id="setting-the-order">Setting the order</h3>
 
-<pre class="code ruby"><code class="ruby">To set the order you just need to call `FelECS::Order.sort` and pass Scenes or Systems in the parameters in the order you wish for them to execute
+<p>To set the order you just need to call <code>FelECS::Order.sort</code> and pass Scenes or Systems in the parameters in the order you wish for them to execute</p>
 
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Order.html" title="FelECS::Order (module)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sort'><span class='object_link'><a href="FelECS/Order.html#sort-class_method" title="FelECS::Order.sort (method)">sort</a></span></span><span class='lparen'>(</span>
+  <span class='ivar'>@system1</span><span class='comma'>,</span>
+  <span class='ivar'>@system2</span><span class='comma'>,</span>
+  <span class='ivar'>@system3</span>
+<span class='rparen'>)</span>
 </code></pre>
 
-<p>FelECS::Order.sort(
-        @system1,
-        @system2,
-        @system3
-        )
-    ```</p>
+<p>If you want some Scenes or Systems to have the same priority then just pass them as an array:</p>
 
-<pre class="code ruby"><code class="ruby">If you want some Scenes or Systems to have the same priority then just pass them as an array:
-
-```ruby
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="FelECS.html" title="FelECS (module)">FelECS</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FelECS/Order.html" title="FelECS::Order (module)">Order</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sort'><span class='object_link'><a href="FelECS/Order.html#sort-class_method" title="FelECS::Order.sort (method)">sort</a></span></span><span class='lparen'>(</span>
+  <span class='ivar'>@scene1</span><span class='comma'>,</span>
+  <span class='lbracket'>[</span><span class='ivar'>@scene2_1</span><span class='comma'>,</span> <span class='ivar'>@scene2_2</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='ivar'>@scene3</span>
+<span class='rparen'>)</span> 
 </code></pre>
-
-<p>FelECS::Order.sort(
-        @scene1,
-        [@scene2_1, @scene2_2],
-        @scene3
-        ) 
-    ```</p>
 
 <h2 id="closing-notes">Closing Notes</h2>
 
-<pre class="code ruby"><code class="ruby">There are some methods I haven&#39;t gone over in the overview. If you want to see everything and read in more detail check out the [Documentation](https://felflame.tradam.fyi)!
-</code></pre>
+<p>There are some methods I haven&#39;t gone over in the overview. If you want to see everything and read in more detail check out the <a href="https://felflame.tradam.fyi">Documentation</a>!</p>
 
 <h1 id="contribution">Contribution</h1>
 
-<pre class="code ruby"><code class="ruby">Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  
+<p>Contributors are welcome! I am always looking to impove the capabilities of game development in Ruby. Feel free to open an issue to discuss a proposed changed or fix. To code a change or fix first fork the project. Next write your changes or fixes. Make sure all your changes and fixes are properly documented using Yard(I will not merge if it is not 100% documented) and make sure everything has tests written for it with Rspec(I will also not merge if it does not have 100% test coverage). Once you have your changes made then simply make a pull request.  </p>
 
-If you need help writing documentation or tests feel free to ask!  
+<p>If you need help writing documentation or tests feel free to ask!  </p>
 
-If you want to contribute to development with a thanks you can always [buy me a coffee ;^)](https://ko-fi.com/tradam)
-</code></pre>
+<p>If you want to contribute to development with a thanks you can always <a href="https://ko-fi.com/tradam">buy me a coffee ;^)</a></p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Jan 20 22:40:31 2022 by
+  Generated on Fri Jan 28 16:21:20 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
