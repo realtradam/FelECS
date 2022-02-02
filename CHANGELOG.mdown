@@ -8,6 +8,13 @@
 ![Deprecated](https://img.shields.io/badge/-Deprecated-orange)
 ![Removed](https://img.shields.io/badge/-Removed-red)
 
+## [5.0.0](https://github.com/realtradam/FelFlame/releases/tag/5.0.0) - 2022-02-02
+![Changed](https://img.shields.io/badge/-Changed-yellow)
+- Renamed to FelECS
+
+![Fixed](https://img.shields.io/badge/-Fixed-blue)
+- Trigger on attr_changed was fixed to now trigger the system after the attr value is changed.
+
 ## [4.0.0](https://github.com/realtradam/FelFlame/releases/tag/4.0.0) - 2021-12-30
 ![Removed](https://img.shields.io/badge/-Removed-red)
 - Removed all ids as they were not used
