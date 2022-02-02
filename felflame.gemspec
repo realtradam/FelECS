@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Tradam']
   spec.email         = ['felflame@tradam.dev']
 
-  spec.summary       = 'The Engine Agnostic ECS Ruby Framework'
+  spec.summary       = 'Renamed to FelECS: https://rubygems.org/gems/felecs' #'The Engine Agnostic ECS Ruby Framework'
   # spec.description   = "TODO: Write a longer description or delete this line."
   spec.homepage      = 'https://felflame.tradam.fyi'
   spec.license       = 'MIT'

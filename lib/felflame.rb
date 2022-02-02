@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+puts 'WARNING: you are using a deprecated gem, it has been renamed.'
+puts 'Please change to: https://rubygems.org/gems/felecs'
+
 require_relative 'felflame/entity_manager'
 require_relative 'felflame/component_manager'
 require_relative 'felflame/system_manager'

@@ -4,6 +4,6 @@
 # Keeps the version of the Gem
 module Felflame
   # The version of the Gem
-  VERSION = '4.0.0'
+  VERSION = '4.0.1'
 end
 # :nocov:
