@@ -8,6 +8,16 @@
 ![Deprecated](https://img.shields.io/badge/-Deprecated-orange)
 ![Removed](https://img.shields.io/badge/-Removed-red)
 
+
+## [5.0.1](https://github.com/realtradam/FelFlame/releases/tag/5.0.1) - 2022-02-03
+![Added](https://img.shields.io/badge/-Added-brightgreen)
+- Added a method to the Entity Manager which allows grouping entities by components and then execute a block for each one.
+```ruby
+FelECS::Entities.group(@component_manager_one, @component_manager_two).do |cmp1, cmp2, ent|
+# do stuff with the components and entity
+end
+```
+
 ## [5.0.0](https://github.com/realtradam/FelFlame/releases/tag/5.0.0) - 2022-02-02
 ![Changed](https://img.shields.io/badge/-Changed-yellow)
 - Renamed to FelECS
@@ -27,54 +37,54 @@
 - Various arrays are automatically compacted
 
 ![Added](https://img.shields.io/badge/-Added-brightgreen)
-- Classes and Modules which used a data array now have the entire set of array methods available to their respective Classes and Modules
+	- Classes and Modules which used a data array now have the entire set of array methods available to their respective Classes and Modules
 - Convenience methods for accessing a single entity in a component(`@component.entity`) and accessing a single entity in a component(`@entity.component[@component_manager]`)
-- `FelFlame::Order` class which can set the order of your Scenes and Systems
+	- `FelFlame::Order` class which can set the order of your Scenes and Systems
 
-![Fixed](https://img.shields.io/badge/-Fixed-blue)
-- Replaced all instances of `sort_by!` with `sort_by` for compatibility with mruby
-- Minor optimizations such as less array duplication
+	![Fixed](https://img.shields.io/badge/-Fixed-blue)
+	- Replaced all instances of `sort_by!` with `sort_by` for compatibility with mruby
+	- Minor optimizations such as less array duplication
 
 ## [3.0.0](https://github.com/realtradam/FelFlame/releases/tag/3.0.0) - 2021-07-12
-![Changed](https://img.shields.io/badge/-Changed-yellow)
-- The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive.
+	![Changed](https://img.shields.io/badge/-Changed-yellow)
+	- The Scene alias was changed from ```FelFlame::Sce``` to ```FelFlame::Scn``` as it is more intuitive.
 
 ## [2.0.0](https://github.com/realtradam/FelFlame/releases/tag/2.0.0) - 2021-07-10
-![Changed](https://img.shields.io/badge/-Changed-yellow)
-- Entities and Components now reference each other using the objects themselves rather then their id's
-```ruby
+	![Changed](https://img.shields.io/badge/-Changed-yellow)
+	- Entities and Components now reference each other using the objects themselves rather then their id's
+	```ruby
 # before:
-@entity.components[@component_manager].each do |component_id|
-  # iterate over id's, usually would need to do a lookup to get the component itself
-end
+	@entity.components[@component_manager].each do |component_id|
+# iterate over id's, usually would need to do a lookup to get the component itself
+	end
 
 # after:
-@entity.components[@component_manager].each do |component|
-  # iterate over the components themselves! No need for lookup anymore
-end
-```
-```ruby
+	@entity.components[@component_manager].each do |component|
+# iterate over the components themselves! No need for lookup anymore
+	end
+	```
+	```ruby
 # same for components referencing entities
 # before:
-@component.entities.each do |entity_id|
-  #iterate over id's
-end
+	@component.entities.each do |entity_id|
+#iterate over id's
+	end
 
 # after:
-@component.entities.each do |entity|
-  # directly iterate over entities themselves!
-end
-```
-  
+	@component.entities.each do |entity|
+# directly iterate over entities themselves!
+	end
+	```
+
 
 ## [1.0.2](https://github.com/realtradam/FelFlame/releases/tag/1.0.2) - 2021-07-09
-![Fixed](https://img.shields.io/badge/-Fixed-blue)
-- Stripped superflous files shrinking gem size significantly
+	![Fixed](https://img.shields.io/badge/-Fixed-blue)
+	- Stripped superflous files shrinking gem size significantly
 
 ## [1.0.1](https://github.com/realtradam/FelFlame/releases/tag/1.0.1) - 2021-07-09
-![Fixed](https://img.shields.io/badge/-Fixed-blue)
-- Defining attributes in components are no longer allowed to overwrite methods
+	![Fixed](https://img.shields.io/badge/-Fixed-blue)
+	- Defining attributes in components are no longer allowed to overwrite methods
 
 ## [1.0.0](https://github.com/realtradam/FelFlame/releases/tag/1.0.0) - 2021-07-09
-![Added](https://img.shields.io/badge/-Added-brightgreen) 
-- Initial release
+	![Added](https://img.shields.io/badge/-Added-brightgreen) 
+	- Initial release

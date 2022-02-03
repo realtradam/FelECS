@@ -27,6 +27,7 @@
 		* [Accessing](#accessing)
 		* [Adding and Removing Components](#adding-and-removing-components)
 		* [Accessing Entities' Attached Components](#accessing-entities-attached-components)
+		* [Iterating Over Grouped Entities](#iterating-over-grouped-entities)
 		* [Deletion](#deletion)
 	* [Components](#components-1)
 		* [Creating a Component Manager](#creating-a-component-manager)
@@ -154,6 +155,32 @@ When Components are added to Entities, they can be accessed from the Entity. By 
 ```ruby
 @entity.components[@component_manager] # => [@component1, @component2, @component3]
 ```
+
+### Iterating Over Grouped Entities
+You can execute a block for each entity that has all matching component types attached to it like so:
+
+```ruby
+FelECS::Entities.group(@component_manager_one, @component_manager_two).do |cmp1, cmp2, ent|
+	# do stuff with the components and entity
+end
+
+# or
+
+FelECS::Entities.group(@mgr1, @mgr2, @mgr3, @mgr4).do |cmp1, cmp2, cmp3, cmp4, ent|
+	# do stuff with the components and entity
+end
+
+# or
+
+FelECS::Entities.group(@component_manager_one).do |cmp1, ent|
+	# do stuff with the component and entity
+end
+
+# etc
+```
+
+You can use any number of component managers and it will only iterate over all entities that have at least all these components from these managers attached to them. The arguments in the block(the arguments surrounded by |pipes|) always correspond to each component manager passed as parameters into the group method and then followed by the entity object.  
+This means there will be a number of these arguments equal to the number of component managers passed into the group method plus one for the entity.
 
 ### Deletion
 To have all Components from an Entity **removed** and the Entity deleted we do the following:

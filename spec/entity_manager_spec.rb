@@ -8,6 +8,8 @@ describe 'Entities' do
   before :all do
     $VERBOSE = nil
     @component_manager ||= FelECS::Components.new('TestEntity', :param1, param2: 'def')
+    @component_manager1 ||= FelECS::Components.new('TestEntity1', :param1, param2: 'def')
+    @component_manager2 ||= FelECS::Components.new('TestEntity2', :param1, param2: 'def')
   end
 
   before :each do
@@ -25,6 +27,48 @@ describe 'Entities' do
     $stderr = @orig_stderr
     FelECS::Entities.reverse_each(&:delete)
     @component_manager.reverse_each(&:delete)
+    @component_manager1.reverse_each(&:delete)
+    @component_manager2.reverse_each(&:delete)
+  end
+
+  it 'can iterate over component groups' do
+    cmp_1_1 = @component_manager1.new(param1: 1)
+    cmp_1_2 = @component_manager1.new(param1: 1)
+    cmp_1_3 = @component_manager1.new(param1: 1)
+    cmp_remove = @component_manager2.new
+    @ent0.add cmp_1_1, @cmp0, cmp_1_1, @component_manager2.new
+    @ent1.add cmp_1_2, @cmp1, cmp_1_2, cmp_remove
+    @ent2.add cmp_1_3, @component_manager2.new
+    @ent1.remove cmp_remove
+    FelECS::Entities.group(@component_manager1, @component_manager2) do |cmp1, cmp2, ent|
+      cmp1.param1 += 1
+    end
+    cmp_1_1.param1
+    expect(cmp_1_1.param1).to eq(2)
+    expect(cmp_1_2.param1).to eq(1)
+    expect(cmp_1_3.param1).to eq(2)
+  end
+
+  it 'can iterate over a single component in a group' do
+    @ent0.add @cmp0
+    @ent1.add @cmp1
+    @ent2.add @cmp2
+    @cmp0.param1 = @cmp1.param1 = @cmp2.param1 = 1
+    FelECS::Entities.group(@component_manager) do |cmp, ent|
+      cmp.param1 += 1
+    end
+    expect(@cmp0.param1).to eq(2)
+    expect(@cmp1.param1).to eq(2)
+    expect(@cmp2.param1).to eq(2)
+  end
+
+  it 'can iterate over no components in a group' do
+    @cmp0.param1 = 1
+    @ent0.add @cmp0
+    FelECS::Entities.group do
+      @cmp0.param1 = 0
+    end
+    expect(@cmp0.param1).to eq(1)
   end
 
   it 'can get a single component' do
