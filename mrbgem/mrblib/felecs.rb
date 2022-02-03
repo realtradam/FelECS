@@ -100,6 +100,39 @@ module FelECS
     # def to_json() end
 
     class << self
+      # Selects every entity that has components of they type passed into
+      # this function and then executes the code block for those components
+      # and entities.
+      # @return [Nil]
+      def group(*component_managers, &block)
+        return nil if component_managers.empty?
+        if component_managers.length == 1
+          component_managers.first.each do |cmp|
+            block.call(cmp, cmp.entity)
+          end
+        else
+          arry = component_managers.first.select do |cmp|
+            ent = cmp.entity
+            keep = true
+            component_managers.drop(1).each do |mgr|
+              next unless ent.components[mgr].nil?
+              keep = false
+              break
+            end
+            keep
+          end
+          arry.each do |cmp|
+            ent = cmp.entity
+            cmp_arry = [cmp]
+            component_managers.drop(1).each do |cmp_mgr|
+              cmp_arry.push ent.component[cmp_mgr]
+            end
+            block.call(*cmp_arry, ent)
+          end
+        end
+        nil
+      end
+
       # Makes component managers behave like arrays with additional
       # methods for managing the array
       # @!visibility private
@@ -847,7 +880,7 @@ end
 # Keeps the version of the Gem
 module FelECS
   # The version of the Gem
-  VERSION = '5.0.0'
+  VERSION = '5.0.1'
 end
 # :nocov:
 
