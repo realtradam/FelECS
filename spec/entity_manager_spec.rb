@@ -40,7 +40,7 @@ describe 'Entities' do
     @ent1.add cmp_1_2, @cmp1, cmp_1_2, cmp_remove
     @ent2.add cmp_1_3, @component_manager2.new
     @ent1.remove cmp_remove
-    FelECS::Entities.group(@component_manager1, @component_manager2) do |cmp1, cmp2, ent|
+    FelECS::Entities.group(@component_manager1, @component_manager2) do |cmp1, _cmp2, _ent|
       cmp1.param1 += 1
     end
     cmp_1_1.param1
@@ -54,7 +54,7 @@ describe 'Entities' do
     @ent1.add @cmp1
     @ent2.add @cmp2
     @cmp0.param1 = @cmp1.param1 = @cmp2.param1 = 1
-    FelECS::Entities.group(@component_manager) do |cmp, ent|
+    FelECS::Entities.group(@component_manager) do |cmp, _ent|
       cmp.param1 += 1
     end
     expect(@cmp0.param1).to eq(2)

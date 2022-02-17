@@ -106,6 +106,7 @@ module FelECS
       # @return [Nil]
       def group(*component_managers, &block)
         return nil if component_managers.empty?
+
         if component_managers.length == 1
           component_managers.first.each do |cmp|
             block.call(cmp, cmp.entity)
@@ -116,6 +117,7 @@ module FelECS
             keep = true
             component_managers.drop(1).each do |mgr|
               next unless ent.components[mgr].nil?
+
               keep = false
               break
             end
@@ -633,28 +635,28 @@ module FelECS
 
       if trigger_types.include? :attr_triggers
         if (trigger_types - %i[addition_triggers
-            removal_triggers
-            attr_triggers]).empty?
+                               removal_triggers
+                               attr_triggers]).empty?
 
-            if component_or_manager.nil?
-              # remove all attrs
-              attr_triggers.each do |cmp_or_mgr, attrs|
-                attrs.each do |attr|
-                  next if cmp_or_mgr.attr_triggers[attr].nil?
+          if component_or_manager.nil?
+            # remove all attrs
+            attr_triggers.each do |cmp_or_mgr, attrs|
+              attrs.each do |attr|
+                next if cmp_or_mgr.attr_triggers[attr].nil?
 
-                  cmp_or_mgr.attr_triggers[attr].delete self
-                end
-                self.attr_triggers = {}
+                cmp_or_mgr.attr_triggers[attr].delete self
               end
-            else
-              # remove attrs relevant to comp_or_man
-              unless attr_triggers[component_or_manager].nil?
-                attr_triggers[component_or_manager].each do |attr|
-                  component_or_manager.attr_triggers[attr].delete self
-                end
-                attr_triggers[component_or_manager] = []
-              end
+              self.attr_triggers = {}
             end
+          else
+            # remove attrs relevant to comp_or_man
+            unless attr_triggers[component_or_manager].nil?
+              attr_triggers[component_or_manager].each do |attr|
+                component_or_manager.attr_triggers[attr].delete self
+              end
+              attr_triggers[component_or_manager] = []
+            end
+          end
 
         elsif component_or_manager.nil?
 
@@ -665,8 +667,8 @@ module FelECS
             end
           end
           attr_triggers.delete(trigger_types - %i[addition_triggers
-                               removal_triggers
-                               attr_triggers])
+                                                  removal_triggers
+                                                  attr_triggers])
         else
           # remove attr from component_or_manager
           (trigger_types - %i[addition_triggers removal_triggers attr_triggers]).each do |attr|
@@ -885,8 +887,6 @@ end
 # :nocov:
 
 # frozen_string_literal: true
-
-
 
 # The FelECS namespace where all its functionality resides under.
 module FelECS

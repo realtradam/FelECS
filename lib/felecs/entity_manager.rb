@@ -106,6 +106,7 @@ module FelECS
       # @return [Nil]
       def group(*component_managers, &block)
         return nil if component_managers.empty?
+
         if component_managers.length == 1
           component_managers.first.each do |cmp|
             block.call(cmp, cmp.entity)
@@ -116,6 +117,7 @@ module FelECS
             keep = true
             component_managers.drop(1).each do |mgr|
               next unless ent.components[mgr].nil?
+
               keep = false
               break
             end

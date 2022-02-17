@@ -1,3 +1,5 @@
 exclude_patterns:
-- "mrbgem/"
+  - "mrbgem/"
 - "spec/"
+- "bin/"
+- "docs/"

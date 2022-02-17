@@ -63,11 +63,11 @@
 
 <p><a href="https://codeclimate.com/github/realtradam/FelFlame/maintainability"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/maintainability" alt="Maintainability"></a>
 <a href="https://codeclimate.com/github/realtradam/FelFlame/test_coverage"><img src="https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage" alt="Test Coverage"></a>
-<a href="http://inch-ci.org/github/realtradam/FelECS"><img src="http://inch-ci.org/github/realtradam/FelECS.svg?branch=master" alt="Inline docs"></a>
 <a href="https://github.com/realtradam/FelFlame/blob/master/LICENSE"><img src="https://img.shields.io/github/license/realtradam/FelECS" alt="MIT License"></a>
-<a href="https://ko-fi.com/tradam"><img src="https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20" alt="Ko-Fi"></a></p>
+<a href="https://ko-fi.com/tradam"><img src="https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20" alt="Ko-Fi"></a>
+&lt;!--<a href="http://inch-ci.org/github/realtradam/FelECS"><img src="http://inch-ci.org/github/realtradam/FelECS.svg?branch=master" alt="Inline docs"></a>--&gt; &lt;!-- this is busted --&gt;</p>
 
-<p><strong><a href="https://felflame.tradam.fyi/">Check out the comprehensive documentation here!</a></strong></p>
+<p><strong><a href="https://felecs.tradam.dev">Check out the comprehensive documentation here!</a></strong></p>
 
 <hr>
 
@@ -92,6 +92,7 @@
 <li><a href="#accessing">Accessing</a></li>
 <li><a href="#adding-and-removing-components">Adding and Removing Components</a></li>
 <li><a href="#accessing-entities-attached-components">Accessing Entities&#39; Attached Components</a></li>
+<li><a href="#iterating-over-grouped-entities">Iterating Over Grouped Entities</a></li>
 <li><a href="#deletion">Deletion</a></li>
 </ul></li>
 <li><a href="#components-1">Components</a>
@@ -245,6 +246,32 @@ If you need to you can access Entities using the <code>Entities</code> module:</
 
 <pre class="code ruby"><code class="ruby"><span class='ivar'>@entity</span><span class='period'>.</span><span class='id identifier rubyid_components'>components</span><span class='lbracket'>[</span><span class='ivar'>@component_manager</span><span class='rbracket'>]</span> <span class='comment'># =&gt; [@component1, @component2, @component3]
 </span></code></pre>
+
+<h3 id="iterating-over-grouped-entities">Iterating Over Grouped Entities</h3>
+
+<p>You can execute a block for each entity that has all matching component types attached to it like so:</p>
+
+<pre class="code ruby"><code class="ruby">FelECS::Entities.group(@component_manager_one, @component_manager_two).do |cmp1, cmp2, ent|
+    # do stuff with the components and entity
+end
+
+# or
+
+FelECS::Entities.group(@mgr1, @mgr2, @mgr3, @mgr4).do |cmp1, cmp2, cmp3, cmp4, ent|
+    # do stuff with the components and entity
+end
+
+# or
+
+FelECS::Entities.group(@component_manager_one).do |cmp1, ent|
+    # do stuff with the component and entity
+end
+
+# etc
+</code></pre>
+
+<p>You can use any number of component managers and it will only iterate over all entities that have at least all these components from these managers attached to them. The arguments in the block(the arguments surrounded by |pipes|) always correspond to each component manager passed as parameters into the group method and then followed by the entity object.<br>
+This means there will be a number of these arguments equal to the number of component managers passed into the group method plus one for the entity.</p>
 
 <h3 id="deletion">Deletion</h3>
 
@@ -550,7 +577,7 @@ E.g priority 1 will go first, priority 2 will go second, etcetera. </p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Feb  3 03:45:34 2022 by
+  Generated on Thu Feb 17 07:54:07 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-2.7.3).
 </div>
