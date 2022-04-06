@@ -5,9 +5,11 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/56d425d9078e98efb74b/test_coverage)](https://codeclimate.com/github/realtradam/FelFlame/test_coverage)
 [![MIT License](https://img.shields.io/github/license/realtradam/FelECS)](https://github.com/realtradam/FelFlame/blob/master/LICENSE)
 [![Ko-Fi](https://img.shields.io/static/v1?message=Buy%20me%20a%20coffee&logo=kofi&labelColor=ff5e5b&color=434B57&logoColor=white&label=%20)](https://ko-fi.com/tradam)
-<!--[![Inline docs](http://inch-ci.org/github/realtradam/FelECS.svg?branch=master)](http://inch-ci.org/github/realtradam/FelECS)--> <!-- this is busted -->
+<!--[![Inline docs](http://inch-ci.org/github/realtradam/FelECS.svg?branch=master)](http://inch-ci.org/github/realtradam/FelECS)--> <!-- this is busted, probably forever -->
 
-**[Check out the comprehensive documentation here!](https://felecs.tradam.dev)**
+
+<!-- TODO this needs to be fixed -->
+<!-- **[Check out the comprehensive documentation here!](https://felecs.tradam.dev)** -->
 
 ---
 
@@ -105,11 +107,24 @@ Order is a helper class which can set the priority of Scenes and Systems.
 
 # Usage
 
-There are 2 ways of using FelECS. You can either `include` it as a gem in your project if your game engine supports this. The other option is to download the single file export of FelECS and then `require_relative` this file in your project. The single file export takes all the ruby code in the various files and concatenates them into a single file so it is more portable and easy to add.
+There are 3 ways of using FelECS.
 
-To use the gem method you can do the following: install the gem using `gem install felecs` or using bundler `bundle add felecs` and then require it in your project like so: `require 'felecs'`.
+1. You can use it with the [FelFlame Engine](https://github.com/realtradam/FelFlameEngine)
+```sh
+cd FelFlameEngine/mrbgems
+git clone git@github.com:realtradam/FelECS.git
+cd FelECS
+git checkout mruby-gem
+```
 
-To use the single file export method you simply download the felecs.rb file from the [releases page on Github](https://github.com/realtradam/FelECS/releases) and add it to your source folder and add a `require relative 'felecs.rb'` line or wherever you have placed the file to use it.
+2. You can [include it as a gem](https://rubygems.org/gems/felecs) in your project
+```sh
+gem install felecs
+# or if you use bundler:
+bundle add felecs
+```
+
+3. You can copy the [single file](https://github.com/realtradam/FelECS/blob/master/mrbgem/mrblib/felecs.rb) into your project and include it manually
 
 ## Entities
 
